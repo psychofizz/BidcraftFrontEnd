@@ -3,18 +3,18 @@ import styled from "styled-components";
 import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
 import mainLogo from'../img/beta.png';
 import Components_input from '../Components/input'
+import { toast } from 'react-toastify';
+
 
 function Login() {
  
-
-
 
       
     return (
         
         
         <div className="flex flex-col min-h-screen items-center justify-center">
-            
+        
           <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl ">
           <div className="grid place-content-center h-44 bg-ffc327" >
           <div className='flex justify-center'>
@@ -53,13 +53,15 @@ function Login() {
               </button>
             </div>
             <div >
+          
               <button style={{ backgroundColor: '#FFC327',paddingLeft:'60px',paddingRight:'60px' }}
                 className="mt-6   select-none   py-5  text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button"
-                data-ripple-light="true"
+                type="submit"
+                data-ripple-light="true"   onClick={notify}
               >
                 Aceptar
               </button>
+            
             </div>
               </div>
              
