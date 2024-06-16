@@ -5,7 +5,7 @@ import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
 
 
 function Input({ inputType,text}) {
-//hola espero que te
+  //prueba final
   //Aca mas que todo establecemos los valores ,handleChange nos ayuda a camputrar los valires 
   const [values, setValues] = useState({
     name: "",
@@ -22,7 +22,6 @@ function Input({ inputType,text}) {
   const handleValidation = () => {
     const { name, email, password } = values;
   console.log()
-  
   }
 
     return (
