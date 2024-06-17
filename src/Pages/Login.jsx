@@ -3,10 +3,46 @@ import styled from "styled-components";
 import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
 import mainLogo from'../img/beta.png';
 import Components_input from '../Components/input'
+import { ToastContainer, toast } from 'react-toastify';
+
+
+
 
 function Login() {
  
 
+
+    const [values, setValues] = useState({
+        email: "",
+        Text: "",
+        Password: ""
+    });
+
+    const handleChange = (event) => {
+        setValues({ ...values, [event.target.name]: event.target.value });
+    };
+
+    const handleValidation = () => {
+        const { email, Text, Password } = values;
+        console.log(values);
+
+        if (Password.length < 7) {
+            toast.error("Minimo 7 caracteres para la contraseña");
+            return false;
+        }
+
+        // Add more validations as necessary
+        return true;
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (handleValidation()) {
+            // Handle the form submission, e.g., send the data to the server
+            console.log("Form submitted successfully", values);
+        }
+    };
 
 
       
@@ -26,11 +62,11 @@ function Login() {
           </div>
           
        <div className="p-10">
-       <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 ">
+       <form  className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 " onSubmit={(event) => handleSubmit(event)}>
               <div className="mb-4 flex flex-col gap-6">
-                <Components_input inputType={"mail"} text={"Correo"}/>
-                <Components_input inputType={"Text"} text={"Nombre"}/>
-                <Components_input inputType={"Password"} text={"Contraseña"}/>
+              <Components_input inputType="email" text="Correo" handleChange={handleChange} values={values} />
+                            <Components_input inputType="Text" text="Nombre" handleChange={handleChange} values={values} />
+                            <Components_input inputType="Password" text="Contraseña" handleChange={handleChange} values={values} />
               </div>
               <div className="inline-flex items-center">
                 <label
@@ -55,7 +91,7 @@ function Login() {
             <div >
               <button style={{ backgroundColor: '#FFC327',paddingLeft:'60px',paddingRight:'60px' }}
                 className="mt-6   select-none   py-5  text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button"
+                type="submit"
                 data-ripple-light="true"
               >
                 Aceptar

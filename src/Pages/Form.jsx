@@ -3,8 +3,43 @@ import styled from "styled-components";
 import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
 import mainLogo from'../img/beta.png';
 import Components_input from '../Components/input'
+import { ToastContainer, toast } from 'react-toastify';
 
-function Form() {      
+function Form() {   
+  const [values, setValues] = useState({
+    email: "",
+    Text: "",
+    Password: ""
+});
+
+const handleChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+};
+
+const handleValidation = () => {
+    const { email, Text, Password } = values;
+    console.log(values);
+
+    if (Password.length < 7) {
+        toast.error("Minimo 7 caracteres para la contraseña");
+        return false;
+    }
+
+    // Add more validations as necessary
+    return true;
+};
+
+const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (handleValidation()) {
+        // Handle the form submission, e.g., send the data to the server
+        console.log("Form submitted successfully", values);
+    }
+};
+
+  
+
     return (
       
         <div className="flex flex-col min-h-screen items-center justify-center">
@@ -19,17 +54,17 @@ function Form() {
        <p class="normal-case text-center mx-auto font-bold" >Crea una cuenta Bidcraft</p>
        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 ">
               <div className="mb-2 flex flex-col gap-6">
-                <Components_input inputType={"Text"} text={"Nombre Completo"}/>
-                <Components_input inputType={"date"} text={"Fecha de nacimiento"}/>
+                <Components_input handleChange={handleChange} values={values} inputType={"Text"} text={"Nombre Completo"}/>
+                <Components_input handleChange={handleChange} values={values} inputType={"date"} text={"Fecha de nacimiento"}/>
                 
               </div>
               <div className="mt-10 mb-2 flex flex-col gap-6">
-                <Components_input inputType={"mail"} text={"Correo"}/>
-                <Components_input inputType={"password"} text={"Contraseña"}/>
-                <Components_input inputType={"password"} text={"Repetir Contraseña"}/>
+                <Components_input handleChange={handleChange} values={values} inputType={"email"} text={"Correo"}/>
+                <Components_input handleChange={handleChange} values={values} inputType={"password"} text={"Contraseña"}/>
+                <Components_input handleChange={handleChange} values={values} inputType={"password"} text={"Repetir Contraseña"}/>
               </div>
              <div className="mt-10 mb-2 flex flex-col gap-6">
-                <Components_input inputType={"phone"} text={"Numero de Teléfono"}/>
+                <Components_input handleChange={handleChange} values={values} inputType={"phone"} text={"Numero de Teléfono"}/>
               </div>
 
               <div className="inline-flex items-center">
