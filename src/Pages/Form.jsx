@@ -7,9 +7,13 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function Form() {   
   const [values, setValues] = useState({
+    names: "",
+    last_names: "",
+    id_number: "",
+    date_of_birth: "",
     email: "",
-    Text: "",
-    Password: ""
+    password: "",
+    passwordconfirm: "",
 });
 
 const handleChange = (event) => {
@@ -17,10 +21,10 @@ const handleChange = (event) => {
 };
 
 const handleValidation = () => {
-    const { email, Text, Password } = values;
+    const {names,last_names,id_number,date_of_birth,email,password,passwordconfirm } = values;
     console.log(values);
 
-    if (Password.length < 7) {
+    if (password.length < 7) {
         toast.error("Minimo 7 caracteres para la contraseña");
         return false;
     }
@@ -31,10 +35,52 @@ const handleValidation = () => {
 
 const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (handleValidation()) {
-        // Handle the form submission, e.g., send the data to the server
+      
+      const usuario = {
+        names: values.names,
+        last_names: values.last_names,
+        id_number: values.id_number,
+        date_of_birth: values.date_of_birth,
+        email: values.email,
+        password: values.password
+      }
+
+      try {
+        const response = await fetch(
+          "http://localhost:5000/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(usuario),
+          }
+        );
+        
+        if (!response.ok) {
+          switch (response.status) {
+            case 400:
+              const resultado = await response.json();
+              toast(resultado);
+              break;
+            default:
+              toast("Error desconocido")
+              break;
+          }
+        } else {
+      const usuario2= await response.json();
+      delete usuario2.password;
+        localStorage.setItem(
+          process.env.REACT_APP_LOCALHOST_KEY,
+          JSON.stringify(usuario2)
+        );
         console.log("Form submitted successfully", values);
+        }
+      } catch (error) {
+      }
+        
     }
 };
 
@@ -57,9 +103,9 @@ const handleSubmit = async (event) => {
           
        <div className="p-10">
        <p  className="normal-case text-center mx-auto font-bold" >Crea una cuenta Bidcraft</p>
-       <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 ">
+       <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-9`6`" onSubmit={(event) => handleSubmit(event)}>
               <div className="mb-2 flex flex-col gap-6">
-                <Components_input handleChange={handleChange} values={values} inputType={"Text"} text={"Nombre"} name="name"/>
+                <Components_input handleChange={handleChange} values={values} inputType={"Text"} text={"Nombre"} name="names"/>
                 <Components_input handleChange={handleChange} values={values} inputType={"Text"} text={"Apellidos "} name="last_names"/>
                 <Components_input handleChange={handleChange} values={values} inputType={"number"} text={"No.Identidad "} name="id_number"/>
                 <Components_input handleChange={handleChange} values={values} inputType={"email"} text={"Correo"} name="email"/>
