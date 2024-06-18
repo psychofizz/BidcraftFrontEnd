@@ -42,10 +42,10 @@ const handleSubmit = async (event) => {
 
     return (
       	//NAVBAR DE REGISTRO
-      <div class="min-h-screen flex flex-col" >
-        <nav class="relative flex w-full flex-wrap items-center justify-between py-2 lg:py-2" style={{ backgroundColor: '#FFC327'}}>
-          <div class="flex w-full flex-wrap items-center justify-between px-3">
-            <div class="ms-2">
+      <div className="min-h-screen flex flex-col" >
+        <nav className="relative flex w-full flex-wrap items-center justify-between py-2 lg:py-2" style={{ backgroundColor: '#FFC327'}}>
+          <div className="flex w-full flex-wrap items-center justify-between px-3">
+            <div className="ms-2">
             <img src={mainLogo} alt="Ejemplo de imagen" />
             </div>
           </div>
@@ -56,7 +56,7 @@ const handleSubmit = async (event) => {
       <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl ">
           
        <div className="p-10">
-       <p class="normal-case text-center mx-auto font-bold" >Crea una cuenta Bidcraft</p>
+       <p  className="normal-case text-center mx-auto font-bold" >Crea una cuenta Bidcraft</p>
        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 ">
               <div className="mb-2 flex flex-col gap-6">
                 <Components_input handleChange={handleChange} values={values} inputType={"Text"} text={"Nombre"} name="name"/>
@@ -83,16 +83,16 @@ const handleSubmit = async (event) => {
                 </label>
               </div>
 
-    <p class="normal-case mx-auto text-gray-400 md:text-left">Verificar con</p>
-              <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-                    <div class="flex items-center space-x-4">
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="radio" name="verificar" class="form-radio h-5 w-5 checked:bg-ffc327" />
-                            <span class="text-gray-400">Mensaje de Texto</span>
+    <p className="normal-case mx-auto text-gray-400 md:text-left">Verificar con</p>
+              <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+                    <div className="flex items-center space-x-4">
+                        <label className="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="verificar" className="form-radio h-5 w-5 checked:bg-ffc327" />
+                            <span className="text-gray-400">Mensaje de Texto</span>
                         </label>
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="radio" name="verificar" class="form-radio h-5 w-5 checked:bg-ffc327;"  />
-                            <span class="text-gray-400">Llamada</span>
+                        <label className="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="verificar" className="form-radio h-5 w-5 checked:bg-ffc327;"  />
+                            <span className="text-gray-400">Llamada</span>
                         </label>
                     </div>
                 </div>
