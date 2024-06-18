@@ -7,7 +7,7 @@ import Components_input from '../Components/input'
 function Form() {      
 
     return (
-
+      	//NAVBAR DE REGISTRO
       <div class="min-h-screen flex flex-col" >
         <nav class="relative flex w-full flex-wrap items-center justify-between py-2 lg:py-2" style={{ backgroundColor: '#FFC327'}}>
           <div class="flex w-full flex-wrap items-center justify-between px-3">
