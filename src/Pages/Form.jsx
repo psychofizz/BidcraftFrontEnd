@@ -59,17 +59,18 @@ const handleSubmit = async (event) => {
        <p class="normal-case text-center mx-auto font-bold" >Crea una cuenta Bidcraft</p>
        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 ">
               <div className="mb-2 flex flex-col gap-6">
-                <Components_input handleChange={handleChange} values={values} inputType={"Text"} text={"Nombre Completo"}/>
-                <Components_input handleChange={handleChange} values={values} inputType={"date"} text={"Fecha de nacimiento"}/>
-                
+                <Components_input handleChange={handleChange} values={values} inputType={"Text"} text={"Nombre"} name="name"/>
+                <Components_input handleChange={handleChange} values={values} inputType={"Text"} text={"Apellidos "} name="last_names"/>
+                <Components_input handleChange={handleChange} values={values} inputType={"number"} text={"No.Identidad "} name="id_number"/>
+                <Components_input handleChange={handleChange} values={values} inputType={"email"} text={"Correo"} name="email"/>
+                <Components_input handleChange={handleChange} values={values} inputType={"date"} text={"Fecha de nacimiento"} name="date_of_birth"/>
+                <Components_input handleChange={handleChange} values={values} inputType={"password"} text={"Contraseña"} name="password"/>
+                <Components_input handleChange={handleChange} values={values} inputType={"password"} text={"Repetir Contraseña"} name="passwordconfirm"/>
+              
               </div>
-              <div className="mt-10 mb-2 flex flex-col gap-6">
-                <Components_input handleChange={handleChange} values={values} inputType={"email"} text={"Correo"}/>
-                <Components_input handleChange={handleChange} values={values} inputType={"password"} text={"Contraseña"}/>
-                <Components_input handleChange={handleChange} values={values} inputType={"password"} text={"Repetir Contraseña"}/>
-              </div>
+
              <div className="mt-10 mb-2 flex flex-col gap-6">
-                <Components_input handleChange={handleChange} values={values} inputType={"phone"} text={"Numero de Teléfono"}/>
+       
               </div>
 
               <div className="inline-flex items-center">
@@ -104,7 +105,7 @@ const handleSubmit = async (event) => {
          <div >
               <button style={{ backgroundColor: '#FFC327',paddingLeft:'60px',paddingRight:'60px' }}
                 className="mt-6   select-none   py-5  text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button"
+                type="submit"
                 data-ripple-light="true"
               >
                 Siguiente

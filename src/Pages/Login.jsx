@@ -10,12 +10,13 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function Login() {
  
-//probando pull request
-//Agregando logica al login
+
+
     const [values, setValues] = useState({
         email: "",
-        Text: "",
-        Password: ""
+        nombre: "",
+        Password: "",
+        
     });
 
     const handleChange = (event) => {
@@ -23,10 +24,10 @@ function Login() {
     };
 
     const handleValidation = () => {
-        const { email, Text, Password } = values;
+       
         console.log(values);
 
-        if (Password.length < 7) {
+        if (values.Password.length < 7) {
             toast.error("Minimo 7 caracteres para la contraseña");
             return false;
         }
@@ -64,9 +65,9 @@ function Login() {
        <div className="p-10">
        <form  className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 " onSubmit={(event) => handleSubmit(event)}>
               <div className="mb-4 flex flex-col gap-6">
-              <Components_input inputType="email" text="Correo" handleChange={handleChange} values={values} />
-                            <Components_input inputType="Text" text="Nombre" handleChange={handleChange} values={values} />
-                            <Components_input inputType="Password" text="Contraseña" handleChange={handleChange} values={values} />
+              <Components_input inputType="email" text="Correo" handleChange={handleChange} values={values} name="email" />
+                            <Components_input inputType="Text" text="Nombre" handleChange={handleChange} values={values} name="nombre" />
+                            <Components_input inputType="Password" text="Contraseña" handleChange={handleChange} values={values} name="Password" />
               </div>
               <div className="inline-flex items-center">
                 <label
