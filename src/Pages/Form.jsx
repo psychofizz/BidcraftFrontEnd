@@ -40,11 +40,6 @@ const handleSubmit = async (event) => {
 
   
 
-<<<<<<< HEAD
-=======
-function Form() {      
-
->>>>>>> develop
     return (
       	//NAVBAR DE REGISTRO
       <div class="min-h-screen flex flex-col" >
