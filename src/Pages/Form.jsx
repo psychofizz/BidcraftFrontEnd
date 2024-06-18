@@ -5,15 +5,21 @@ import mainLogo from'../img/beta.png';
 import Components_input from '../Components/input'
 
 function Form() {      
+
     return (
+
+      <div class="min-h-screen flex flex-col" >
+        <nav class="relative flex w-full flex-wrap items-center justify-between py-2 lg:py-2" style={{ backgroundColor: '#FFC327'}}>
+          <div class="flex w-full flex-wrap items-center justify-between px-3">
+            <div class="ms-2">
+            <img src={mainLogo} alt="Ejemplo de imagen" />
+            </div>
+          </div>
+        </nav>
       
-        <div className="flex flex-col min-h-screen items-center justify-center">
-         
-          <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl ">
-          
-
-
-
+      <div className="flex flex-col min-h-screen items-center justify-center">
+      
+      <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl ">
           
        <div className="p-10">
        <p class="normal-case text-center mx-auto font-bold" >Crea una cuenta Bidcraft</p>
@@ -94,6 +100,7 @@ function Form() {
           
          
         
+        </div>
         </div>
     )
 
