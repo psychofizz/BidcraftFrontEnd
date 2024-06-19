@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import bidlogo from '../img/bidcraft.JPG'
 
 const Header = () => (
   <header className="bg-primary p-4">
     <nav className="flex flex-wrap justify-between items-center">
       <div className="ml-2 flex-shrink-0">
-        <img src="https://imgur.com/ktfypbj.png" alt="bidcraft" className="h-20 w-auto" />
+        <img src={bidlogo} alt="bidcraft" className="h-20 w-auto" />
       </div>
-      <div className="flex items-center mt-4 sm:mt-0">
+      <div className="w-full sm:w-auto flex justify-center mt-4 sm:mt-0">
         <ul className="flex space-x-4 text-black">
           <li>
             <Link

@@ -8,7 +8,7 @@ import Testimonials from '../Components/testimonials';
 
 
 const LandingPage = () => (
-  <div className='bg-white'>
+  <div className='bg-white overflow-x-hidden'>
     <Header />
     <Hero />
     <Features />
