@@ -49,7 +49,7 @@ const handleSubmit = async (event) => {
 
       try {
         const response = await fetch(
-          "http://localhost:5000/login",
+          "http://localhost:8000/user/",
           {
             method: "POST",
             headers: {
