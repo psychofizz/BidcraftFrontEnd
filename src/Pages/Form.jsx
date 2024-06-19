@@ -29,9 +29,23 @@ const handleValidation = () => {
         return false;
     }
 
+    if (password !== passwordconfirm) {
+      toast.error("Las contraseñas no coinciden");
+      return false;
+  }
+
+  const idNumberPattern = /^\d{13}$/;
+if (!idNumberPattern.test(id_number)) {
+    toast.error("ID inválido. Escriba un ID válido, sin guiones.");
+    return false;
+}
+
     // Add more validations as necessary
     return true;
 };
+
+ // Validación del id_number
+
 
 const handleSubmit = async (event) => {
     event.preventDefault();
