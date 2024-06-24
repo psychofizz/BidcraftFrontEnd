@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import mainLogo from'../img/beta.png';
 import ComponentsInput from '../Components/input'
-import { ToastContainer, toast } from 'react-toastify';
+import {toast } from 'react-toastify';
 
 function Form() {   
   const [values, setValues] = useState({
@@ -113,7 +113,7 @@ const handleSubmit = async (event) => {
       
       <div className="flex flex-col min-h-screen items-center justify-center">
       
-      <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl ">
+      <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl mt-10 ">
           
        <div className="p-10">
        <p  className="normal-case text-center mx-auto font-bold" >Crea una cuenta Bidcraft</p>

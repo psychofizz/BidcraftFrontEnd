@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import mainLogo from'../img/beta.png';
 import ComponentsInput from '../Components/input'
-import { ToastContainer, toast } from 'react-toastify';
+import {toast } from 'react-toastify';
 
 
 
