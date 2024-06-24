@@ -13,7 +13,7 @@ const Header = () => (
           <li>
             <Link
               to="/login"
-              className="bg-ffc327 text-black font-bold px-6 py-2 rounded shadow-md hover:shadow-lg transition-shadow duration-300"
+              className="bg-ffc327 text-black font-bold px-6 py-2 shadow-md hover:shadow-lg transition-shadow duration-300"
             >
               Iniciar Sesión
             </Link>
@@ -21,7 +21,7 @@ const Header = () => (
           <li>
             <Link
               to="/form"
-              className="bg-ffc327 text-black font-bold px-6 py-2 rounded shadow-md hover:shadow-lg transition-shadow duration-300"
+              className="bg-ffc327 text-black font-bold px-6 py-2  shadow-md hover:shadow-lg transition-shadow duration-300"
             >
               Registrar
             </Link>

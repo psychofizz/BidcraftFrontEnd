@@ -13,7 +13,7 @@ const Hero = () => (
         </p>
         <Link
           to="/login"
-          className="mt-8 sm:mt-10 bg-ffc327 text-black font-bold px-6 py-3 sm:py-4 rounded shadow-md hover:shadow-lg transition-shadow duration-300 inline-block"
+          className="mt-8 sm:mt-10 bg-ffc327 text-black font-bold px-6 py-3 sm:py-4  hover:shadow-lg transition-shadow duration-300 inline-block"
         >
           Comienza Ahora
         </Link>
