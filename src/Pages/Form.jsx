@@ -13,11 +13,11 @@ function Form() {
     password: "",
     passwordconfirm: "",
 });
-
+//Esta funcion no pormite capturar los valores de los inputo con la clave name cada vez que se modifiquen agregandolos a la variable values
 const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
 };
-
+//Aca simplemente hacemos validaciones  sobre los input con lo datos controlados
 const handleValidation = () => {
     const {names,last_names,id_number,date_of_birth,email,password,passwordconfirm } = values;
     console.log(values);
@@ -26,11 +26,13 @@ const handleValidation = () => {
         toast.error("Minimo 7 caracteres para la contraseña");
         return false;
     }
-
+    //Miramos si la contraseña y la de confirmar contraseña son iguales
     if (password !== passwordconfirm) {
       toast.error("Las contraseñas no coinciden");
       return false;
   }
+
+  //Miramos si el numero de identificacion son validos (Honduras)
 
   const idNumberPattern = /^\d{13}$/;
 if (!idNumberPattern.test(id_number)) {
