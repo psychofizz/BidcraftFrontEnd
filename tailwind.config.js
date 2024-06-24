@@ -7,9 +7,13 @@ module.exports = {
     extend: {
        colors: {
         'ffc327': '#FFC327',
+      },
+      backgroundImage: {
+        'parallax':'url("img/h-1.jpg")'
       }
     },
   },
+  
   plugins: [],
 }
 
