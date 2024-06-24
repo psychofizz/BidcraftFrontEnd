@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 
 import mainLogo from'../img/beta.png';
-import Components_input from '../Components/input'
+import ComponentsInput from '../Components/input'
 import { ToastContainer, toast } from 'react-toastify';
 
 
@@ -65,9 +65,9 @@ function Login() {
        <div className="p-10">
        <form  className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 " onSubmit={(event) => handleSubmit(event)}>
               <div className="mb-4 flex flex-col gap-6">
-              <Components_input inputType="email" text="Correo" handleChange={handleChange} values={values} name="email" />
-                            <Components_input inputType="Text" text="Nombre" handleChange={handleChange} values={values} name="nombre" />
-                            <Components_input inputType="Password" text="Contraseña" handleChange={handleChange} values={values} name="Password" />
+              <ComponentsInput inputType="email" text="Correo" handleChange={handleChange} values={values} name="email" />
+                            <ComponentsInput inputType="Text" text="Nombre" handleChange={handleChange} values={values} name="nombre" />
+                            <ComponentsInput inputType="Password" text="Contraseña" handleChange={handleChange} values={values} name="Password" />
               </div>
               <div className="inline-flex items-center">
                 <label

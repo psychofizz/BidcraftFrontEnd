@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import mainLogo from'../img/beta.png';
-import Components_input from '../Components/input'
+import ComponentsInput from '../Components/input'
 import { ToastContainer, toast } from 'react-toastify';
 
 function Form() {   
@@ -119,13 +119,13 @@ const handleSubmit = async (event) => {
        <p  className="normal-case text-center mx-auto font-bold" >Crea una cuenta Bidcraft</p>
        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-9`6`" onSubmit={(event) => handleSubmit(event)}>
               <div className="mb-2 flex flex-col gap-6">
-                <Components_input handleChange={handleChange} values={values} inputType={"Text"} text={"Nombre"} name="names"/>
-                <Components_input handleChange={handleChange} values={values} inputType={"Text"} text={"Apellidos "} name="last_names"/>
-                <Components_input handleChange={handleChange} values={values} inputType={"number"} text={"No.Identidad "} name="id_number"/>
-                <Components_input handleChange={handleChange} values={values} inputType={"email"} text={"Correo"} name="email"/>
-                <Components_input handleChange={handleChange} values={values} inputType={"date"} text={"Fecha de nacimiento"} name="date_of_birth"/>
-                <Components_input handleChange={handleChange} values={values} inputType={"password"} text={"Contraseña"} name="password"/>
-                <Components_input handleChange={handleChange} values={values} inputType={"password"} text={"Repetir Contraseña"} name="passwordconfirm"/>
+                <ComponentsInput handleChange={handleChange} values={values} inputType={"Text"} text={"Nombre"} name="names"/>
+                <ComponentsInput handleChange={handleChange} values={values} inputType={"Text"} text={"Apellidos "} name="last_names"/>
+                <ComponentsInput handleChange={handleChange} values={values} inputType={"number"} text={"No.Identidad "} name="id_number"/>
+                <ComponentsInput handleChange={handleChange} values={values} inputType={"email"} text={"Correo"} name="email"/>
+                <ComponentsInput handleChange={handleChange} values={values} inputType={"date"} text={"Fecha de nacimiento"} name="date_of_birth"/>
+                <ComponentsInput handleChange={handleChange} values={values} inputType={"password"} text={"Contraseña"} name="password"/>
+                <ComponentsInput handleChange={handleChange} values={values} inputType={"password"} text={"Repetir Contraseña"} name="passwordconfirm"/>
               
               </div>
 
