@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styled from "styled-components";
-import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
+
+
 import mainLogo from'../img/beta.png';
 import Components_input from '../Components/input'
 import { ToastContainer, toast } from 'react-toastify';
