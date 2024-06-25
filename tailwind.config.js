@@ -9,7 +9,8 @@ module.exports = {
         'ffc327': '#FFC327',
       },
       backgroundImage: {
-        'parallax':'url("img/h-1.jpg")'
+        'parallax1':'url("img/h-1.jpg")',
+        'parallax2':'url("img/au-1.jpg")'
       }
     },
   },

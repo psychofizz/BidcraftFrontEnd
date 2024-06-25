@@ -3,11 +3,8 @@ import aboutimg from '../img/au-1.jpg'
 
 const AboutUs = () => (
   <section className="relative py-20 bg-black text-white">
-    <img
-      img src={aboutimg} 
-      alt="Subasta en vivo" 
-      className="absolute inset-0 object-cover w-full h-full opacity-50"
-    />
+   
+      <div className="bg-fixed bg-parallax2 bg-cover absolute inset-0  w-full h-full opacity-50"></div>
     <div className="absolute inset-0 bg-black opacity-50"></div>
     <div className="container relative mx-auto z-10 px-4">
       <h2 className="text-3xl text-ffc327 font-bold text-center">Sobre Nosotros</h2>

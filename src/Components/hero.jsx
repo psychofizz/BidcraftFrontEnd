@@ -4,7 +4,7 @@ import h1 from '../img/h-1.jpg'
 
 const Hero = () => (
   <section className="bg-primary text-black text-center py-0">
-  <div className="bg-fixed bg-parallax bg-cover relative">
+  <div className="bg-fixed bg-parallax1 bg-cover relative">
     {/* Capa negra con transparencia */}
     <div className="absolute inset-0 bg-black opacity-50"></div>
     
