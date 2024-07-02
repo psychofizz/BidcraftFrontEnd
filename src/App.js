@@ -5,6 +5,7 @@ import Form from './Pages/Form';
 import LandingPage from './Pages/LandingPage';
 import Perfil from './Pages/Perfil';
 import HomePage from './Pages/HomePage';
+import Auction from './Pages/Auction';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/Login" element={<Login/>}></Route>
           <Route path="/Form" element={<Form/>}></Route>
           <Route path="/" element={<LandingPage/>}></Route>
+          <Route path="/Auction" element={<Auction/>}></Route>
         </Routes>
         </BrowserRouter>
         
