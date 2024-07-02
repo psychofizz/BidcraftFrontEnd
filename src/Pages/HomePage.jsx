@@ -10,6 +10,46 @@ import { toast } from 'react-toastify'
 
 function HomePage() {
 
+
+    const obtenerProducto = async () => {
+        try {
+            const response = await fetch(
+              "http://127.0.0.1:8000/api/products/",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                
+              }
+            );
+            
+            if (!response.ok) {
+              switch (response.status) {
+                case 400:
+                    toast.warning("Producto no existe")
+                
+                  break;
+                default:
+                  toast("Error desconocido")
+                  break;
+              }
+            } else {
+                const producto = await response.json();
+                const { nombre, precio } = producto;
+                console.log("Nombre del producto:", nombre);
+                console.log("Precio del producto:", precio);
+            }
+          } catch (error) {
+          }
+    
+
+    }
+ 
+
+
+
+
     const [values, setValues] = useState({
         names: "",
         last_names: "",
