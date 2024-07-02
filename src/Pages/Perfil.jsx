@@ -104,7 +104,7 @@ function Perfil() {
         }`}
       >
         <section className="w-full" id="historialSubastas">
-          <div className={`mt-10 bg-white shadow-2xl w-full ${
+          <div className={` bg-white shadow-2xl w-full ${
           activeTab === 'tab1' ? 'mt-10' : 'mt-0'
         } ` }>
             <div className="md:flex">

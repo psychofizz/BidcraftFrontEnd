@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import mainLogo from'../img/beta.png';
+import mainLogo from  '../img/bidLogo.png';
 import ComponentsInput from '../Components/input'
 import {toast } from 'react-toastify';
 
@@ -103,10 +103,13 @@ const handleSubmit = async (event) => {
     return (
       	//NAVBAR DE REGISTRO
       <div className="min-h-screen flex flex-col" >
-        <nav className="relative flex w-full flex-wrap items-center justify-between py-2 lg:py-2 bg-ffc327" >
-          <div className="flex w-full flex-wrap items-center justify-between px-3">
-            <div className="ms-2">
-            <img src={mainLogo} alt="Ejemplo de imagen" />
+        <nav className="relative flex w-full  py-2 lg:py-2 bg-ffc327" >
+          <div className=" w-full  px-3">
+            <div className="ms-2 flex flex-nowrap">
+              <div><img src={mainLogo} className='w-[75px] ' alt="Ejemplo de imagen" /></div>
+            <div className='content-center ml-[15px]'>
+            <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased text-white">BidCraft</h4>
+          </div>
             </div>
           </div>
         </nav>

@@ -44,14 +44,18 @@ function HomePage() {
                        
 <img className='w-[50px]' src={BigLogo} alt="" />
 <div className=' content-center text-[30px] text-white'>BidCraft</div>
-                        <form action="" className='hidden lg:flex'>
-                            <ComponentsInput handleChange={handleChange} values={values} inputType={"Text"} text={"Buscar objeto"} name="names" className={'w-[50vh] p-2  ml-4'} />
-                            
-                            <button
-                                type="button"
-                                class=" text-[white] ml-4 inline-block text-xl px-[40px] pb-2 pt-2.5 font-medium uppercase leading-normal  shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 hover:shadow-dark-2 focus:bg-neutral-700 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
-                                Buscar
-                            </button>                        </form></div>
+<form className='w-[500px] ml-4'>   
+    <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+    <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            </svg>
+        </div>
+        <input type="search" id="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
+        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+    </div>
+</form></div>
 
 
 
@@ -64,7 +68,7 @@ function HomePage() {
                         {/*--------------------------------------Notificaciones---------------------------------------------------------------------------------------------------------------------  */}
                         <div className='hidden lg:flex'>
                             <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-cyan-400 " onClick={toggleVisibility}  ><img className='w-[35px]' src={CampanaImg} alt="" /></button>
-                            <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-cyan-400 "  ><img className='w-[35px]' src={EstrellaImg} alt="" /></button>
+                            <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-cyan-400 "  ><img className='w-[45px]' src={EstrellaImg} alt="" /></button>
                             <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-white " onClick={toggleVisibility}  >Hola Josue Nolasco</button>
                         </div>
 
@@ -92,10 +96,10 @@ function HomePage() {
                             <div className="flex space-x-4 items-center p-4 bg-ffc327">
                                 <div className="flex mr-auto items-center space-x-4">
                                     <img src="https://avatars.githubusercontent.com/u/26052038?v=4" alt="Name" className="w-16 h-16 shrink-0 rounded-full" />
-                                    <div className="space-y-2 flex flex-col flex-1 truncate">
-                                        <div className="relative leading-tight text-gray-900">
+                                    <div className="space-y-2 flex flex-col flex-1 truncate text-white">
+                                        <div className="relative leading-tight ">
                                             <span className="flex">
-                                                <span className="truncate relative pr-8 text-black">Josue Nolasco</span>
+                                                <span className="truncate relative pr-8 ">Josue Nolasco</span>
                                             </span>
                                         </div>
                                         <p className="text-xs">5 seguidores</p>
