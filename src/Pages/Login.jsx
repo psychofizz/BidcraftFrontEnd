@@ -58,16 +58,16 @@ function Login() {
              <img src={mainLogo} alt="Ejemplo de imagen" />
             </div>
             <div>
-              <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">BidCraft</h4>
+              <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased text-white">BidCraft</h4>
             </div>
           </div>
           
        <div className="p-10">
        <form  className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 " onSubmit={(event) => handleSubmit(event)}>
               <div className="mb-4 flex flex-col gap-6">
-              <ComponentsInput inputType="email" text="Correo" handleChange={handleChange} values={values} name="email" />
-                            <ComponentsInput inputType="Text" text="Nombre" handleChange={handleChange} values={values} name="nombre" />
-                            <ComponentsInput inputType="Password" text="Contraseña" handleChange={handleChange} values={values} name="Password" />
+              <ComponentsInput inputType="email" text="Correo" handleChange={handleChange} values={values} name="email" className={'p-4'} />
+                            <ComponentsInput inputType="Text" text="Nombre" handleChange={handleChange} values={values} name="nombre" className={'p-4'} />
+                            <ComponentsInput inputType="Password" text="Contraseña" handleChange={handleChange} values={values} name="Password" className={'p-4'} />
               </div>
               <div className="inline-flex items-center">
                 <label
