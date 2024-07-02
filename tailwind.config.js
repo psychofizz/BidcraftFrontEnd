@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
        colors: {
-        'ffc327': '#FFC327',
+        'ffc327': '#232f3e',
       },
       backgroundImage: {
         'parallax1':'url("img/h-1.jpg")',

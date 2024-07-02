@@ -103,7 +103,7 @@ const handleSubmit = async (event) => {
     return (
       	//NAVBAR DE REGISTRO
       <div className="min-h-screen flex flex-col" >
-        <nav className="relative flex w-full flex-wrap items-center justify-between py-2 lg:py-2" style={{ backgroundColor: '#FFC327'}}>
+        <nav className="relative flex w-full flex-wrap items-center justify-between py-2 lg:py-2 bg-ffc327" >
           <div className="flex w-full flex-wrap items-center justify-between px-3">
             <div className="ms-2">
             <img src={mainLogo} alt="Ejemplo de imagen" />

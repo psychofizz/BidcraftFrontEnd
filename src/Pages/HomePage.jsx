@@ -7,8 +7,7 @@ import CampanaImg from '../img/campana.png'
 import EstrellaImg from '../img/estrella.png'
 import BigLogo from '../img/bidLogo.png'
 import { toast } from 'react-toastify'
-import { Button } from "flowbite-react"
-import { Avatar, Dropdown, Navbar } from "flowbite-react";
+
 function HomePage() {
 
     const [values, setValues] = useState({
@@ -39,18 +38,18 @@ function HomePage() {
 
     return (
         <div className=''>
-            <div className='w-full flex justify-normal bg-[#FFC327] h-[10vh] p-2 fixed  z-30'>
+            <div className='w-full flex justify-normal bg-ffc327 h-[10vh] p-2 fixed  z-30'>
                 <div className=' w-[70%] content-center'>
                     <div className='flex flex-nowrap w-full'>
                        
 <img className='w-[50px]' src={BigLogo} alt="" />
-<div className=' content-center text-[30px]'>BidCraft</div>
+<div className=' content-center text-[30px] text-white'>BidCraft</div>
                         <form action="" className='hidden lg:flex'>
                             <ComponentsInput handleChange={handleChange} values={values} inputType={"Text"} text={"Buscar objeto"} name="names" className={'w-[50vh] p-2  ml-4'} />
                             
                             <button
                                 type="button"
-                                class=" text-[#FFC327] ml-4 inline-block     bg-[#000000be] px-[40px] pb-2 pt-2.5 text-xs font-medium uppercase leading-normal  shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 hover:shadow-dark-2 focus:bg-neutral-700 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+                                class=" text-[white] ml-4 inline-block text-xl px-[40px] pb-2 pt-2.5 font-medium uppercase leading-normal  shadow-dark-3 transition duration-150 ease-in-out hover:bg-neutral-700 hover:shadow-dark-2 focus:bg-neutral-700 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-dark-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
                                 Buscar
                             </button>                        </form></div>
 
@@ -66,7 +65,7 @@ function HomePage() {
                         <div className='hidden lg:flex'>
                             <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-cyan-400 " onClick={toggleVisibility}  ><img className='w-[35px]' src={CampanaImg} alt="" /></button>
                             <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-cyan-400 "  ><img className='w-[35px]' src={EstrellaImg} alt="" /></button>
-                            <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-black " onClick={toggleVisibility}  >Hola Josue Nolasco</button>
+                            <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-white " onClick={toggleVisibility}  >Hola Josue Nolasco</button>
                         </div>
 
                         <div className='lg:hidden'>

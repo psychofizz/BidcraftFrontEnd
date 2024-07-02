@@ -58,7 +58,7 @@ function Login() {
              <img src={mainLogo} alt="Ejemplo de imagen" />
             </div>
             <div>
-              <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">BidCraft</h4>
+              <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased text-white">BidCraft</h4>
             </div>
           </div>
           
