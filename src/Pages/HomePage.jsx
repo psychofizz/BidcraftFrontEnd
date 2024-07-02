@@ -1,4 +1,4 @@
-function Form() {  
+function HomePage() {  
 return("Home page")
 
 
