@@ -4,13 +4,13 @@ import React, { useState, useEffect } from 'react';
 
 
 
-function Input({ inputType, text, handleChange, values,name}) {
+function Input({ inputType, text, handleChange, values,name,className}) {
     return (
       
-      <div className="relative h-11 w-full min-w-[200px]">
-      <input  className='border border-gray  p-4 w-full focus:border-2 focus:border-ffc327  focus:outline-0  ' name={name} type={inputType} placeholder={text} onChange={(e) => handleChange(e)}
+     
+      <input  className={`border border-gray ${className}    focus:border-2 focus:border-ffc327  focus:outline-0  `} name={name} type={inputType} placeholder={text} onChange={(e) => handleChange(e)}
                 value={values[name] || ''} required  />
-      </div>
+     
     );
 }
 

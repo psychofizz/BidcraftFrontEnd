@@ -4,6 +4,7 @@ import Login from './Pages/Login';
 import Form from './Pages/Form';
 import LandingPage from './Pages/LandingPage';
 import Perfil from './Pages/Perfil';
+import HomePage from './Pages/HomePage';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
    
       <BrowserRouter>
         <Routes>
+        <Route path="/HomePage" element={<HomePage/>}></Route>
         <Route path="/Perfil" element={<Perfil/>}></Route>
           <Route path="/Login" element={<Login/>}></Route>
           <Route path="/Form" element={<Form/>}></Route>
