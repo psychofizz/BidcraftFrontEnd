@@ -67,6 +67,21 @@ function Auction() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // const producto = {
+
+
+    //   product_id: 1,
+    //   seller: 1,
+    //   name: "Example Product",
+    //   description: "This is an example product description.",
+    //   starting_price: 19.99,
+    //   buy_it_now_price: 29.99,
+    //   quantity: 10,
+    //   category: "tecno",
+    //   date_listed: 2024-07-02T12:00:00Z,
+    //   is_active: true,
+    //   is_auction: false
+    // }
     // Datos para llenar formulario de subasta
     console.log({
       gallery,

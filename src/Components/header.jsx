@@ -43,15 +43,15 @@ function Header() {
     <img className='w-[50px]' src={BigLogo} alt="" />
     <div className=' content-center text-[30px] text-white'>BidCraft</div>
     <form className='w-[500px] ml-4'>   
-        <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-        <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div className="relative">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                 </svg>
             </div>
-            <input type="search" id="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
-            <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+            <input type="search" id="search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
+            <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
         </div>
     </form></div>
     
@@ -60,25 +60,25 @@ function Header() {
                     </div>
                     <div className=' content-center w-[30%]  '>
     
-                        <div class="flex justify-end">
+                        <div className="flex justify-end">
     
     
                             {/*--------------------------------------Notificaciones---------------------------------------------------------------------------------------------------------------------  */}
                             <div className='hidden lg:flex'>
                                 <button className="  border-none underline underline-offset-1 text-cyan-400 " onClick={toggleVisibility}  ><img className='w-[35px]' src={CampanaImg} alt="" /></button>
-                                <span class="relative flex h-3 w-3">
-  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-  <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+                                <span className="relative flex h-3 w-3">
+  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+  <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
 </span>
                                 <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-cyan-400 "  ><img className='w-[45px]' src={EstrellaImg} alt="" /></button>
                                 <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-white " onClick={toggleVisibility}  >Hola {usuario.nombre}</button>
                             </div>
     
                             <div className='lg:hidden'>
-                                <button type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false" onClick={toggleDiv2}>
-                                    <span class="sr-only">Open main menu</span>
-                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+                                <button type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false" onClick={toggleDiv2}>
+                                    <span className="sr-only">Open main menu</span>
+                                    <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
                                     </svg>
                                 </button>
                             </div>
@@ -93,7 +93,7 @@ function Header() {
                 </div>
                 {isVisible && (
                     <div className='w-full flex justify-end fixed z-20 mt-[80px]  ' id='barradesplegable'>
-                        <div tabindex="0" className=" dropdown-content z-[1]  menu p-2 shadow bg-base-300 rounded-box w-80">
+                        <div tabIndex="0" className=" dropdown-content z-[1]  menu p-2 shadow bg-base-300 rounded-box w-80">
                             <div className="rounded-lg bg-base-300 p-3 drop-shadow-xl divide-y divide-neutral mt-[3%]">
                                 <div className="flex space-x-4 items-center p-4 bg-ffc327">
                                     <div className="flex mr-auto items-center space-x-4">
@@ -118,7 +118,7 @@ function Header() {
                                             <span>Perfil</span>
                                         </a>
                                         <a href="/" className="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md">
-                                            <svg className="w-7 h-7" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none">
+                                            <svg className="w-7 h-7" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                 <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"></path>
                                                 <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
@@ -142,7 +142,7 @@ function Header() {
                                 </div>
                                 <div className="pt-2 bg-white">
                                     <button onClick={storageDestroy} type="button" className="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md">
-                                        <svg className="w-7 h-7" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none">
+                                        <svg className="w-7 h-7" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                             <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
                                             <path d="M9 12h12l-3 -3"></path>
@@ -160,13 +160,13 @@ function Header() {
                 }`}
                 id="sidebar">
 
-                <div class="p-4">
-                    <h1 class="text-2xl font-semibold">Sidebar</h1>
-                    <ul class="mt-4">
-                        <li class="mb-2"><a href="#" class="block hover:text-indigo-400">Home</a></li>
-                        <li class="mb-2"><a href="#" class="block hover:text-indigo-400">About</a></li>
-                        <li class="mb-2"><a href="#" class="block hover:text-indigo-400">Services</a></li>
-                        <li class="mb-2"><a href="#" class="block hover:text-indigo-400">Contact</a></li>
+                <div className="p-4">
+                    <h1 className="text-2xl font-semibold">Sidebar</h1>
+                    <ul className="mt-4">
+                        <li className="mb-2"><a href="#" className="block hover:text-indigo-400">Home</a></li>
+                        <li className="mb-2"><a href="#" className="block hover:text-indigo-400">About</a></li>
+                        <li className="mb-2"><a href="#" className="block hover:text-indigo-400">Services</a></li>
+                        <li className="mb-2"><a href="#" className="block hover:text-indigo-400">Contact</a></li>
                     </ul>
                 </div>
             </div>
