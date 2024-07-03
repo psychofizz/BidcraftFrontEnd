@@ -7,6 +7,8 @@ import Header from '../Components/header';
 
 function Perfil() {
   const [activeTab, setActiveTab] = useState('tab1');
+  const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY); // "miClaveDeUsuario"
+  const usuario = JSON.parse(storedData)
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
@@ -65,7 +67,7 @@ function Perfil() {
 
 
 
-          <h2 className="text-center text-gray-800 dark:text-black text-4xl font-serif">Samuel Abera</h2>
+          <h2 className="text-center text-gray-800 dark:text-black text-4xl font-serif">{usuario.nombre}</h2>
           <div className="w-full ">
             <div className="flex border-t border-gray-300">
               <button
