@@ -8,8 +8,8 @@ import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
 
 
 function Login() {
-  const users3={
-nombre:"josue2"
+  const users3 = {
+    nombre: "josue2"
 
   }
 
@@ -41,7 +41,7 @@ nombre:"josue2"
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     if (handleValidation()) {
       const users = {
         email: values.email,
@@ -70,12 +70,12 @@ nombre:"josue2"
               break;
           }
         } else {
-          const usuario= await response.json();
+          const usuario = await response.json();
           delete usuario.password;
-            localStorage.setItem(
-              process.env.REACT_APP_LOCALHOST_KEY,
-              JSON.stringify(usuario)
-            );
+          localStorage.setItem(
+            process.env.REACT_APP_LOCALHOST_KEY,
+            JSON.stringify(usuario)
+          );
           navigate("/homepage");
         }
       } catch (error) {

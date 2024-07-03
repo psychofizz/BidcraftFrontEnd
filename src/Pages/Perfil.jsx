@@ -34,28 +34,28 @@ function Perfil() {
 
 
 
-          {/* <div class="w-[150px] text-gray-900 dark:text-gray-100">
-	<div class="relative w-full group">
-		<label class="text-xs text-gray-400">Select Category</label><button class="py-2.5 px-3 w-full md:text-sm text-site bg-transparent border border-dimmed  focus:border-brand focus:outline-none focus:ring-0 peer flex items-center justify-between rounded font-semibold">All</button>
+          {/* <div className="w-[150px] text-gray-900 dark:text-gray-100">
+	<div className="relative w-full group">
+		<label className="text-xs text-gray-400">Select Category</label><button className="py-2.5 px-3 w-full md:text-sm text-site bg-transparent border border-dimmed  focus:border-brand focus:outline-none focus:ring-0 peer flex items-center justify-between rounded font-semibold">All</button>
 		<div
-			class="absolute z-[99] top-[100%] left-[50%] translate-x-[-50%] rounded-md overflow-hidden shadow-lg min-w-[200px] w-max peer-focus:visible peer-focus:opacity-100 opacity-0 invisible duration-200 p-1 bg-gray-100 dark:bg-gray-800  border border-dimmed text-xs md:text-sm">
+			className="absolute z-[99] top-[100%] left-[50%] translate-x-[-50%] rounded-md overflow-hidden shadow-lg min-w-[200px] w-max peer-focus:visible peer-focus:opacity-100 opacity-0 invisible duration-200 p-1 bg-gray-100 dark:bg-gray-800  border border-dimmed text-xs md:text-sm">
 			<div
-				class=" w-full block cursor-pointer hover:bg-white dark:hover:bg-gray-900 dark:bg-gray-800 hover:text-link px-3 py-2 rounded-md">
+				className=" w-full block cursor-pointer hover:bg-white dark:hover:bg-gray-900 dark:bg-gray-800 hover:text-link px-3 py-2 rounded-md">
 				All (9)</div>
 			<div
-				class=" w-full block cursor-pointer hover:bg-white dark:hover:bg-gray-900 dark:bg-gray-800 hover:text-link px-3 py-2 rounded-md">
+				className=" w-full block cursor-pointer hover:bg-white dark:hover:bg-gray-900 dark:bg-gray-800 hover:text-link px-3 py-2 rounded-md">
 				Full Stack (6)
 			</div>
 			<div
-				class=" w-full block cursor-pointer hover:bg-white dark:hover:bg-gray-900 dark:bg-gray-800 hover:text-link px-3 py-2 rounded-md">
+				className=" w-full block cursor-pointer hover:bg-white dark:hover:bg-gray-900 dark:bg-gray-800 hover:text-link px-3 py-2 rounded-md">
 				Front End (1)
 			</div>
 			<div
-				class=" w-full block cursor-pointer hover:bg-white dark:hover:bg-gray-900 dark:bg-gray-800 hover:text-link px-3 py-2 rounded-md">
+				className=" w-full block cursor-pointer hover:bg-white dark:hover:bg-gray-900 dark:bg-gray-800 hover:text-link px-3 py-2 rounded-md">
 				Freelance (1)
 			</div>
 			<div
-				class=" w-full block cursor-pointer hover:bg-white dark:hover:bg-gray-900 dark:bg-gray-800 hover:text-link px-3 py-2 rounded-md">
+				className=" w-full block cursor-pointer hover:bg-white dark:hover:bg-gray-900 dark:bg-gray-800 hover:text-link px-3 py-2 rounded-md">
 				New Stack
 				Project (1)</div>
 		</div>
@@ -65,7 +65,7 @@ function Perfil() {
 
 
 
-          <h2 class="text-center text-gray-800 dark:text-black text-4xl font-serif">Samuel Abera</h2>
+          <h2 className="text-center text-gray-800 dark:text-black text-4xl font-serif">Samuel Abera</h2>
           <div className="w-full ">
             <div className="flex border-t border-gray-300">
               <button
@@ -164,14 +164,14 @@ function Perfil() {
             <div id="tab3" className={`tabcontent transition-opacity duration-200 ease-in-ou   ${activeTab === 'tab3' ? 'opacity-100' : 'w-0 h-0  opacity-0 pointer-events-none'}`}>
               <section className='w-full mt-10' id='nuevaReseña'>
 
-                <div class="h-80 px-7 w-full  bg-white p-4 shadow-md border">
+                <div className="h-80 px-7 w-full  bg-white p-4 shadow-md border">
                   <h2>Nueva reseña</h2>
                   <h2>Descripcion:</h2>
-                  <textarea class="h-40 px-3 text-sm py-1 mt-5 outline-none border-gray-300 w-full resize-none border  placeholder:text-sm" placeholder="Add your comments here"></textarea>
+                  <textarea className="h-40 px-3 text-sm py-1 mt-5 outline-none border-gray-300 w-full resize-none border  placeholder:text-sm" placeholder="Add your comments here"></textarea>
 
-                  <div class="flex justify-between mt-2">
-                    <p class="text-sm text-blue-900 ">Enter atleast 15 characters</p>
-                    <button class="h-12 w-[150px] bg-blue-400 text-sm text-white transition-all cursor-pointer hover:bg-blue-600">
+                  <div className="flex justify-between mt-2">
+                    <p className="text-sm text-blue-900 ">Enter atleast 15 characters</p>
+                    <button className="h-12 w-[150px] bg-blue-400 text-sm text-white transition-all cursor-pointer hover:bg-blue-600">
                       Submit comment
                     </button>
                   </div>
@@ -196,7 +196,7 @@ function Perfil() {
 
         </div>
       </div>
-<Footer/>
+      <Footer />
     </div>
 
 
