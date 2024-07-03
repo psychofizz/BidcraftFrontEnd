@@ -14,6 +14,7 @@ function Auction() {
   const [finalPrice, setFinalPrice] = useState("");
   const [region, setRegion] = useState("");
   const [deliveryCost, setDeliveryCost] = useState("");
+  const [quantity, setQuantity] = useState("");
 
   const handleGalleryChange = (event) => {
     const files = Array.from(event.target.files);
@@ -65,24 +66,63 @@ function Auction() {
     setGallery(newGallery);
   };
 
-  const handleSubmit = (event) => {
+  const handleQuantity = (event) => {
+    setQuantity(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // const producto = {
 
+    const clearForm = () => {
+      setTitle("");
+      setDescription("");
+      setStartDate(null);
+      setInitialPrice("");
+      setFinalPrice("");
+      setQuantity("");
+    };
+    
+ 
+    const auctionProduct = {
+      name: title,
+      description: description,
+      starting_price: initialPrice,
+      buy_it_now_price: finalPrice,
+      quantity: quantity,
+      date_listed: startDate,
+    };
 
-    //   product_id: 1,
-    //   seller: 1,
-    //   name: "Example Product",
-    //   description: "This is an example product description.",
-    //   starting_price: 19.99,
-    //   buy_it_now_price: 29.99,
-    //   quantity: 10,
-    //   category: "tecno",
-    //   date_listed: 2024-07-02T12:00:00Z,
-    //   is_active: true,
-    //   is_auction: false
-    // }
-    // Datos para llenar formulario de subasta
+    try {
+      const response = await fetch("http://localhost:8000/auction/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(auctionProduct),
+      });
+
+      if (!response.ok) {
+        switch (response.status) {
+          case 400:
+            const errorData = await response.json();
+            console.error(
+              "Error en la creación de la subasta:",
+              errorData
+            );
+            break;
+          default:
+            console.error("Error al crear la subasta");
+            break;
+        }
+      } else {
+        const createdAuction = await response.json();
+        console.log("La subasta creado exitosamente:", createdAuction);
+        clearForm();
+      }
+    } catch (error) {
+
+    }
+
     console.log({
       gallery,
       description,
@@ -170,6 +210,21 @@ function Auction() {
           />
         </div>
         <div className="mb-4 rounded-md px-4 py-2 shadow-md">
+          <div className="flex items-center mt-2">
+            <p className="mr-2 text-black font-bold">Cantidad del articulo</p>
+          </div>
+          <div className="flex justify-center items-center">
+            <input
+              type="number"
+              id="quantity"
+              className="w-80 border rounded-md p-2 text-black bg-white-700"
+              placeholder="Cantidad de producto"
+              value={quantity}
+              onChange={handleQuantity}
+            />
+          </div>
+        </div>
+        <div className="mb-4 rounded-md px-4 py-2 shadow-md">
           <h2 className="text-xl font-bold text-black mb-2">Fecha</h2>
           <div className="flex items-center">
             <p className="text-black">Programar fecha de subasta</p>
@@ -184,18 +239,6 @@ function Auction() {
               className="border rounded-md p-2 text-black bg-white-700"
               value={startDate}
               onChange={handleStartDateChange}
-            />
-          </div>
-          <div className="flex flex-col md:flex-row items-center mt-2">
-            <label htmlFor="end-date" className="mr-2 text-black">
-              Fecha de finalizacion
-            </label>
-            <input
-              type="date"
-              id="end-date"
-              className="border rounded-md p-2 text-black bg-white-700"
-              value={endDate}
-              onChange={handleEndDateChange}
             />
           </div>
         </div>
@@ -225,67 +268,6 @@ function Auction() {
               placeholder="Precio de venta"
               value={finalPrice}
               onChange={handleFinalPriceChange}
-            />
-          </div>
-        </div>
-        <div className="mb-4 rounded-md px-4 py-2 shadow-md">
-          <h2 className="text-xl font-bold text-black mb-2">Region de venta</h2>
-          <div className="flex items-center">
-            <p className="text-black">Establecer region de venta</p>
-          </div>
-          <div className="flex items-center mt-2">
-            <select
-              id="region"
-              className="w-full border rounded-md p-2 text-black bg-white"
-              value={region}
-              onChange={handleRegionChange}
-            >
-              {/* Opciones para los 18 departamentos de Honduras */}
-              <option value="">Selecciona un departamento</option>
-              <option value="Atlántida">Atlántida</option>
-              <option value="Colón">Colón</option>
-              <option value="Comayagua">Comayagua</option>
-              <option value="Copán">Copán</option>
-              <option value="Cortés">Cortés</option>
-              <option value="Choluteca">Choluteca</option>
-              <option value="El Paraíso">El Paraíso</option>
-              <option value="Francisco Morazán">Francisco Morazán</option>
-              <option value="Gracias a Dios">Gracias a Dios</option>
-              <option value="Intibucá">Intibucá</option>
-              <option value="Islas de la Bahía">Islas de la Bahía</option>
-              <option value="La Paz">La Paz</option>
-              <option value="Lempira">Lempira</option>
-              <option value="Ocotepeque">Ocotepeque</option>
-              <option value="Olancho">Olancho</option>
-              <option value="Santa Bárbara">Santa Bárbara</option>
-              <option value="Valle">Valle</option>
-              <option value="Yoro">Yoro</option>
-            </select>
-          </div>
-          <div className="flex items-center mt-2">
-            <p className="text-black">Establecer descripcion de entrega</p>
-          </div>
-          <textarea
-            className="w-full flex justify-center resize-none border rounded-md p-2 mt-2 text-black bg-white-700 mx-auto h-40 min-h-[10rem] max-w-[70%]"
-            placeholder="Escribe una descripción de la entrega..."
-            value={deliveryDescription}
-            onChange={handleDeliveryDescriptionChange}
-          />
-        </div>
-        <div className="mb-4 rounded-md px-4 py-2 shadow-md">
-          <div className="flex items-center mt-2">
-            <p className="mr-2 text-black font-bold">
-              Costo de entrega (Opcional)
-            </p>
-          </div>
-          <div className="flex justify-center items-center">
-            <input
-              type="number"
-              id="delivery-cost"
-              className="w-80 border rounded-md p-2 text-black bg-white-700"
-              placeholder="Costo de entrega"
-              value={deliveryCost}
-              onChange={handleDeliveryCostChange}
             />
           </div>
         </div>
