@@ -84,13 +84,8 @@ function Form() {
               break;
           }
         } else {
-          const usuario2 = await response.json();
-          delete usuario2.password;
-          localStorage.setItem(
-            process.env.REACT_APP_LOCALHOST_KEY,
-            JSON.stringify(usuario2)
-          );
-          console.log("Form submitted successfully", values);
+          toast.done("Usuario registrado correctamente,por favor verifica el email");
+          
         }
       } catch (error) {
       }

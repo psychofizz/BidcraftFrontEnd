@@ -71,7 +71,7 @@ function Header() {
   <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
 </span>
                                 <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-cyan-400 "  ><img className='w-[45px]' src={EstrellaImg} alt="" /></button>
-                                <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-white " onClick={toggleVisibility}  >Hola {usuario.nombre}</button>
+                                <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-white " onClick={toggleVisibility}  >Hola {usuario.full_name}</button>
                             </div>
     
                             <div className='lg:hidden'>
@@ -101,7 +101,7 @@ function Header() {
                                         <div className="space-y-2 flex flex-col flex-1 truncate text-white">
                                             <div className="relative leading-tight ">
                                                 <span className="flex">
-                                                    <span className="truncate relative pr-8 ">{usuario.nombre}</span>
+                                                    <span className="truncate relative pr-8 ">{usuario.full_name}</span>
                                                 </span>
                                             </div>
                                             <p className="text-xs">5 seguidores</p>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Footer from "../Components/footer";
 import Header from '../Components/header';
-
+import { toast } from 'react-toastify'
 
 
 
@@ -9,11 +9,47 @@ function Perfil() {
   const [activeTab, setActiveTab] = useState('tab1');
   const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY); // "miClaveDeUsuario"
   const usuario = JSON.parse(storedData)
+  const [productosFav, setProductos] = useState([]);
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
   };
+  //Peticion para obtener productos------------------------------------------------------------------
+  const obtenerProductoFav = async () => {
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/products/",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
 
+        }
+      );
+
+      if (!response.ok) {
+        switch (response.status) {
+          case 400:
+            toast.warning("Producto no existe")
+
+            break;
+          default:
+            toast("Error desconocido")
+            break;
+        }
+      } else {
+        const data = await response.json(); // Convertir la respuesta JSON en un objeto JavaScript
+        setProductos(data); // Guardar los productos en el estado
+
+        // console.log("Nombre del producto:", nombre);
+        // console.log("Precio del producto:", precio);
+      }
+    } catch (error) {
+    }
+
+
+  }
 
 
   return (
@@ -67,7 +103,7 @@ function Perfil() {
 
 
 
-          <h2 className="text-center text-gray-800 dark:text-black text-4xl font-serif">{usuario.nombre}</h2>
+          <h2 className="text-center text-gray-800 dark:text-black text-4xl font-serif">{usuario.full_name}</h2>
           <div className="w-full ">
             <div className="flex border-t border-gray-300">
               <button
@@ -75,7 +111,7 @@ function Perfil() {
                   }`}
                 onClick={() => openTab('tab1')}
               >
-                Historial de Subastas
+                Productos Favoritos
               </button>
               <button
                 className={`w-1/2 py-4 text-center font-medium text-gray-700  focus:outline-none  ${activeTab === 'tab2' ? 'border-ffc327 border-b-4 transition ease-in-out delay-100 ' : ''
@@ -99,26 +135,37 @@ function Perfil() {
               className={`tabcontent transition-opacity duration-200 ease-in-out ${activeTab === 'tab1' ? 'opacity-100' : 'w-0 h-0  opacity-0 pointer-events-none'
                 }`}
             >
+
               <section className="w-full" id="historialSubastas">
-                <div className={` bg-white shadow-2xl w-full ${activeTab === 'tab1' ? 'mt-10' : 'mt-0'
-                  } `}>
-                  <div className="md:flex">
-                    <div className="md:shrink-0">
-                      <img
-                        className="h-48 w-full object-cover md:h-full md:w-full"
-                        src="https://loremflickr.com/g/320/240/team"
-                        alt="example"
-                      />
-                    </div>
-                    <div className="p-8 xs:p-4 lg:p-8 w-full">
-                      <div className="h-5/6">
-                        <h1 className='text-4xl'>Nike - Sneakers - Size: Shoes / EU 46</h1>
-                        <p className='text-2xl'>Precio de venta: L. 12,000</p>
+                {productosFav.length > 0 ? (
+                  <ul>
+                    {productosFav.map(producto => (
+
+                      <div className={` bg-white shadow-2xl w-full ${activeTab === 'tab1' ? 'mt-10' : 'mt-0'
+                        } `}>
+                        <div className="md:flex">
+                          <div className="md:shrink-0">
+                            <img
+                              className="h-48 w-full object-cover md:h-full md:w-full"
+                              src="https://loremflickr.com/g/320/240/team"
+                              alt="example"
+                            />
+                          </div>
+                          <div className="p-8 xs:p-4 lg:p-8 w-full">
+                            <div className="h-5/6">
+                              <h1 className='text-4xl'>{producto.product}</h1>
+                              
+                            </div>
+                            <div className="text-right">Satisfacción *****</div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="text-right">Satisfacción *****</div>
-                    </div>
-                  </div>
-                </div>
+
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No hay productos disponibles.</p>
+                )}
                 <div className="mt-10 bg-white shadow-2xl overflow-hidden w-full">
                   <div className="md:flex">
                     <div className="md:shrink-0">

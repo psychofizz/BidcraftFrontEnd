@@ -6,7 +6,7 @@ import Header from '../Components/header';
 
 function HomePage() {
   const [productos, setProductos] = useState([]);
-
+//Peticion para obtener productos------------------------------------------------------------------
   const obtenerProducto = async () => {
     try {
       const response = await fetch(
@@ -47,21 +47,7 @@ function HomePage() {
     obtenerProducto();
   }, []);
 
-
-
-  const [values, setValues] = useState({
-    names: "",
-    last_names: "",
-    id_number: "",
-    date_of_birth: "",
-    email: "",
-    password: "",
-    passwordconfirm: "",
-  });
-  //Esta funcion no pormite capturar los valores de los inputo con la clave name cada vez que se modifiquen agregandolos a la variable values
-  const handleChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-  };
+  
   /* Nos ayuda a mostrar el perfil */
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleDiv2, setIsVisibleDiv2] = useState(false);
@@ -85,7 +71,7 @@ function HomePage() {
         {productos.length > 0 ? (
           <ul>
             {productos.map(producto => (
-              <ComponentstCard nombreProducto={producto.name} descripcion={producto.description} precio={producto.buy_it_now_price} />
+              <ComponentstCard nombreProducto={producto.name} descripcion={producto.description} precio={producto.buy_it_now_price} nameProduct={producto.name} />
 
             ))}
           </ul>

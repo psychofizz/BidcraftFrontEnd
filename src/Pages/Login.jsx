@@ -9,7 +9,7 @@ import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
 
 function Login() {
   const users3 = {
-    nombre: "josue2"
+    full_name: "josue2"
 
   }
 
@@ -55,7 +55,7 @@ function Login() {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(values),
+            body: JSON.stringify(users),
           }
         );
 

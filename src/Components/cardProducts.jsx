@@ -1,12 +1,56 @@
 import React, { useState } from 'react';
-
-function CardProducts({ nombreProducto, descripcion, precio }) {
+import { toast } from 'react-toastify'
+function CardProducts({ nombreProducto, descripcion, precio,nameProduct }) {
     const [favorito, setFavorito] = useState(false);
 
     const toggleFavorito = () => {
         setFavorito(!favorito); // Cambia el estado de favorito al contrario del estado actual
     };
 
+
+    //Peticion para agregar a favoritos------------------------------------------------------------------
+const agregarFavorito = async (nameProducto) => {
+    const favoriteData={
+   
+     user: 1,
+     product:nameProducto ,
+     date_added: "2024-07-02T12:00:00Z"
+   
+   
+   
+    }
+     try {
+       const response = await fetch(
+         "http://127.0.0.1:8000/api/favorites/",
+         {
+           method: "POST",
+           headers: {
+             "Content-Type": "application/json",
+           },
+           body: JSON.stringify(favoriteData),
+         }
+       );
+   
+       if (!response.ok) {
+         switch (response.status) {
+           case 400:
+             toast.warning("Producto no existe")
+   
+             break;
+           default:
+             toast("Error desconocido")
+             break;
+         }
+       } else {
+          // Guardar los productos en el estado
+          toast.done("Producto agregado a favoritos exitosamente")
+         // console.log("Nombre del producto:", nombre);
+         // console.log("Precio del producto:", precio);
+       }
+     } catch (error) {
+     }
+   }
+   
     return (
         <section className="w-full" id="historialSubastas">
             <div className="mt-10 bg-white shadow-2xl overflow-hidden w-full relative">
@@ -17,7 +61,10 @@ function CardProducts({ nombreProducto, descripcion, precio }) {
                         className={`text-gray-600 hover:text-red-500 focus:outline-none ${
                             favorito ? 'text-red-500' : ''
                         }`}
-                        onClick={toggleFavorito}
+                        onClick={() => {
+                            toggleFavorito();
+                            agregarFavorito(nameProduct);
+                          }}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
