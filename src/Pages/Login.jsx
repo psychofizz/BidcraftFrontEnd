@@ -8,15 +8,15 @@ import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
 
 
 function Login() {
-  const users3 = {
-    full_name: "josue2"
+  // const users3 = {
+  //   full_name: "josue2"
 
-  }
+  // }
 
-  localStorage.setItem(
-    process.env.REACT_APP_LOCALHOST_KEY,
-    JSON.stringify(users3)
-  );
+  // localStorage.setItem(
+  //   process.env.REACT_APP_LOCALHOST_KEY,
+  //   JSON.stringify(users3)
+  // );
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
