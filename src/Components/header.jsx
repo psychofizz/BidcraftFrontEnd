@@ -101,7 +101,7 @@ function Header() {
                                         <div className="space-y-2 flex flex-col flex-1 truncate text-white">
                                             <div className="relative leading-tight ">
                                                 <span className="flex">
-                                                    <span className="truncate relative pr-8 ">Josue Nolasco</span>
+                                                    <span className="truncate relative pr-8 ">{usuario.nombre}</span>
                                                 </span>
                                             </div>
                                             <p className="text-xs">5 seguidores</p>
