@@ -3,7 +3,7 @@ import mainLogo from '../img/bidLogo.png'
 
 const Footer = () => {
   return (
-    <footer className="bg-ffc327 text-white py-8">
+    <footer className="bg-ffc327 text-white py-8 mt-[20%]">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-start md:items-center">
         <div className="flex flex-col md:flex-row md:space-x-8 w-full">
           <div className="flex-1 mb-4 md:mb-0">
