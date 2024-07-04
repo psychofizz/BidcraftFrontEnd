@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import mainLogo from '../img/bidLogo.png';
 import ComponentsInput from '../Components/input'
 import { toast } from 'react-toastify';
+import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
 
 function Form() {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     names: "",
     last_names: "",
@@ -84,7 +86,8 @@ function Form() {
               break;
           }
         } else {
-          toast.done("Usuario registrado correctamente,por favor verifica el email");
+          toast.done("Codigo verificado")
+          navigate("/Autc")
           
         }
       } catch (error) {

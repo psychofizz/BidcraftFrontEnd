@@ -81,15 +81,20 @@ function Auction() {
       setFinalPrice("");
       setQuantity("");
     };
-    
+
  
     const auctionProduct = {
+      seller: 1,
       name: title,
       description: description,
       starting_price: initialPrice,
       buy_it_now_price: finalPrice,
       quantity: quantity,
+      category: "tecno",
       date_listed: startDate,
+      is_active: true,
+    is_auction: false
+   
     };
 
     try {
