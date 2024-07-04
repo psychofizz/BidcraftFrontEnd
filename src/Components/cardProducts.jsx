@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify'
-function CardProducts({ nombreProducto, descripcion, precio,nameProduct }) {
+function CardProducts({ nombreProducto, descripcion, precio,nameProduct, id_product }) {
     const [favorito, setFavorito] = useState(false);
 
     const toggleFavorito = () => {
         setFavorito(!favorito); // Cambia el estado de favorito al contrario del estado actual
     };
+const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY); // "miClaveDeUsuario"
+const usuario = JSON.parse(storedData)
 
 
     //Peticion para agregar a favoritos------------------------------------------------------------------
-const agregarFavorito = async (nameProducto) => {
+const agregarFavorito = async (id_product) => {
     const favoriteData={
    
-     user: 1,
-     product:nameProducto ,
+     user: usuario.user_id,
+     product:id_product ,
      date_added: "2024-07-02T12:00:00Z"
    
    
@@ -63,7 +65,7 @@ const agregarFavorito = async (nameProducto) => {
                         }`}
                         onClick={() => {
                             toggleFavorito();
-                            agregarFavorito(nameProduct);
+                            agregarFavorito(id_product);
                           }}
                     >
                         <svg
