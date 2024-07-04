@@ -2,6 +2,9 @@ import React from "react";
 import { useState } from "react";
 import Header from "../Components/header";
 import Footer from "../Components/footer";
+import { toast } from 'react-toastify';
+const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY); // "miClaveDeUsuario"
+const usuario = JSON.parse(storedData)
 
 function Auction() {
   const [title, setTitle] = useState("");
@@ -86,6 +89,7 @@ function Auction() {
     const auctionProduct = {
       name: title,
       description: description,
+      seller: usuario.user_id,
       starting_price: initialPrice,
       buy_it_now_price: finalPrice,
       quantity: quantity,
@@ -93,7 +97,7 @@ function Auction() {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/auction/", {
+      const response = await fetch("http://localhost:8000/api/products/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,6 +122,7 @@ function Auction() {
         const createdAuction = await response.json();
         console.log("La subasta creado exitosamente:", createdAuction);
         clearForm();
+        toast.done("Producto agregado exitosamente")
       }
     } catch (error) {
 
@@ -155,24 +160,7 @@ function Auction() {
             value={title}
             onChange={handleTitleChange}
           />
-          <div className="flex items-center mt-2">
-            <label htmlFor="gallery-input" className="ml-2">
-              <button
-                type="button"
-                className="bg-ffc327 hover:bg-comp1 text-white font-bold py-1 px-2 rounded-lg"
-                onClick={() => document.getElementById("gallery-input").click()}
-              >
-                Agregar fotos
-              </button>
-            </label>
-            <input
-              type="file"
-              id="gallery-input"
-              className="hidden"
-              onChange={handleGalleryChange}
-              multiple
-            />
-          </div>
+          
           <div className="grid grid-cols-2 gap-4 mt-2 md:grid-cols-4 lg:grid-cols-5">
             {gallery.map((file, index) => (
               <div

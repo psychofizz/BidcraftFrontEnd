@@ -71,7 +71,7 @@ function HomePage() {
         {productos.length > 0 ? (
           <ul>
             {productos.map(producto => (
-              <ComponentstCard nombreProducto={producto.name} descripcion={producto.description} precio={producto.buy_it_now_price} nameProduct={producto.name} />
+              <ComponentstCard nombreProducto={producto.name} descripcion={producto.description} precio={producto.buy_it_now_price} nameProduct={producto.name} id_product={producto.product_id}/>
 
             ))}
           </ul>
@@ -79,11 +79,6 @@ function HomePage() {
           <p>No hay productos disponibles.</p>
         )}
 
-        <ComponentstCard nombreProducto={"Nike"} descripcion={"- Sneakers - Size: Shoes / EU 46"} precio={"Precio de venta: L. 12,000"} />
-        <ComponentstCard nombreProducto={"Nike"} descripcion={"- Sneakers - Size: Shoes / EU 46"} precio={"Precio de venta: L. 12,000"} />
-
-
-        <ComponentstCard nombreProducto={"Nike"} descripcion={"- Sneakers - Size: Shoes / EU 46"} precio={"Precio de venta: L. 12,000"} />
         <Footer />
       </div>
 
