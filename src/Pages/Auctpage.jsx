@@ -8,7 +8,7 @@ import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
 function AucPage() {
     const navigate = useNavigate();
     const [values, setValues] = useState({
-        code: "",
+        otp: "",
        
       });
 
@@ -16,7 +16,7 @@ function AucPage() {
         setValues({ ...values, [event.target.name]: event.target.value });
       };
       const handleSubmit = async (event) => {
-console.log(values.code)
+console.log(values.otp)
         event.preventDefault();
 
 
@@ -28,7 +28,7 @@ console.log(values.code)
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify(values.code),
+                body: JSON.stringify(values),
               }
             );
         
@@ -73,7 +73,7 @@ console.log(values.code)
                  
 
                       <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingresa el codigo de verificacion</label>
-                      <input type="password" name="code" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={(e) => handleChange(e)} />
+                      <input type="password" name="otp" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={(e) => handleChange(e)} />
                   </div>
                   <div class="flex items-center justify-between">
                       <div class="flex items-start">

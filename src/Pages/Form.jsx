@@ -55,17 +55,19 @@ function Form() {
     if (handleValidation()) {
 
       const usuario = {
-        names: values.names,
-        last_names: values.last_names,
-        id_number: values.id_number,
+        first_name: values.names,
+        last_name: values.last_names,
+        username: "user_new1",
+        user_id: values.id_number,
         date_of_birth: values.date_of_birth,
         email: values.email,
-        password: values.password
+        password: values.password,
+        password_confirm:  values.password
       }
 
       try {
         const response = await fetch(
-          "http://localhost:8000/user/",
+          "http://localhost:8000/api/auth/register/",
           {
             method: "POST",
             headers: {
