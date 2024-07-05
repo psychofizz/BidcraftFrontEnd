@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import mainLogo from '../img/bidLogo.png'
 import ComponentsInput from '../Components/input'
 import { toast } from 'react-toastify';
-import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -103,10 +103,10 @@ function Login() {
         <div className="p-10">
           <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 " onSubmit={(event) => handleSubmit(event)}>
             <div className="mb-4 flex flex-col gap-6">
-              <ComponentsInput inputType="email" text="Correo" handleChange={handleChange} values={values} name="email" className={'p-4'} />
+              <ComponentsInput inputType="email" text="Correo" handleChange={handleChange} values={values} name="email" className={'p-4 '} />
               <ComponentsInput inputType="Password" text="Contraseña" handleChange={handleChange} values={values} name="password" className={'p-4'} />
             </div>
-            <div className="inline-flex items-center">
+            <div className="inline-flex items-center ">
               <label
                 className="relative -ml-2.5 flex cursor-pointer items-center rounded-full p-3"
                 htmlFor="checkbox"

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import mainLogo from '../img/bidLogo.png';
 import ComponentsInput from '../Components/input'
 import { toast } from 'react-toastify';
-import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 function Form() {
   const navigate = useNavigate();

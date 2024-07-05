@@ -1,5 +1,5 @@
 import React from 'react';
-import aboutimg from '../img/au-1.jpg'
+
 
 const AboutUs = () => (
   <section className="relative py-20 bg-black text-white">

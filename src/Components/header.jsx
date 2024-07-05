@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import CampanaImg from '../img/campana.png'
 import EstrellaImg from '../img/estrella.png'
 import BigLogo from '../img/bidLogo.png'
-import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function Header() {

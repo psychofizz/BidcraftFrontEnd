@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import h1 from '../img/h-1.jpg'
 
 const Hero = () => (
   <section className="bg-primary text-black text-center py-0">
