@@ -11,6 +11,8 @@ module.exports = {
     extend: {
       colors: {
         'ffc327': '#232f3e',
+        'bidcraft-main': '#05A3DB',
+        'bidcraft-modal-bg': '#1f1e26',
       },
       backgroundImage: {
         'parallax1': 'url("img/h-1.jpg")',
