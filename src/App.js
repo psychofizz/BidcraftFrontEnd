@@ -3,29 +3,26 @@ import './App.css';
 import Login from './Pages/Login';
 import Form from './Pages/Form';
 import LandingPage from './Pages/LandingPage';
+import HomePage from './Pages/HomePage'
 
 import Autc from './Pages/Auctpage';
-import Api from './Pages/apimg'
-import {BrowserRouter,Routes,Route} from "react-router-dom";
-
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 function App() {
   return (
-   
-      <BrowserRouter>
-        <Routes>
-        <Route path="/Autc" element={<Autc/>}></Route>
-        <Route path="/Api" element={<Api/>}></Route>
-          <Route path="/Login" element={<Login/>}></Route>
-          <Route path="/Form" element={<Form/>}></Route>
-          <Route path="/" element={<LandingPage/>}></Route>
-        
-        </Routes>
-        </BrowserRouter>
-        
- 
+
+    <BrowserRouter>
+      <Routes>
+        <Route path="/Autc" element={<Autc />}></Route>
+        <Route path="/Login" element={<Login />}></Route>
+        <Route path="/Form" element={<Form />}></Route>
+        <Route path="/" element={<LandingPage />}></Route>
+        <Route path="/Home" element={<HomePage />}></Route>
+      </Routes>
+    </BrowserRouter>
+
+
   );
 }
 
