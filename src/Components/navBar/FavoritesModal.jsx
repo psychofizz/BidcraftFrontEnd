@@ -9,7 +9,7 @@ const FavoritesModal = ({ handleClose, show }) => {
         <span className="close" onClick={handleClose}>
           &times;
         </span>
-        <p>Favorite items content goes here.</p>
+
         <button onClick={handleClose}>Close</button>
       </div>
     </div>

@@ -3,8 +3,10 @@ import SearchBar from "./SearchBar";
 import FavoritesModal from "./FavoritesModal";
 import NotificationsModal from "./NotificationsModal";
 import UserModal from "./UserModal";
+import AuctionModal from "./AuctionModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBell } from "@fortawesome/free-solid-svg-icons";
+import bidLogo from "../bidLogo.png";
 
 class MainNavbar extends Component {
   constructor(props) {
@@ -13,12 +15,19 @@ class MainNavbar extends Component {
       showFavoritesModal: false,
       showNotificationsModal: false,
       showUserModal: false,
+      showAuctionModal: false,
     };
   }
 
   toggleFavoritesModal = () => {
     this.setState((prevState) => ({
       showFavoritesModal: !prevState.showFavoritesModal,
+    }));
+  };
+
+  toggleAuctionModal = () => {
+    this.setState((prevState) => ({
+      showAuctionModal: !prevState.showAuctionModal,
     }));
   };
 
@@ -46,37 +55,50 @@ class MainNavbar extends Component {
     this.setState({ showUserModal: false });
   };
 
+  handleCloseAuctionModal = () => {
+    this.setState({ showAuctionModal: false });
+  };
+
   render() {
-    const { showFavoritesModal, showNotificationsModal, showUserModal } =
-      this.state;
+    const {
+      showFavoritesModal,
+      showNotificationsModal,
+      showUserModal,
+      showAuctionModal,
+    } = this.state;
 
     return (
-      <div className="bg-bidcraft-main text-white">
+      <div className="bg-bidcraft-dark text-white">
         <div className="container mx-auto flex items-center justify-between py-4 space-x-2">
-          <div className="flex-1 items-center">
+          <div className="flex-1 flex items-center space-x-2">
+            <img src={bidLogo} className="h-10" alt="Bid Logo" />
             <SearchBar />
           </div>
-          <div className="bg-white underline p-2">Subastar</div>
+
+          <div
+            className="bg-blue-500 text-white rounded-full py-2 px-4 cursor-pointer hover:bg-blue-600"
+            onClick={this.toggleAuctionModal}
+          >
+            Subastar
+          </div>
 
           <div className="flex items-center space-x-4">
             <button
-              className="h-8 w-8 flex items-center justify-center rounded-full bg-blue-500 text-white"
+              className="h-10 w-10 flex items-center justify-center rounded-full bg-blue-500 text-white focus:outline-none hover:bg-blue-600"
               onClick={this.toggleFavoritesModal}
             >
               <FontAwesomeIcon icon={faHeart} />
             </button>
 
             <button
-              className="nav-icon relative"
+              className="h-10 w-10 flex items-center justify-center rounded-full bg-blue-500 text-white focus:outline-none hover:bg-blue-600"
               onClick={this.toggleNotificationsModal}
             >
-              <div className="h-8 w-8 flex items-center justify-center rounded-full bg-blue-500 text-white">
-                <FontAwesomeIcon icon={faBell} />
-              </div>
+              <FontAwesomeIcon icon={faBell} />
             </button>
 
             <button
-              className="nav-icon underline"
+              className="h-10 w-40 flex items-center justify-center rounded-full bg-blue-500 text-white focus:outline-none hover:bg-blue-600"
               onClick={this.toggleUserModal}
             >
               Hola Usuario
@@ -100,6 +122,12 @@ class MainNavbar extends Component {
           <UserModal
             handleClose={this.handleCloseUserModal}
             show={showUserModal}
+          />
+        )}
+        {showAuctionModal && (
+          <AuctionModal
+            handleClose={this.handleCloseAuctionModal}
+            show={showAuctionModal}
           />
         )}
       </div>
