@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import mainLogo from '../img/bidLogo.png';
 import ComponentsInput from '../Components/input'
 import { toast } from 'react-toastify';
@@ -21,7 +21,7 @@ function Form() {
   };
   //Aca simplemente hacemos validaciones  sobre los input con lo datos controlados
   const handleValidation = () => {
-    const { names, last_names, id_number, date_of_birth, email, password, passwordconfirm } = values;
+    const {  id_number,  password, passwordconfirm } = values;
     console.log(values);
 
     if (password.length < 7) {
@@ -146,20 +146,7 @@ function Form() {
                 </label>
               </div>
 
-              <p className="normal-case mx-auto text-gray-400 md:text-left">Verificar con</p>
-              <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-                <div className="flex items-center space-x-4">
-                  <label className="flex items-center space-x-2 cursor-pointer">
-                    <input type="radio" name="verificar" className="form-radio h-5 w-5 checked:bg-ffc327" />
-                    <span className="text-gray-400">Mensaje de Texto</span>
-                  </label>
-                  <label className="flex items-center space-x-2 cursor-pointer">
-                    <input type="radio" name="verificar" className="form-radio h-5 w-5 checked:bg-ffc327;" />
-                    <span className="text-gray-400">Llamada</span>
-                  </label>
-                </div>
-              </div>
-
+            
 
 
 
@@ -188,9 +175,9 @@ function Form() {
           </div>
           <div className="text-sm text-gray-700 py-5 px-10">
             <p>
-              <a href="">Ayuda    </a>
-              <a href="">Privacidad    </a>
-              <a href="">Terminos    </a>
+              <h1 >Ayuda    </h1>
+              <h1 >Privacidad    </h1>
+              <h1 >Terminos    </h1>
             </p>
 
           </div>

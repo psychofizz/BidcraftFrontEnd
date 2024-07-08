@@ -5,6 +5,7 @@ import Form from './Pages/Form';
 import LandingPage from './Pages/LandingPage';
 
 import Autc from './Pages/Auctpage';
+import Api from './Pages/apimg'
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 
 
@@ -16,7 +17,7 @@ function App() {
       <BrowserRouter>
         <Routes>
         <Route path="/Autc" element={<Autc/>}></Route>
-  
+        <Route path="/Api" element={<Api/>}></Route>
           <Route path="/Login" element={<Login/>}></Route>
           <Route path="/Form" element={<Form/>}></Route>
           <Route path="/" element={<LandingPage/>}></Route>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import mainLogo from '../img/bidLogo.png'
 import ComponentsInput from '../Components/input'
 import { toast } from 'react-toastify';
@@ -62,7 +62,7 @@ function Login() {
         if (!response.ok) {
           switch (response.status) {
             case 400:
-              const resultado = await response.json();
+             
               toast.warning("Datos invalidos o datos no existentes");
               break;
             default:
@@ -149,9 +149,9 @@ function Login() {
         </div>
         <div className="text-sm text-gray-700 py-5 px-10">
           <p>
-            <a href="">Ayuda    </a>
-            <a href="">Privacidad    </a>
-            <a href="">Terminos    </a>
+            <p >Ayuda    </p>
+            <p >Privacidad    </p>
+            <p >Terminos    </p>
           </p>
 
         </div>
