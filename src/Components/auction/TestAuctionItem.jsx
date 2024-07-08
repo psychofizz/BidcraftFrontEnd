@@ -1,5 +1,5 @@
 import React from "react";
-import AuctionItem from "./AuctionItem";
+import AuctionItem from "./auctionItem";
 
 const TestAuctionItem = () => {
   const title = "Sample Item";
