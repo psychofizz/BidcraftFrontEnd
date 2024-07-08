@@ -1,16 +1,26 @@
 import React from "react";
+import UserContent from "./UserContent";
 
 const UserModal = ({ handleClose, show }) => {
-  const showHideClassName = show ? "modal display-block" : "modal display-none";
+  const showHideClassName = show ? "block" : "hidden";
 
   return (
-    <div className={showHideClassName}>
-      <div className="modal-content">
-        <span className="close" onClick={handleClose}>
-          &times;
-        </span>
-        <p>User profile content goes here.</p>
-        <button onClick={handleClose}>Close</button>
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75 ${showHideClassName}`}
+    >
+      <div className="bg-bidcraft-modal-bg rounded-lg shadow-lg overflow-hidden">
+        <div className="flex">
+          <div className="flex-1">
+            <UserContent
+              img_src="https://picsum.photos/200"
+              username="Paredes"
+            />
+          </div>
+
+          <button onClick={handleClose} className="bg-bidcraft-main">
+            <span className="text-2xl pr-4">&times;</span>
+          </button>
+        </div>
       </div>
     </div>
   );
