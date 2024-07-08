@@ -101,7 +101,7 @@ class MainNavbar extends Component {
               className="h-10 w-40 flex items-center justify-center rounded-full bg-blue-500 text-white focus:outline-none hover:bg-blue-600"
               onClick={this.toggleUserModal}
             >
-              Hola Usuario
+              Hola {this.props.userName}
             </button>
           </div>
         </div>
