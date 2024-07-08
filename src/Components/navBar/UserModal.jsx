@@ -1,5 +1,6 @@
 import React from "react";
 import UserContent from "./UserContent";
+import UserOptions from "./UserOptions";
 
 const UserModal = ({ handleClose, show }) => {
   const showHideClassName = show ? "block" : "hidden";
@@ -8,7 +9,7 @@ const UserModal = ({ handleClose, show }) => {
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75 ${showHideClassName}`}
     >
-      <div className="bg-bidcraft-modal-bg rounded-lg shadow-lg overflow-hidden">
+      <div className="bg-bidcraft-modal-bg shadow-lg overflow-hidden flex flex-col rounded-lg space-y-1 ">
         <div className="flex">
           <div className="flex-1">
             <UserContent
@@ -21,6 +22,7 @@ const UserModal = ({ handleClose, show }) => {
             <span className="text-2xl pr-4">&times;</span>
           </button>
         </div>
+        <UserOptions></UserOptions>
       </div>
     </div>
   );

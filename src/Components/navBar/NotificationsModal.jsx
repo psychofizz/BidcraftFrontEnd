@@ -10,7 +10,7 @@ const NotificationsModal = ({ handleClose, show }) => {
 
   return (
     <div className={showHideClassName}>
-      <div className="modal-content bg-bidcraft-modal-bg w-120 p-4 rounded-lg transition-transform duration-300">
+      <div className="modal-content bg-bidcraft-modal-bg w-120 p-4 rounded-lg transition-transform duration-300 z-[5]">
         <span
           className="close absolute top-2 right-2 text-gray-500 cursor-pointer"
           onClick={handleClose}
