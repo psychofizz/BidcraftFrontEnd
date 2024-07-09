@@ -38,9 +38,26 @@ const Homepage = () => {
     } catch (error) {}
   };
   return (
-    <div>
+    <div className="">
       <MainNavbar userName={userInfo ? userInfo.first_name : null} />
       <div className="flex flex-col space-y-1 w-3/4"></div>
+
+      <div id="main" className=" w-full">
+        <section class="text-gray-600 body-font">
+          <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap -m-4">
+              <TestAuctionItem></TestAuctionItem>
+              <TestAuctionItem></TestAuctionItem>
+              <TestAuctionItem></TestAuctionItem>
+              <TestAuctionItem></TestAuctionItem>
+              <TestAuctionItem></TestAuctionItem>
+              <TestAuctionItem></TestAuctionItem>
+              <TestAuctionItem></TestAuctionItem>
+              <TestAuctionItem></TestAuctionItem>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };
