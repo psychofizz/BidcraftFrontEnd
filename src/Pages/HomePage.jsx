@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import { useNavigate } from "react-router-dom";
 
@@ -45,16 +45,7 @@ const Homepage = () => {
       <div id="main" className=" w-full">
         <section class="text-gray-600 body-font">
           <div class="container px-5 py-24 mx-auto">
-            <div class="flex flex-wrap -m-4">
-              <TestAuctionItem></TestAuctionItem>
-              <TestAuctionItem></TestAuctionItem>
-              <TestAuctionItem></TestAuctionItem>
-              <TestAuctionItem></TestAuctionItem>
-              <TestAuctionItem></TestAuctionItem>
-              <TestAuctionItem></TestAuctionItem>
-              <TestAuctionItem></TestAuctionItem>
-              <TestAuctionItem></TestAuctionItem>
-            </div>
+            <div class="flex flex-wrap -m-4"></div>
           </div>
         </section>
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import AuctionForm from "../auction/CreateAuction";
+import AuctionForm from "../auction/AuctionForm";
 import LoadImages from "./LoadImages";
 
 const AuctionModal = ({ handleClose, show }) => {

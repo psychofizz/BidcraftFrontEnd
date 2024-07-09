@@ -11,14 +11,14 @@ const AuctionForm = () => {
         </label>
         <input
           type="text"
-          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration bg-bidcraft-grey-2"
+          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-200 bg-bidcraft-grey-2"
         />
       </div>
       <div>
         <label className="block text-sm font-medium text-white mb-1">
           Descripción de la Subasta
         </label>
-        <textarea className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration bg-bidcraft-grey-2" />
+        <textarea className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-200 bg-bidcraft-grey-2" />
       </div>
       <div>
         <label className="block text-sm font-medium text-white mb-1">
@@ -26,7 +26,7 @@ const AuctionForm = () => {
         </label>
         <input
           type="number"
-          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration bg-bidcraft-grey-2"
+          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-200 bg-bidcraft-grey-2"
         />
       </div>
       <div className="grid grid-cols-2 gap-4">
@@ -36,7 +36,7 @@ const AuctionForm = () => {
           </label>
           <input
             type="date"
-            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration bg-bidcraft-grey-2"
+            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-200 bg-bidcraft-grey-2"
           />
         </div>
         <div>
@@ -45,7 +45,7 @@ const AuctionForm = () => {
           </label>
           <input
             type="date"
-            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration bg-bidcraft-grey-2"
+            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-200 bg-bidcraft-grey-2"
           />
         </div>
       </div>
@@ -55,13 +55,13 @@ const AuctionForm = () => {
         </label>
         <input
           type="text"
-          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration bg-bidcraft-grey-2"
+          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-200 bg-bidcraft-grey-2"
         />
       </div>
       <div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration bg-bidcraft-grey-2"
+          className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-200"
         >
           Crear
         </button>

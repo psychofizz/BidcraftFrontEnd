@@ -10,6 +10,7 @@ import Profile from './Pages/Profile';
 import Autc from './Pages/Auctpage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Tab, initTWE } from "tw-elements";
+import CreateAuction from './Pages/CreateAuction';
 initTWE({ Tab });
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/Form" element={<Form />}></Route>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/Home" element={<HomeTest />}></Route>
+        <Route path="/create-auction" element={<CreateAuction />}></Route>
       </Routes>
     </BrowserRouter>
 
