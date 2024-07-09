@@ -69,36 +69,42 @@ class MainNavbar extends Component {
 
     return (
       <div className="bg-bidcraft-dark text-white pl-2 pr-2">
-        <div className="w-full px-2 md:px-0 flex flex-col md:flex-row items-center justify-between pt-4 pb-4 space-y-2 md:space-y-0 md:space-x-2 ">
+        <div className="w-full px-2 md:px-0 flex flex-col md:flex-row items-center justify-between pt-4 pb-4 space-y-2 md:space-y-0 md:space-x-2">
           <div className="flex-1 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-2">
-            <img src={bidLogo} className="h-10" alt="Bid Logo" />
-            <SearchBar />
+            <a href="/home" tabIndex="0">
+              <img src={bidLogo} className="h-10" alt="Bid Logo" />
+            </a>
+            <SearchBar tabIndex="1" />
           </div>
 
           <div className="flex items-center space-x-4 mt-2 md:mt-0">
             <div
-              className="bg-bidcraft-main-2 text-white rounded-full py-2 px-4 cursor-pointer hover:bg-bidcraft-main-3"
+              className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-full py-2 px-4 cursor-pointer hover:bg-bidcraft-main-3"
               onClick={this.toggleAuctionModal}
+              tabIndex="2"
             >
               Subastar
             </div>
             <button
               className="h-10 w-10 flex flex-shrink-0 items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3"
               onClick={this.toggleFavoritesModal}
+              tabIndex="3"
             >
               <FontAwesomeIcon icon={faHeart} />
             </button>
 
             <button
-              className="h-10 w-10 flex items-center  flex flex-shrink-0 justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3"
+              className="h-10 w-10 flex items-center flex-shrink-0 justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3"
               onClick={this.toggleNotificationsModal}
+              tabIndex="4"
             >
               <FontAwesomeIcon icon={faBell} />
             </button>
           </div>
           <button
-            className="h-10 md:w-40 pl-2 pr-2 flex  items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3"
+            className="h-10 md:w-40 pl-2 pr-2 flex items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3"
             onClick={this.toggleUserModal}
+            tabIndex="5"
           >
             Hola Usuario
           </button>

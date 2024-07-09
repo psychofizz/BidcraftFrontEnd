@@ -7,7 +7,7 @@ const UserModal = ({ handleClose, show }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75 ${showHideClassName}`}
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75 z-20 ${showHideClassName}`}
     >
       <div className="bg-bidcraft-modal-bg shadow-lg overflow-hidden flex flex-col rounded-lg space-y-1 ">
         <div className="flex">
