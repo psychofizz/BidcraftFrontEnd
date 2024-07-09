@@ -100,14 +100,14 @@ class MainNavbar extends Component {
             >
               <FontAwesomeIcon icon={faBell} />
             </button>
+
+            <button
+              className="h-10 w-40 flex items-center justify-center rounded-full bg-blue-500 text-white focus:outline-none hover:bg-blue-600"
+              onClick={this.toggleUserModal}
+            >
+              Hola Usuario
+            </button>
           </div>
-          <button
-            className="h-10 md:w-40 pl-2 pr-2 flex items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3"
-            onClick={this.toggleUserModal}
-            tabIndex="5"
-          >
-            Hola Usuario
-          </button>
         </div>
 
         {showFavoritesModal && (
