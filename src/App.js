@@ -4,6 +4,7 @@ import Login from './Pages/Login';
 import Form from './Pages/Form';
 import LandingPage from './Pages/LandingPage';
 import HomePage from './Pages/HomePage'
+import HomeTest from './Pages/HomeTest';
 
 import Autc from './Pages/Auctpage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -19,7 +20,7 @@ function App() {
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/Form" element={<Form />}></Route>
         <Route path="/" element={<LandingPage />}></Route>
-        <Route path="/Home" element={<HomePage />}></Route>
+        <Route path="/Home" element={<HomeTest />}></Route>
       </Routes>
     </BrowserRouter>
 
