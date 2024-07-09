@@ -5,7 +5,7 @@ import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 const NotificationsModal = ({ handleClose, show }) => {
   const showHideClassName = show
-    ? "modal fixed inset-0 flex items-center justify-center overflow-auto bg-gray-800 bg-opacity-75"
+    ? "modal fixed inset-0 flex items-center justify-center overflow-auto bg-gray-800 bg-opacity-75 z-20"
     : "modal hidden";
 
   return (

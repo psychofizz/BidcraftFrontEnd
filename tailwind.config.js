@@ -12,6 +12,8 @@ module.exports = {
       colors: {
         'ffc327': '#232f3e',
         'bidcraft-main': '#05A3DB',
+        'bidcraft-main-2': '#0093CB',
+        'bidcraft-main-3': '#007BA5',
         'bidcraft-modal-bg': '#2a2b3d',
         'bidcraft-grey': '#3b3c4d',
         'bidcraft-grey-2': '#5a5b6c',

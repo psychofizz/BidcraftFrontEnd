@@ -1,6 +1,6 @@
 // src/components/ProductForm.js
 
-import React, { useState } from "react";
+import React from "react";
 
 const AuctionForm = () => {
   return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import TestAuctionItem from "../Components/auction/TestAuctionItem";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
   //Validando que  este el token en el local storage
@@ -9,19 +9,19 @@ const Homepage = () => {
   const jwt = JSON.parse(localStorage.getItem('token'))
 
   const navigate = useNavigate();
-  useEffect(() => {
+  //useEffect(() => {
 
 
     //Estableciendo las rutas protegidas 
-    if (jwt === null) {
-      navigate('/login')
-    } else {
-      obtenInfo(jwt);
+  //   if (jwt === null) {
+  //     navigate('/login')
+  //   } else {
+  //     obtenInfo(jwt);
 
 
-    }
+  //   }
 
-  }, [jwt])
+  // }, [jwt])
 
   //Obteniendo informacion del token
   const obtenInfo = async (token) => {

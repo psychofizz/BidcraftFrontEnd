@@ -1,14 +1,20 @@
 import React from "react";
+import UserOptionsItem from "./UserOptionsItem";
 
 const UserOptions = () => {
   return (
     <div>
-      <div className="flex">
-        <span>
-          <div className="w-20 h-20 rounded-full mr-4">
-            <img src="https://picsum.photos/200" alt="" srcset="" />
-          </div>
-        </span>
+      <div className="flex flex-col bg-bidcraft-grey  p-2 space-y-2">
+        <UserOptionsItem
+          src="https://picsum.photos/200"
+          text="Configuración"
+          url="/help"
+        />
+        <UserOptionsItem
+          src="https://picsum.photos/200"
+          text="Ayuda y Soporte"
+          url="/Perfil"
+        />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ const AuctionModal = ({ handleClose, show }) => {
 
   return (
     <div
-      className={`${showHideClassName} fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50`}
+      className={`${showHideClassName} fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-20`}
     >
       <div className="modal-content bg-bidcraft-modal-bg rounded-lg shadow-lg p-8 relative">
         <div className="bg-bidcraft-main flex items-center rounded-lg p-5 shadow-lg mb-2">
