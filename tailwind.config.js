@@ -33,7 +33,7 @@ module.exports = {
     },
   },
 
-  plugins: [require("tw-elements/plugin.cjs")],
+  plugins: [require("./node_modules/tw-elements/plugin.cjs")],
   darkMode: "class"
 
 }

@@ -4,10 +4,11 @@ import Login from './Pages/Login';
 import Form from './Pages/Form';
 import LandingPage from './Pages/LandingPage';
 import HomePage from './Pages/HomePage'
-
+import Profile from './Pages/Profile';
 import Autc from './Pages/Auctpage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import {Tab,initTWE} from "tw-elements";
+initTWE({ Tab });
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 
     <BrowserRouter>
       <Routes>
+      <Route path="/Profile" element={<Profile />}></Route>
         <Route path="/Autc" element={<Autc />}></Route>
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/Form" element={<Form />}></Route>
