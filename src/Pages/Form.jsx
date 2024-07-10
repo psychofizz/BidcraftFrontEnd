@@ -14,6 +14,7 @@ function Form() {
     email: "",
     password: "",
     passwordconfirm: "",
+    userName:"",
   });
   //Esta funcion no pormite capturar los valores de los inputo con la clave name cada vez que se modifiquen agregandolos a la variable values
   const handleChange = (event) => {
@@ -53,14 +54,17 @@ function Form() {
 
     if (handleValidation()) {
       const usuario = {
-        first_name: values.names,
-        last_name: values.last_names,
-        username: "user_new1",
-        user_id: values.id_number,
-        date_of_birth: values.date_of_birth,
+        id: values.id_number,
         email: values.email,
+        username:values.userName ,
+        first_name: values.names,
+        second_name: values.names,
+        last_name: values.last_names,
+        last_name2: values.last_names,
+        phone_number: 1234567890,
         password: values.password,
         password_confirm: values.password,
+        address_id: 1
       };
 
       try {
@@ -76,15 +80,12 @@ function Form() {
         );
 
         if (!response.ok) {
-          switch (response.status) {
-            case 400:
-              const resultado = await response.json();
-              toast(resultado);
-              break;
-            default:
-              toast("Error desconocido");
-              break;
-          }
+          const resultado = await response.json();
+          console.log(resultado.email[0])
+          //toast.warning(resultado.id[0])
+          toast.warning(resultado.email[0])
+             
+          
         } else {
           toast.done("Codigo verificado");
           navigate("/Autc");
@@ -156,6 +157,14 @@ function Form() {
                   inputType={"email"}
                   text={"Correo"}
                   name="email"
+                  className={"p-4"}
+                />
+                  <ComponentsInput
+                  handleChange={handleChange}
+                  values={values}
+                  inputType={"Text"}
+                  text={"Nombre de usuario"}
+                  name="userName"
                   className={"p-4"}
                 />
                 <ComponentsInput

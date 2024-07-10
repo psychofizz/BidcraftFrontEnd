@@ -64,7 +64,10 @@ function Login() {
           const resultado =await response.json()
           localStorage.setItem('token', JSON.stringify(resultado.access_token))
           localStorage.setItem('refresh_token', JSON.stringify(resultado.refresh_token))
+          toast.done("Login exitoso");
           navigate("/home");
+         
+          
         }
       } catch (error) {
       }

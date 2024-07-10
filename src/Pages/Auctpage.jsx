@@ -33,16 +33,10 @@ console.log(values.otp)
             );
         
             if (!response.ok) {
-              switch (response.status) {
-                case 200:
-                  toast.done("Codigo verificado")
-                  navigate("/login")
-        
-                  break;
-                default:
-                    toast.done("Codigo incorrecto")
-                  break;
-              }
+              
+              const resultado = await response.json();
+          console.log(resultado.message)
+          toast.warning(resultado.message)
             } else {
                 toast.done("Codigo verificado")
                   navigate("/login")
