@@ -3,7 +3,7 @@ import bidLogo from "../bidLogo.png";
 
 const Footer = () => {
   return (
-    <div className="absolute bottom-0 w-full">
+    <div className="bottom-0 w-full">
       <footer className="grid p-4 md:grid-cols-4 bg-bidcraft-main w-full ">
         <div className="flex flex-col p-4 text-white items-center md:items-start ">
           <span className="font-bold">Sobre Bidcraft</span>

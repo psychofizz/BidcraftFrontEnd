@@ -3,6 +3,7 @@ import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
 import AuctionItem from "../Components/auction/auctionItem";
 import { useNavigate } from "react-router-dom";
+import CategoriesBar from "../Components/navBar/CategoriesBar";
 
 const HomeTest = () => {
 //Validando que  este el token en el local storage
@@ -95,6 +96,8 @@ const obtenProducto = async (token) => {
         
 
       </div>
+      <div className="h-96"></div>
+      <Footer></Footer>
     </div>
   );
 };
