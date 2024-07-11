@@ -78,13 +78,13 @@ class MainNavbar extends Component {
           </div>
 
           <div className="flex items-center space-x-4 mt-2 md:mt-0">
-            <div
+            <a
               className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-full py-2 px-4 cursor-pointer hover:bg-bidcraft-main-3"
-              onClick={this.toggleAuctionModal}
+              href="/create-auction"
               tabIndex="2"
             >
               Subastar
-            </div>
+            </a>
             <button
               className="h-10 w-10 flex flex-shrink-0 items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3"
               onClick={this.toggleFavoritesModal}

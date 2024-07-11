@@ -18,6 +18,7 @@ module.exports = {
         'bidcraft-grey': '#3b3c4d',
         'bidcraft-grey-2': '#5a5b6c',
         'bidcraft-dark': '#0f172a',
+        'bidcraft-bg-page': '#f2f3f4',
       },
       backgroundImage: {
         'parallax1': 'url("img/h-1.jpg")',
