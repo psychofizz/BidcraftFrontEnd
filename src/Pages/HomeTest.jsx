@@ -73,6 +73,7 @@ const HomeTest = () => {
             {productInfo.map((producto) => (
               <div key={producto.auction_id}>
                 <AuctionItem
+                userId={userInfo.id}
                   title={producto.name}
                   description={producto.description}
                   price={producto.starting_price}
