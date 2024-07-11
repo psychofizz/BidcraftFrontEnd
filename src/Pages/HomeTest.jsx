@@ -69,7 +69,7 @@ const HomeTest = () => {
       <CategoriesBar></CategoriesBar>
       <div>
         {productInfo.length > 0 ? (
-          <section className="flex flex-col col-3 md:flex-row m-2 p-2 shadow-lg">
+          <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2 shadow-lg lg:grid-cols-4 xl:grid-cols-5">
             {productInfo.map((producto) => (
               <div key={producto.auction_id}>
                 <AuctionItem
