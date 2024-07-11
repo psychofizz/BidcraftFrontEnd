@@ -6,8 +6,10 @@ import {
     initTWE,
 } from "tw-elements";
 
-initTWE({ Input });
+
 function Auction(params) {
+    
+    //esta es la logica de input 
     useEffect(() => {
         initTWE({ Input });
     })
