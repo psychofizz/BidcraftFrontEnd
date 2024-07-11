@@ -19,9 +19,9 @@ function Auction(params) {
         <div className="w-full grid grid-cols-1 lg:grid-cols-2">
 
             <div className="w-full  flex-col px-[30px]">
-                <div className=" text-[40px] w-[80%]"><h1>Nike Air Force 1 Low Catechu Women Sneakers 41</h1></div>
+                <div className=" text-[40px] w-[100%]"><h1>Nike Air Force 1 Low Catechu Women Sneakers 41</h1></div>
 
-                <section className="text-gray-600 body-font    ">
+                <section className="text-gray-600 body-font flex justify-center    ">
                     <div className="container  flex flex-wrap  ">
 
                         <div className="flex flex-wrap  w-full   ">
