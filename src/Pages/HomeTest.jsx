@@ -15,8 +15,10 @@ const HomeTest = () => {
   useEffect(() => {
     //Estableciendo las rutas protegidas
     if (jwt === null) {
+      
       navigate("/login");
     } else {
+      console.log("probando uses efect")
       obtenInfo(jwt);
       obtenProducto();
     }
@@ -26,7 +28,7 @@ const HomeTest = () => {
 
   const obtenInfo = async (token) => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/auth/test/", {
+      const response = await fetch("http://127.0.0.1:8000/api/auth/profile", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -79,6 +81,7 @@ const HomeTest = () => {
                   price={producto.starting_price}
                   endDate={producto.end_time}
                   num_of_favorites="12"
+                  auctionId={producto.auction_id}
                 ></AuctionItem>
               </div>
             ))}

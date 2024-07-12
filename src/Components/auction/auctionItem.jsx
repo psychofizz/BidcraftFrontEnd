@@ -2,6 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import TagItem from "../page-essentials/TagItem";
+import {  Link } from 'react-router-dom';
+
 
 const AuctionItem = ({
   title,
@@ -10,7 +12,7 @@ const AuctionItem = ({
   endDate,
   num_of_favorites,
   userId,
-  auction
+  auctionId,
 }) => {
 
   //Esto nos srive para obtener todos los productos
@@ -33,7 +35,8 @@ const AuctionItem = ({
     } catch (error) {}
   };
   return (
-    <div className="block rounded-lg bg-slate-200 p-3 shadow-lg text-surface m-2">
+    <Link to={`/Auction/${auctionId}`}>
+<div className="block rounded-lg bg-slate-200 p-3 shadow-lg text-surface m-2">
       <div className="relative">
         <img
           src="https://picsum.photos/200"
@@ -66,6 +69,9 @@ const AuctionItem = ({
         </div>
       </div>
     </div>
+
+    </Link>
+    
   );
 };
 

@@ -19,7 +19,7 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-      <Route path="/Auction" element={<Auction />}></Route>
+      <Route path="/Auction/:id" element={<Auction />}></Route>
         <Route path="/Profile" element={<Profile />}></Route>
         <Route path="/Autc" element={<Autc />}></Route>
         <Route path="/Login" element={<Login />}></Route>
