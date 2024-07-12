@@ -1,12 +1,12 @@
 import React from "react";
 
-function CardOfert() {
+function CardOfert({lastOffert}) {
     return (
 
         <div className="w-[90%]   sm:w-[50%]  my-8 flex flex-col shadow-2xl ">
         <div className="p-[5%] bg-bidcraft-dark text-white h-[25%]">
             <div>Precio actual</div>
-            <div className="flex justify-end  text-[15px] md:text-[40px]">L.300,000</div>
+            <div className="flex justify-end  text-[15px] md:text-[40px]">L.{lastOffert}</div>
         </div>
         <div className="p-[5%] bg-white h-[75%] ">
             <div>

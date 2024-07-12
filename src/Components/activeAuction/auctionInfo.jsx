@@ -1,9 +1,9 @@
 import React from "react"
 
-function AuctionInfo() {
+function AuctionInfo({name,description}) {
     return (
         <div className="w-full  flex-col px-[30px] ">
-        <div className=" text-[40px] w-[100%]"><h1>Nike Air Force 1 Low Catechu Women Sneakers 41</h1></div>
+        <div className=" text-[40px] w-[100%]"><h1>{name}</h1></div>
 
         <section className="text-gray-600 body-font flex justify-center    ">
             <div className="container  flex flex-wrap  ">
@@ -24,7 +24,7 @@ function AuctionInfo() {
                 </div>
             </div>
         </section>
-        <div ><h1 className="text-[40px]">Descripcion</h1><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus accusantium fuga excepturi facere, distinctio sunt, hic impedit quaerat architecto dolore, commodi quisquam error deserunt ipsa neque omnis officiis suscipit tenetur?</p></div>
+        <div ><h1 className="text-[40px]">Descripcion</h1><p>{description}</p></div>
     </div>
 
 

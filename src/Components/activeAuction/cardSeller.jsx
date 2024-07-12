@@ -1,5 +1,5 @@
 import React from "react"
-function cardSeller() {
+function cardSeller({nameSeller}) {
     
 
 
@@ -10,7 +10,7 @@ function cardSeller() {
                                 <img className="h-32 w-32 rounded-full border-4 border-white dark:border-gray-800 mx-auto my-4 "
                                     src="https://randomuser.me/api/portraits/women/21.jpg" alt="" />
                                 <div className="py-2">
-                                    <h3 className="font-bold text-2xl text-gray-800 dark:text-white mb-1">Cait Genevieve</h3>
+                                    <h3 className="font-bold text-2xl text-gray-800 dark:text-white mb-1">{nameSeller}</h3>
                                     <div className="inline-flex text-gray-700 dark:text-gray-300 items-center">
                                         <svg className="h-5 w-5 text-gray-400 dark:text-gray-600 mr-1" fill="currentColor"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -24,11 +24,11 @@ function cardSeller() {
                             <div className="flex gap-2 px-2">
                                 <button
                                     className="flex-1 rounded-full bg-blue-600 dark:bg-blue-800 text-white dark:text-white antialiased font-bold hover:bg-blue-800 dark:hover:bg-blue-900 px-4 py-2">
-                                    Follow
+                                    Perfil
                                 </button>
                                 <button
                                     className="flex-1 rounded-full border-2 border-gray-400 dark:border-gray-700 font-semibold text-black dark:text-white px-4 py-2">
-                                    Message
+                                    Mensaje
                                 </button>
                             </div>
                         </div>
