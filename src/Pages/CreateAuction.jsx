@@ -1,8 +1,8 @@
 import React from "react";
-import AuctionForm from "../Components/auction/AuctionForm";
+
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
-import TextboxWithLabel from "../Components/auction/TextBoxWithLabel";
+
 import TagItem from "../Components/page-essentials/TagItem";
 
 const CreateAuction = () => {

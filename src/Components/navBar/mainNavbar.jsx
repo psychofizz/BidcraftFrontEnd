@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBell } from "@fortawesome/free-solid-svg-icons";
 import bidLogo from "../bidLogo.png";
 
+
 class MainNavbar extends Component {
   constructor(props) {
     super(props);
