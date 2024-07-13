@@ -15,22 +15,22 @@ function Auction() {
     const [data, setData] = useState({});
     const jwt = JSON.parse(localStorage.getItem("token"));
     const navigate = useNavigate();
-
+ 
 
 
 
     useEffect(() => {
-      
+          initTWE({ Input });
+
             //Estableciendo las rutas protegidas
             if (jwt === null) {
               
               navigate("/login");
             } else {
-            
+              
             infoAuction();
             }
-        initTWE({ Input });
-
+        
     }, [])
 
     const auctionId = useParams();
@@ -50,9 +50,7 @@ function Auction() {
                 
             } catch (error) {
              
-            } finally {
-               
-            }
+            } 
         };
 
       
@@ -62,7 +60,7 @@ function Auction() {
         <div className="w-full grid grid-cols-1 lg:grid-cols-2">
             {data.name && data.description   ? (
                 <>      
-                    <AuctionInfo name={data.name} description={data.description} />
+                    <AuctionInfo name={data.name} description={data.description} idAuction={data.auction_id} />
                     <div className="grid grid-cols-1 justify-items-center w-full">
                         <CardOffert lastOffert={data.starting_price} />
                         <div className="w-[90%] sm:w-[50%] my-8 shadow-2xl">

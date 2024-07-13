@@ -38,6 +38,7 @@ const HomeTest = () => {
       if (!response.ok) {
       } else {
         const dataUser = await response.json();
+        localStorage.setItem("User", JSON.stringify(dataUser));
         console.log(dataUser);
         setUserInfo(dataUser);
       }
@@ -60,7 +61,7 @@ const HomeTest = () => {
       } else {
         const data = await response.json();
         setProductInfo(data);
-        console.log(productInfo);
+     
       }
     } catch (error) {}
   };
