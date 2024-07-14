@@ -81,7 +81,7 @@ const Test = () => {
   ];
 
   return (
-    <div className="bg-black">
+    <div className="bg-gray-200">
       <div>
         <MainNavbar></MainNavbar>
 
