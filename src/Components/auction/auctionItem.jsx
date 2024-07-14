@@ -1,59 +1,60 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom';
+import { differenceInDays, isPast } from 'date-fns';
 import TagItem from "../page-essentials/TagItem";
-import {  Link } from 'react-router-dom';
 
+const CountdownOrDaysSince = ({ endDate }) => {
+  const today = new Date();
+  const end = new Date(endDate);
+  const diffDays = Math.abs(differenceInDays(end, today));
+
+  const isPastDate = isPast(end);
+
+  const message = isPastDate
+    ? `${diffDays} dia${diffDays !== 1 ? 's' : ''} desde`
+    : `${diffDays} dia${diffDays !== 1 ? 's' : ''} faltan`;
+
+  return (
+    <div className="text-xs text-gray-500">
+      {message}
+    </div>
+  );
+};
 
 const AuctionItem = ({
   title,
   description,
   price,
   endDate,
-  num_of_favorites,
-  userId,
   auctionId,
 }) => {
-
-
   return (
-    <Link to={`/Auction/${auctionId}`}>
-<div className="block rounded-lg bg-slate-200 p-3 shadow-lg text-surface m-2">
-      <div className="relative">
+    <Link to={`/Auction/${auctionId}`} className="block m-2">
+      <div className="relative bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-[1.02] z-30">
         <img
-          src="https://picsum.photos/200"
+          src="https://picsum.photos/400/300"
           alt={title}
-          className="rounded-lg w-40 h-20 overflow-auto md: h-40 w-full object-cover"
+          className="w-full h-80 object-cover"
         />
-        <div className="absolute top-0 left-0 m-2 flex items-center space-x-1 bg-opacity-50 bg-gray-800 p-1 rounded-md">
-     <button>     <FontAwesomeIcon  icon={faHeart} className="text-red-500" /></button>
-          <span>{num_of_favorites}</span>
+        <div className="absolute top-2 left-2 flex gap-2 flex-wrap z-40">
+          <TagItem tag="Healthy" color="bg-green-100 text-green-800" />
+          <TagItem tag="Health" color="bg-blue-100 text-blue-800" />
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 backdrop-blur-sm rounded-t-lg p-4 transform translate-y-1/2 hover:translate-y-0 transition-transform duration-300 flex flex-col">
+          <h3 className="text-2xl font-bold text-gray-900 truncate">
+            {title}
+          </h3>
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium text-gray-500 uppercase">Precio Actual</span>
+            <span className="text-xl font-bold text-indigo-600">{`L.${price}`}</span>
+          </div>
+          <p className="text-sm text-gray-600 line-clamp-2 mt-4">
+            {description}
+          </p>
+          <CountdownOrDaysSince endDate={endDate} />
         </div>
       </div>
-
-      <div className="m-2">
-        <h3 className="text-lg font-semibold whitespace-nowrap overflow-hidden truncate  ">
-          {title}
-        </h3>
-        <p className="mt-2 text-sm text-gray-500 whitespace-nowrap overflow-hidden truncate ">
-          {description}
-        </p>
-        <div className="mt-4 flex items-center justify-between">
-          <span className="text-sm text-gray-500">Precio Actual</span>
-          <span className="text-lg font-bold ml-2">{`L.${price}`}</span>
-        </div>
-        <div className="mt-2 text-sm text-gray-500 overflow-hidden truncate ">
-          {`Finaliza: ${endDate}`}
-        </div>
-        <div className="flex gap-2">
-          <TagItem tag="Healthy" color="bg-green-500" />
-          <TagItem tag="Health" color="bg-blue-500" />
-        </div>
-      </div>
-    </div>
-
     </Link>
-    
   );
 };
 
