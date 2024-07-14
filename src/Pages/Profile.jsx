@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import Review from '../Components/Review';
 import {
     Tab,
     initTWE,
@@ -125,7 +126,7 @@ function Profile() {
     id="tabs-profile02"
     role="tabpanel"
     aria-labelledby="tabs-profile-tab02">
-    Tab 2 content
+    <Review/>
   </div>
   <div
     class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
