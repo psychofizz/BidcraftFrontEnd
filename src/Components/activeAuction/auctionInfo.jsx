@@ -9,6 +9,12 @@ function AuctionInfo({ name, description, idAuction }) {
     var userId = JSON.parse(localStorage.getItem("User"));
     console.log(userId.id)
     console.log(idAuction)
+    const dataFavorite ={
+        user:userId.id,
+        auction:idAuction
+
+
+    }
 
     //Ver si el usario tiene el producto en favorito
 
@@ -18,7 +24,8 @@ function AuctionInfo({ name, description, idAuction }) {
     const stateFavorite = async () => {
         try {
             const response = await axios.get(`http://127.0.0.1:8000/api/favorites/${userId.id}/${idAuction}/`);
-            console.log(response.data)
+            console.log(response.data.exists)
+            setIsFavorite(response.data.exists);
         } catch (error) {
             switch (error.response.status) {
                 case 400:
@@ -40,18 +47,43 @@ function AuctionInfo({ name, description, idAuction }) {
             };
 
 
+        
         }
+       
     }
     //{isFavorite ? removeFavorite : addFavorite}
     stateFavorite();
       }, [idAuction]);
 
-
+      const addFavorite = async () => {
+         
+        try {
+            setIsFavorite(true);
+          const res = await axios.post('http://127.0.0.1:8000/api/favorites/create/one/', dataFavorite);
+          
+       console.log(res.data.message)
+        } catch (error) {
+          console.error('Error making POST request:', error);
+        }
+      };
+      const removeFavorite = async () => {
+        console.log(dataFavorite)
+        try {
+            setIsFavorite(false);
+            const res = await axios.delete(`http://127.0.0.1:8000/api/favorites/delete/one/${dataFavorite.user}/${dataFavorite.auction}/`);
+          
+            console.log(res)
+           
+          } catch (error) {
+            console.error('Error making POST request:', error);
+          }
+        
+      };
     return (
         <div className="w-full  flex-col px-[30px] ">
             <div className=" text-[40px] w-[100%] flex flex-col-2">
                 <div className="w-[90%]">{name}</div>
-                <div><button >Favorite</button></div>
+                <div><button onClick={isFavorite ? removeFavorite : addFavorite}>Favorite</button></div>
 
             </div>
 
