@@ -15,9 +15,9 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
     const [firstNumber, setFirstNumber] = useState(null);
     const [secondNumber, setSecondNumber] = useState(null);
     const [thirdNumber, setThirdNumber] = useState(null)
-    const autoBitJson = {
-        bid_amount:"",
-       }
+    const autobitAmount = {
+        bid_amount:"",}
+       
 
     useEffect(() => {
         initTWE({ Input });
@@ -69,10 +69,10 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
     };
 
    //esta funcion sirve para hacer una nueva subasta 
-   const newBit2 = async () => {
+   const newBitAuto = async () => {
     try {
 
-        const response = await axios.post(`http://127.0.0.1:8000/api/bids/create/one/${idAuction}/`, autoBitJson, {
+        const response = await axios.post(`http://127.0.0.1:8000/api/bids/create/one/${idAuction}/`, autobitAmount, {
             headers: {
                 'Authorization': `Bearer ${jwt}`
             }
@@ -81,7 +81,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
         toast.success(response.data.message);
 
         updateAuction();
-        setBaseNumber(autoBitJson.bid_amount)
+        setBaseNumber(autobitAmount.bid_amount)
         generateNumbers();
         
 
@@ -103,9 +103,9 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
     };
     //Esta funcion sirve para  las ofertas automaticas
     const  autoBit = (number) => {
-        autoBitJson.bid_amount=number
-           console.log(autoBitJson)
-           newBit2();
+        autobitAmount.bid_amount=number
+           console.log(autobitAmount)
+           newBitAuto();
     }
 
    
