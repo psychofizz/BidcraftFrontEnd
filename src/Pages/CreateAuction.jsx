@@ -3,8 +3,11 @@ import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
 import TagItem from "../Components/page-essentials/TagItem";
 import PageHeader from "../Components/page-essentials/PageHeader";
+import TagInput from "../Components/auction/TagInput";
 
 const CreateAuction = () => {
+
+
 
   const [categories, setCategories] = useState([]);
 
@@ -117,15 +120,7 @@ const CreateAuction = () => {
                 </select>
               </div>
 
-              <div>
-                <label htmlFor="tags" className="block text-sm font-medium mb-2">
-                  Tags
-                </label>
-                <textarea
-                  id="tags"
-                  className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                />
-              </div>
+              <TagInput />
 
               <button
                 type="submit"

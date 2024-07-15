@@ -1,16 +1,13 @@
 import React from "react";
 
-const CategoryItem = ({ name, url, hoverText }) => {
+const CategoryItem = ({ name }) => {
   return (
-    <div className="p-2">
-      <a
-        href={url}
-        className="text-white hover:text-blue-700"
-        title={hoverText}
-      >
-        <span>{name}</span>
-      </a>
-    </div>
+    <Link
+      to={`/category/${name}`}
+      className="px-4 py-2 whitespace-nowrap hover:bg-gray-700 transition-colors duration-200"
+    >
+      {name}
+    </Link>
   );
 };
 

@@ -6,7 +6,7 @@ const PageHeader = ({ title, breadcrumbs }) => {
     const navigate = useNavigate();
 
     return (
-        <header className="bg-bidcraft-modal-bg text-white rounded-xl mb-6 p-4">
+        <header className="bg-bidcraft-modal-bg text-white rounded-xl mb-2 p-4">
             <div className="flex items-center flex-wrap">
                 <button
                     onClick={() => navigate(-1)}
