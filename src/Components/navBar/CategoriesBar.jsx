@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import CategoryItem from "./CategoryItem";
+import { Link } from "react-router-dom";
+
+const CategoryItem = ({ id, name }) => {
+  return (
+    <Link
+      to={`/category/${id}`}
+      className="px-4 py-2 whitespace-nowrap hover:bg-gray-700 transition-colors duration-200"
+    >
+      {name}
+    </Link>
+  );
+};
 
 const MobileMenu = ({ categories }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,8 +64,8 @@ const MobileMenu = ({ categories }) => {
             </div>
             <div className="px-4 py-2">
               {categories.map((category) => (
-                <div key={category.id} className="py-2 border-b border-gray-700 last:border-b-0">
-                  <CategoryItem {...category} />
+                <div key={category.category_id} className="py-2 border-b border-gray-700 last:border-b-0">
+                  <CategoryItem id={category.category_id} name={category.category_name} />
                 </div>
               ))}
             </div>
@@ -64,7 +75,6 @@ const MobileMenu = ({ categories }) => {
     </div>
   );
 };
-
 
 const CategoriesBar = () => {
   const [categories, setCategories] = useState([]);
@@ -87,6 +97,7 @@ const CategoriesBar = () => {
         setIsLoading(false);
       }
     };
+
     fetchCategories();
   }, []);
 
@@ -108,7 +119,7 @@ const CategoriesBar = () => {
         {categories.map((category) => (
           <CategoryItem
             key={category.category_id}
-            id={category.category_id}
+            id={category.category_name}
             name={category.category_name}
           />
         ))}
