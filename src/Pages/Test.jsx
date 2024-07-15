@@ -13,6 +13,7 @@ import cat4 from "../img/cat-4.jpeg";
 import cat5 from "../img/cat-5.jpeg";
 import cat6 from "../img/cat-6.jpeg";
 
+
 const Test = () => {
   const categories = [
     {
