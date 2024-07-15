@@ -1,10 +1,11 @@
-import React, {useEffect } from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Tab, initTWE } from "tw-elements";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
+import Review from "../Components/profile/Review";
 
 function Profile() {
   useEffect(() => {
@@ -61,7 +62,7 @@ function Profile() {
               aria-controls="tabs-home02"
               aria-selected="true"
             >
-              Home
+              Historial de Subastas
             </a>
           </li>
           <li role="presentation" className="flex-grow basis-0 text-center">
@@ -74,7 +75,7 @@ function Profile() {
               aria-controls="tabs-profile02"
               aria-selected="false"
             >
-              Profile
+              Reseñas
             </a>
           </li>
           <li role="presentation" className="flex-grow basis-0 text-center">
@@ -201,7 +202,7 @@ function Profile() {
             role="tabpanel"
             aria-labelledby="tabs-profile-tab02"
           >
-            Tab 2 content
+            <Review></Review>
           </div>
           <div
             className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"

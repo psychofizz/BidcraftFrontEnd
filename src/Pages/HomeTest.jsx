@@ -15,7 +15,7 @@ const HomeTest = () => {
   useEffect(() => {
     //Estableciendo las rutas protegidas
     if (jwt === null) {
-      
+
       navigate("/login");
     } else {
       console.log("probando uses efect")
@@ -42,7 +42,7 @@ const HomeTest = () => {
         console.log(dataUser);
         setUserInfo(dataUser);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   //Esto nos srive para obtener todos los productos
@@ -61,9 +61,9 @@ const HomeTest = () => {
       } else {
         const data = await response.json();
         setProductInfo(data);
-     
+
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
@@ -76,7 +76,7 @@ const HomeTest = () => {
             {productInfo.map((producto) => (
               <div key={producto.auction_id}>
                 <AuctionItem
-                userId={userInfo.id}
+                  userId={userInfo.id}
                   title={producto.name}
                   description={producto.description}
                   price={producto.starting_price}
@@ -91,7 +91,9 @@ const HomeTest = () => {
           <p>No hay productos disponibles.</p>
         )}
       </div>
-      <div className="h-96"></div>
+      <div>
+
+      </div>
       <Footer></Footer>
     </div>
   );
