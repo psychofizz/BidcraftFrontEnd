@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -12,6 +13,7 @@ root.render(
  
   <>
     <App />
+    <Toaster/>
     <ToastContainer />
   </>
 

@@ -1,16 +1,15 @@
 
 import React,{useState,useEffect} from "react"
 import axios from 'axios'
-function AuctionInfo({ name, description, idAuction }) {
+function AuctionInfo({ name, description, idAuction,userId}) {
     // este nos va a ayudar a saber que funcion utilizar al momento de agregar o quitar me gusta
     const [isFavorite, setIsFavorite] = useState(false);
 
     //aca simplemente obtememos la informacion del user y la de la subasta
-    var userId = JSON.parse(localStorage.getItem("User"));
-    console.log(userId.id)
+   
     console.log(idAuction)
     const dataFavorite ={
-        user:userId.id,
+        user:userId,
         auction:idAuction
 
 
@@ -23,7 +22,7 @@ function AuctionInfo({ name, description, idAuction }) {
      
     const stateFavorite = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/favorites/${userId.id}/${idAuction}/`);
+            const response = await axios.get(`http://127.0.0.1:8000/api/favorites/${userId}/${idAuction}/`);
             console.log(response.data.exists)
             setIsFavorite(response.data.exists);
         } catch (error) {

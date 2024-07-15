@@ -6,21 +6,18 @@ import CardOffert from "../Components/activeAuction/cardOffert"
 import CardSeller from "../Components/activeAuction/cardSeller"
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
-import {
-    Input,
-    initTWE,
-} from "tw-elements";
+
 import axios from 'axios'
 function Auction() {
     const [data, setData] = useState({});
     const jwt = JSON.parse(localStorage.getItem("token"));
     const navigate = useNavigate();
  
-
-
+    var userId = JSON.parse(localStorage.getItem("User"));
+    console.log(userId.id)
 
     useEffect(() => {
-          initTWE({ Input });
+         
 
             //Estableciendo las rutas protegidas
             if (jwt === null) {
@@ -60,9 +57,9 @@ function Auction() {
         <div className="w-full grid grid-cols-1 lg:grid-cols-2">
             {data.name && data.description   ? (
                 <>      
-                    <AuctionInfo name={data.name} description={data.description} idAuction={data.auction_id} />
+                    <AuctionInfo name={data.name} description={data.description} idAuction={data.auction_id} userId={userId.id} />
                     <div className="grid grid-cols-1 justify-items-center w-full">
-                        <CardOffert lastOffert={data.starting_price} />
+                        <CardOffert lastOffert={data.highest_bid} idAuction={data.auction_id} jwt={jwt} updateAuction={infoAuction} />
                         <div className="w-[90%] sm:w-[50%] my-8 shadow-2xl">
                         <CardSeller nameSeller={data.seller.username} />
                         </div>
