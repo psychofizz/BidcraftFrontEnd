@@ -56,7 +56,7 @@ function Login() {
           toast.done("Login exitoso");
           navigate("/home");
         }
-      } catch (error) {}
+      } catch (error) { }
     }
   };
 
@@ -110,7 +110,7 @@ function Login() {
                   className=""
                   type="button"
                   data-ripple-light="true"
-                  href="/form"
+                  href="/register"
                 >
                   Crear Cuenta
                 </a>
@@ -118,7 +118,7 @@ function Login() {
               <div>
                 <button
                   className="
-                bg-bidcraft-main w-40 h-[50]"
+                bg-bidcraft-dark w-40 h-[50] text-white"
                   type="submit"
                   data-ripple-light="true"
                 >

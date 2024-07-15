@@ -5,8 +5,8 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Notification = ({ image, itemName, text, link, onErase }) => {
   return (
-    <div className="notification p-2 rounded flex items-center bg-zinc-800 shadow-md ">
-      {/* ImageComponent */}
+    <div className="notification p-2 rounded flex items-center bg-zinc-800 shadow-md  z-50">
+
       <div className="mr-2">
         <ImageComponent
           src={image}
@@ -14,7 +14,7 @@ const Notification = ({ image, itemName, text, link, onErase }) => {
         />
       </div>
 
-      {/* Notification Content */}
+
       <div className="flex-1 flex flex-col m-2">
         <h3 className="text-xl font-semibold mb-1">{itemName}</h3>
         <p className="text-gray-700 ">{text}</p>
