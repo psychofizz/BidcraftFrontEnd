@@ -67,7 +67,7 @@ const HomeTest = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-bidcraft-grey">
       <MainNavbar userName={userInfo ? userInfo.first_name : null} />
       <CategoriesBar></CategoriesBar>
       <div>

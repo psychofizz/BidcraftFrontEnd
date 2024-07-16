@@ -88,7 +88,7 @@ class MainNavbar extends Component {
             </div>
 
             <div className="w-full md:w-auto md:flex-grow md:max-w-xl">
-              <SearchBar tabIndex="1" />
+
             </div>
 
             <div className={`flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto ${this.state.mobileMenuOpen ? 'block' : 'hidden md:flex'}`}>
@@ -126,7 +126,7 @@ class MainNavbar extends Component {
                     <FontAwesomeIcon icon={faHeart} />
                   </button>
                   <button
-                    className="w-full md:w-10 h-10 flex items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3 transition-colors"
+                    className="hidden w-full md:w-10 h-10 flex items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3 transition-colors"
                     onClick={this.toggleNotificationsModal}
 
                   >

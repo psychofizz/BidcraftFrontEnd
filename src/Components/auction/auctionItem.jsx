@@ -30,7 +30,7 @@ const AuctionItem = ({
 }) => {
   return (
     <Link to={`/Auction/${auctionId}`} className="block m-2">
-      <div className="relative bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-[1.02] z-10">
+      <div className="relative bg-bidcraft-grey-2 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-[1.02] z-10">
         <img
           src="https://picsum.photos/400/300"
           alt={title}

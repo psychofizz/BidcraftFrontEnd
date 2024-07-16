@@ -1,114 +1,91 @@
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { HeartIcon } from '@heroicons/react/solid';
 
-import React,{useState,useEffect} from "react"
-import axios from 'axios'
-function AuctionInfo({ name, description, idAuction,userId}) {
-    // este nos va a ayudar a saber que funcion utilizar al momento de agregar o quitar me gusta
+function AuctionInfo({ name, description, idAuction, userId }) {
     const [isFavorite, setIsFavorite] = useState(false);
+    const [images, setImages] = useState([
+        "https://dummyimage.com/800x600/000/fff",
+        "https://dummyimage.com/800x600/333/fff",
+        "https://dummyimage.com/800x600/666/fff",
+    ]);
 
-    //aca simplemente obtememos la informacion del user y la de la subasta
-   
-    console.log(idAuction)
-    const dataFavorite ={
-        user:userId,
-        auction:idAuction
-
-
-    }
-
-    //Ver si el usario tiene el producto en favorito
+    const dataFavorite = {
+        user: userId,
+        auction: idAuction
+    };
 
     useEffect(() => {
-        // Verifica si el producto ya es favorito al cargar el componente
-     
-    const stateFavorite = async () => {
+        const stateFavorite = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:8000/api/favorites/${userId}/${idAuction}/`);
+                setIsFavorite(response.data.exists);
+            } catch (error) {
+                console.error('Error en favorito:', error);
+            }
+        };
+        stateFavorite();
+    }, [userId, idAuction]);
+
+    const toggleFavorite = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/favorites/${userId}/${idAuction}/`);
-            console.log(response.data.exists)
-            setIsFavorite(response.data.exists);
+            if (isFavorite) {
+                await axios.delete(`http://127.0.0.1:8000/api/favorites/delete/one/${dataFavorite.user}/${dataFavorite.auction}/`);
+            } else {
+                await axios.post('http://127.0.0.1:8000/api/favorites/create/one/', dataFavorite);
+            }
+            setIsFavorite(!isFavorite);
         } catch (error) {
-            switch (error.response.status) {
-                case 400:
-                    console.error("Bad request - 400");
-                    break;
-                case 401:
-                    console.error("Unauthorized - 401");
-                    break;
-                case 403:
-                    console.error("Forbidden - 403");
-                    break;
-                case 404:
-                    console.error("Not found - 404");
-                    console.log(error.response)
-                    break;
-                case 500:
-                    console.error("Internal server error - 500");
-                    break;
-            };
-
-
-        
+            console.error('Error en favorito:', error);
         }
-       
-    }
-    //{isFavorite ? removeFavorite : addFavorite}
-    stateFavorite();
-      }, [idAuction]);
+    };
 
-      const addFavorite = async () => {
-         
-        try {
-            setIsFavorite(true);
-          const res = await axios.post('http://127.0.0.1:8000/api/favorites/create/one/', dataFavorite);
-          
-       console.log(res.data.message)
-        } catch (error) {
-          console.error('Error making POST request:', error);
-        }
-      };
-      const removeFavorite = async () => {
-        console.log(dataFavorite)
-        try {
-            setIsFavorite(false);
-            const res = await axios.delete(`http://127.0.0.1:8000/api/favorites/delete/one/${dataFavorite.user}/${dataFavorite.auction}/`);
-          
-            console.log(res)
-           
-          } catch (error) {
-            console.error('Error making POST request:', error);
-          }
-        
-      };
     return (
-        <div className="w-full  flex-col px-[30px] ">
-            <div className=" text-[40px] w-[100%] flex flex-col-2">
-                <div className="w-[90%]">{name}</div>
-                <div><button onClick={isFavorite ? removeFavorite : addFavorite}>Favorite</button></div>
-
+        <div className="max-w-7xl w-full sm:px-6 py-8">
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="text-3xl font-mono text-white">{name}</h1>
+                <button
+                    onClick={toggleFavorite}
+                    className={`flex items-center px-4 py-2 rounded-full transition-colors ${isFavorite
+                        ? 'bg-red-500 text-white'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        }`}
+                >
+                    <HeartIcon className="h-5 w-5 mr-2" />
+                    {isFavorite ? 'Remover Favorito' : 'Agregar Favorito'}
+                </button>
             </div>
 
-            <section className="text-gray-600 body-font flex justify-center    ">
-                <div className="container  flex flex-wrap  ">
-
-                    <div className="flex flex-wrap  w-full   ">
-                        <div className="flex flex-wrap w-[100%]">
-                            <div className=" p-1 w-1/2">
-                                <img alt="gallery" className="w-full object-cover  object-center block" src="https://dummyimage.com/500x300" />
-                            </div>
-                            <div className=" p-1 w-[50%]">
-                                <img alt="gallery" className="w-full object-cover  object-center block" src="https://dummyimage.com/501x301" />
-                            </div>
-                            <div className=" p-1 w-full">
-                                <img alt="gallery" className="w-full  object-cover object-center block" src="https://dummyimage.com/600x360" />
-                            </div>
+            <div className="mb-8">
+                <Carousel
+                    showArrows={true}
+                    showStatus={false}
+                    showThumbs={false}
+                    infiniteLoop={true}
+                    className="rounded-lg overflow-hidden shadow-xl"
+                >
+                    {images.map((img, index) => (
+                        <div key={index}>
+                            <img src={img} alt={`Item de subasta ${index + 1}`} className="w-full h-[60vh] object-cover" />
                         </div>
+                    ))}
+                </Carousel>
+            </div>
 
+            <div className="bg-bidcraft-grey-2 shadow overflow-hidden sm:rounded-lg">
+                <div className="px-4 py-5 sm:px-6">
+                    <h2 className="text-2xl font-light text-white">Descripción</h2>
+                </div>
+                <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
+                    <div className="sm:px-6 sm:py-5">
+                        <p className="text-white leading-relaxed">{description}</p>
                     </div>
                 </div>
-            </section>
-            <div ><h1 className="text-[40px]">Descripcion</h1><p>{description}</p></div>
+            </div>
         </div>
-
-
-    )
+    );
 }
+
 export default AuctionInfo;
