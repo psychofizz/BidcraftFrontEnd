@@ -7,6 +7,7 @@ import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
 
 import Review from "../Components/profile/Review";
+import MyAuctions from "../Components/profile/myAuction"
 
 function Profile() {
   useEffect(() => {
@@ -89,7 +90,7 @@ function Profile() {
               aria-controls="tabs-messages02"
               aria-selected="false"
             >
-              Messages
+              Mis subastas
             </a>
           </li>
         </ul>
@@ -211,7 +212,7 @@ function Profile() {
             role="tabpanel"
             aria-labelledby="tabs-profile-tab02"
           >
-            Tab 3 content
+           <MyAuctions/>
           </div>
           <div
             className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
