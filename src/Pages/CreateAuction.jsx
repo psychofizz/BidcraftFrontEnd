@@ -9,15 +9,15 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const CreateAuction = () => {
-//----------------------------Esta variable sirve para navegar entre pages-----------------------
-    const navigate = useNavigate();
+  //----------------------------Esta variable sirve para navegar entre pages-----------------------
+  const navigate = useNavigate();
 
-//-----------------------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------------------
 
   const [file, setFile] = useState(null);
 
   const userId = JSON.parse(localStorage.getItem("User"));
-    console.log(userId.id)
+  console.log(userId.id)
   const [values, setValues] = useState({
     seller: userId.id,
     name: "",
@@ -34,94 +34,94 @@ const CreateAuction = () => {
   };
 
 
-//----------------------------------Este codigo srive para subir la iamgen en el servidor de imgur--------------------
-const handleFileChange = (e) => {
+  //----------------------------------Este codigo srive para subir la iamgen en el servidor de imgur--------------------
+  const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-const handleImageUpload = async () => {
-  const formData = new FormData();
-  formData.append('image', file);
+  const handleImageUpload = async () => {
+    const formData = new FormData();
+    formData.append('image', file);
 
-  try {
-    const response = await axios.post('https://api.imgur.com/3/image', formData, {
-      headers: {
-        Authorization: 'Client-ID 66a3c4364f2dc63', // Reemplaza con tu propio Client ID
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    try {
+      const response = await axios.post('https://api.imgur.com/3/image', formData, {
+        headers: {
+          Authorization: 'Client-ID 66a3c4364f2dc63', // Reemplaza con tu propio Client ID
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-    if (response.status === 200) {
-      const data = response.data;
-      console.log('Enlace de la imagen en Imgur:', data);
-      const u = `https://i.imgur.com/${data.data.id}.png`;
-      return u;
-    } else {
-      console.error('Error al subir la imagen a Imgur');
+      if (response.status === 200) {
+        const data = response.data;
+        console.log('Enlace de la imagen en Imgur:', data);
+        const u = `https://i.imgur.com/${data.data.id}.png`;
+        return u;
+      } else {
+        console.error('Error al subir la imagen a Imgur');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error de red:', error);
       return null;
     }
-  } catch (error) {
-    console.error('Error de red:', error);
-    return null;
-  }
-};
- //---------------------------------Esta nos srive para enviar la imagen al servidor la url ---------------------------
+  };
+  //---------------------------------Esta nos srive para enviar la imagen al servidor la url ---------------------------
 
 
- const saveImgur = async (idAuction,urlmage) => {
-  const imgData={
-    auction:idAuction,
-    image_url:urlmage
-  }
-  try {
-
-    const response = await axios.post(`http://127.0.0.1:8000/api/auction/image/add`, imgData);
-console.log("aca esta para crear una nueva imagen man" +response.data.data.auction_id)
-
-
-  } catch (error) {
-    
-  }
-};
-
- //---------------------------------Esta no sirve para crear una nueva subasta ---------------------------
-
- const newAuction = async (event) => {
-  event.preventDefault()
-  try {
-
-    const response = await axios.post(`http://127.0.0.1:8000/api/auction/create/one/`, values);
-
-
-
-const imageUrl = await handleImageUpload();
-if (imageUrl) {
-  console.log('Imagen subida a Imgur:', imageUrl);
-
-
-
-  saveImgur(response.data.data.auction_id,imageUrl);
-  toast.success(response.data.message)
-  navigate("/home")
-
-}
-  } catch (error) {
-    if (error.response && error.response.data) {
-      const errors = error.response.data;
-      for (const field in errors) {
-        if (errors.hasOwnProperty(field)) {
-          errors[field].forEach((errorMessage) => {
-            console.log(errorMessage);
-            toast.warning(errorMessage)
-          });
-        }
-      }
-    } else {
-      console.error('An unknown error occurred.');
+  const saveImgur = async (idAuction, urlmage) => {
+    const imgData = {
+      auction: idAuction,
+      image_url: urlmage
     }
-  }
-};
-//--------------------------------- ---------------------------------------------------------------------------
+    try {
+
+      const response = await axios.post(`http://127.0.0.1:8000/api/auction/image/add`, imgData);
+      console.log("aca esta para crear una nueva imagen man" + response.data.data.auction_id)
+
+
+    } catch (error) {
+
+    }
+  };
+
+  //---------------------------------Esta no sirve para crear una nueva subasta ---------------------------
+
+  const newAuction = async (event) => {
+    event.preventDefault()
+    try {
+
+      const response = await axios.post(`http://127.0.0.1:8000/api/auction/create/one/`, values);
+
+
+
+      const imageUrl = await handleImageUpload();
+      if (imageUrl) {
+        console.log('Imagen subida a Imgur:', imageUrl);
+
+
+
+        saveImgur(response.data.data.auction_id, imageUrl);
+        toast.success(response.data.message)
+        navigate("/home")
+
+      }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const errors = error.response.data;
+        for (const field in errors) {
+          if (errors.hasOwnProperty(field)) {
+            errors[field].forEach((errorMessage) => {
+              console.log(errorMessage);
+              toast.warning(errorMessage)
+            });
+          }
+        }
+      } else {
+        console.error('An unknown error occurred.');
+      }
+    }
+  };
+  //--------------------------------- ---------------------------------------------------------------------------
 
 
   const [categories, setCategories] = useState([]);
@@ -156,14 +156,14 @@ if (imageUrl) {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
           <div className="lg:col-span-1">
-            <form className="bg-bidcraft-modal-bg p-6 rounded-xl text-white space-y-2"   onSubmit={(event) => newAuction(event)} >
+            <form className="bg-bidcraft-modal-bg p-6 rounded-xl text-white space-y-2" onSubmit={(event) => newAuction(event)} >
               <h2 className="text-xl font-semibold mb-4">Nuevo Item</h2>
 
               <div>
                 <label htmlFor="title" className="block text-sm font-medium mb-2">
                   Titulo
                 </label>
-                <input  onChange={(e) => handleChange(e)}
+                <input onChange={(e) => handleChange(e)}
                   name="name"
                   type="text"
                   id="title"
@@ -172,7 +172,7 @@ if (imageUrl) {
               </div>
 
               <div className="bg-bidcraft-grey-2 h-40 text-white flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400">
-              <input type="file" accept="image/*" onChange={handleFileChange}   />
+                <input type="file" accept="image/*" onChange={handleFileChange} />
               </div>
 
               <div>
@@ -180,7 +180,7 @@ if (imageUrl) {
                   Descripción de la Subasta
                 </label>
                 <textarea
-                 onChange={(e) => handleChange(e)}
+                  onChange={(e) => handleChange(e)}
                   name="description"
                   id="description"
                   className="w-full h-48 p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
@@ -188,9 +188,9 @@ if (imageUrl) {
               </div>
               <div>
                 <label htmlFor="initialPrice" className="block text-sm font-medium mb-2">
-                  Precio compra ahora 
+                  Precio compra ahora
                 </label>
-                <input  onChange={(e) => handleChange(e)}
+                <input onChange={(e) => handleChange(e)}
                   name="buy_it_now_price"
                   type="number"
                   id="initialPrice"
@@ -201,7 +201,7 @@ if (imageUrl) {
                 <label htmlFor="initialPrice" className="block text-sm font-medium mb-2">
                   Precio Inicial
                 </label>
-                <input  onChange={(e) => handleChange(e)}
+                <input onChange={(e) => handleChange(e)}
                   name="starting_price"
                   type="number"
                   id="initialPrice"
@@ -214,7 +214,7 @@ if (imageUrl) {
                   <label htmlFor="startDate" className="block text-sm font-medium mb-2">
                     Fecha Inicio
                   </label>
-                  <input  onChange={(e) => handleChange(e)}
+                  <input onChange={(e) => handleChange(e)}
                     name="start_time"
                     type="date"
                     id="startDate"
@@ -225,7 +225,7 @@ if (imageUrl) {
                   <label htmlFor="endDate" className="block text-sm font-medium mb-2">
                     Fecha Final
                   </label>
-                  <input  onChange={(e) => handleChange(e)}
+                  <input onChange={(e) => handleChange(e)}
                     name="end_time"
                     type="date"
                     id="endDate"
@@ -254,8 +254,8 @@ if (imageUrl) {
               <TagInput />
 
               <button
-              type="submit"
-                
+                type="submit"
+
                 className="w-full bg-blue-500 text-white px-4 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
               >
                 Crear
