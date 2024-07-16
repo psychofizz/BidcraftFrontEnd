@@ -36,7 +36,7 @@ function Auction() {
 
 
     
-//aca obtenemos la informacion de cada subasta si
+//-------------------------------------------aca obtenemos la informacion de cada subasta si-------------------------------------------
         const infoAuction = async () => {
             try {
                 if(data){
@@ -51,8 +51,9 @@ function Auction() {
         };
 
       
+//---------------------------------------------------------------------------------------------------------------------
 
-
+//---------------------------------------------------------------------------------------------------------
     return (
         <div className="w-full grid grid-cols-1 lg:grid-cols-2">
             {data.name && data.description   ? (
