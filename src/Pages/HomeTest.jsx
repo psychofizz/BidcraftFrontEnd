@@ -4,6 +4,7 @@ import Footer from "../Components/page-essentials/Footer";
 import AuctionItem from "../Components/auction/auctionItem";
 import { useNavigate } from "react-router-dom";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
+import LoadingAuctionItems from "../Components/auction/LoadingAuctionItem";
 
 const HomeTest = () => {
   //Validando que  este el token en el local storage
@@ -62,6 +63,7 @@ const HomeTest = () => {
         const data = await response.json();
         setProductInfo(data);
 
+
       }
     } catch (error) { }
   };
@@ -83,12 +85,14 @@ const HomeTest = () => {
                   endDate={producto.end_time}
                   num_of_favorites="12"
                   auctionId={producto.auction_id}
+                  category={producto.category.category_name}
                 ></AuctionItem>
               </div>
             ))}
           </section>
         ) : (
-          <p>No hay productos disponibles.</p>
+
+          <LoadingAuctionItems count={6} />
         )}
       </div>
       <div>
