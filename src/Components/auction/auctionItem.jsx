@@ -27,18 +27,20 @@ const AuctionItem = ({
   price,
   endDate,
   auctionId,
+  category,
 }) => {
+
+
   return (
     <Link to={`/Auction/${auctionId}`} className="block m-2">
-      <div className="relative bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-[1.02] z-10">
+      <div className="relative bg-bidcraft-grey-2 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-[1.02] z-10">
         <img
           src="https://picsum.photos/400/300"
           alt={title}
           className="w-full h-80 object-cover"
         />
         <div className="absolute top-2 left-2 flex gap-2 flex-wrap z-40">
-          <TagItem tag="Healthy" color="bg-green-100 text-green-800" />
-          <TagItem tag="Health" color="bg-blue-100 text-blue-800" />
+          <TagItem category={category} color="bg-blue-100 text-blue-800" />
         </div>
         <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 backdrop-blur-sm rounded-t-lg p-4 transform translate-y-1/2 hover:translate-y-0 transition-transform duration-300 flex flex-col">
           <h3 className="text-2xl font-bold text-gray-900 truncate">
@@ -47,6 +49,7 @@ const AuctionItem = ({
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-gray-500 uppercase">Precio Actual</span>
             <span className="text-xl font-bold text-indigo-600">{`L.${price}`}</span>
+
           </div>
           <p className="text-sm text-gray-600 line-clamp-2 mt-4">
             {description}

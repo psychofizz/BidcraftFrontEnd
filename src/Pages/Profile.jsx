@@ -5,6 +5,7 @@ import { Tab, initTWE } from "tw-elements";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
+
 import Review from "../Components/profile/Review";
 import MyAuctions from "../Components/profile/myAuction"
 
