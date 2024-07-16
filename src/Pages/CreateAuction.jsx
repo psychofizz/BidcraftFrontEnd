@@ -24,7 +24,7 @@ const CreateAuction = () => {
     description: "",
     starting_price: "",
     buy_it_now_price: 200.00,
-    category: 1, //id de la categoria 
+    category: "", //id de la categoria 
     start_time: "",
     end_time: "",
   });
@@ -130,10 +130,12 @@ const CreateAuction = () => {
     const fetchCategories = async () => {
       try {
         const response = await fetch('http://localhost:8000/api/categories/show/all/');
+       
         if (!response.ok) {
           throw new Error('Failed to fetch categories');
         }
         const data = await response.json();
+      console.log(data)
         setCategories(data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -238,13 +240,14 @@ const CreateAuction = () => {
                 <label htmlFor="category" className="block text-sm font-medium mb-2">
                   Categoria
                 </label>
-                <select
+                <select onChange={(e) => handleChange(e)}
+                name="category"
                   id="category"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
                 >
                   <option value="" className="text-white">Seleccionar categoria</option>
                   {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
+                    <option key={category.id} value={category.category_id}>
                       {category.category_name}
                     </option>
                   ))}
