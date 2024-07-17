@@ -61,8 +61,8 @@ function Login() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center">
-      <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl ">
+    <div className="flex flex-col min-h-screen items-center justify-center bg-[#EEEDEB]">
+      <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl bg-slate-50">
         <div className="grid place-content-center h-44 bg-ffc327">
           <div className="flex justify-center">
             <img src={mainLogo} className="w-[90px]" alt="Ejemplo de imagen" />
