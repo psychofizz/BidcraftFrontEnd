@@ -11,6 +11,7 @@ const Item = ({ auctionId, userId, initialIsFavorite, onToggleFavorite }) => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/auction/show/one/${auctionId}`);
         setAuctionData(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error('Error de item de subasta:', error);
       }
@@ -42,7 +43,7 @@ const Item = ({ auctionId, userId, initialIsFavorite, onToggleFavorite }) => {
 
   return (
     <div className="flex items-center border-b border-gray-200 py-4">
-      <img src={auctionData.images} alt="Imagen de subasta" className="w-24 h-24 object-cover mr-4" />
+      <img src={auctionData.images.length > 0 ? auctionData.images[0].image_url : ''} alt="Imagen de subasta" className="w-24 h-24 object-cover mr-4 rounded-lg" />
       <div className="flex-grow">
         <h2 className="text-lg font-semibold">{auctionData.name}</h2>
         <p className="font-light truncate pr-2">{auctionData.description}</p>
