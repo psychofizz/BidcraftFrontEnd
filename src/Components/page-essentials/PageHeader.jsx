@@ -20,7 +20,7 @@ const PageHeader = ({ title, breadcrumbs }) => {
                     <ol className="flex items-center">
                         <li>
                             <Link
-                                to="/"
+                                to="/home"
                                 className="text-blue-300 hover:text-blue-100 transition-colors"
                                 aria-label="Home"
                             >
