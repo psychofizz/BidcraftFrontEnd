@@ -49,7 +49,7 @@ function AuctionInfo({ name, description, idAuction, userId }) {
                 <button
                     onClick={toggleFavorite}
                     className={`flex items-center px-4 py-2 rounded-full transition-colors ${isFavorite
-                        ? 'bg-red-500 text-white'
+                        ? 'bg-[#a61c1c] text-white'
                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                         }`}
                 >

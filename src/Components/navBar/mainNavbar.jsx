@@ -97,14 +97,14 @@ const MainNavbar = ({ isLandingPage }) => {
               <>
                 <a
                   href="/register"
-                  className="w-full md:w-auto bg-green-500 text-white rounded-full py-2 px-4 text-center cursor-pointer hover:bg-green-600 transition-colors"
+                  className="w-full md:w-auto bg-bidcraft-grey-2 text-white rounded-full py-2 px-4 text-center cursor-pointer hover:bg-bidcraft-grey transition-colors"
                   tabIndex="2"
                 >
                   Registrarse
                 </a>
                 <a
                   href="/login"
-                  className="w-full md:w-auto bg-blue-500 text-white rounded-full py-2 px-4 text-center cursor-pointer hover:bg-blue-600 transition-colors"
+                  className="w-full md:w-auto bg-yellow-500 text-black rounded-full py-2 px-4 text-center cursor-pointer hover:bg-yellow-400 transition-colors"
                   tabIndex="3"
                 >
                   Iniciar Sesión
@@ -131,7 +131,7 @@ const MainNavbar = ({ isLandingPage }) => {
                   <FontAwesomeIcon icon={faBell} />
                 </button>
                 <button
-                  className="w-full md:w-40 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white focus:outline-none hover:bg-blue-600 transition-colors"
+                  className="w-full md:w-40 h-10 flex items-center justify-center rounded-full text-[#131743] bg-[#EEEDEB] focus:outline-none hover:bg-[#DEDDCB] transition-colors"
                   onClick={() => toggleModal(showUserModal, setShowUserModal)}
                 >
                   Hola {getUserName()}
