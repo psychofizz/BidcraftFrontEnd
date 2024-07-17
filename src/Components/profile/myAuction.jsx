@@ -1,129 +1,111 @@
 
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import axios from "axios";
-import {
-    Modal,
-    Ripple,
-    initTWE,
-} from "tw-elements";
+
+import { Link } from 'react-router-dom';
+
 import { toast } from "react-toastify";
 
 
-function MyAuctions({ idAuction, name, description, highest_bid,updateAuction }) {
+function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, imgUrl }) {
 
-   
 
-    
+console.log(imgUrl)
+
     //---------------------------------------Funcion para eliminar ------------------------------------------
 
+    const [isOpen, setIsOpen] = useState(false);
 
-    useEffect(() => {
-        initTWE({ Modal, Ripple });
-    }, []);
+    const openModal = () => {
+        setIsOpen(true);
+    };
 
-    const deleteAuction = async () => {
-        console.log(idAuction)
-        try {
-            const response = await axios.delete(`http://127.0.0.1:8000/api/auction/delete/one/${idAuction}/`);
-            toast.success("Subasta eliminada")
-            updateAuction();
-         
-        } catch (error) {
-console.log(error)
-        }
+    const closeModal = () => {
+        setIsOpen(false);
     };
 
 
 
 
+    const deleteAuction = async() => {
+        console.log(idAuction)
+        closeModal()
+        try {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/auction/delete/one/${idAuction}/`);
+        toast.success("Subasta eliminada")
+    updateAuction();
+
+        } catch (error) {
+    console.log(error)
+
+    };
+    }
+
+
+
     //-------------------------------------------------------------------------------------------------------
     return (
-        <div className="w-full flex flex-col-2 h-[20%] shadow-2xl pb-3">
-            <div className="w-[30%] bg-slate-400">holap</div>
-            <div className="w-[70%] flex flex-col-2">
-                <div className="w-[70%] p-5 shadow-2xl">
-                    <h1>{name} -{description}</h1>
-                    <h1>Precio de venta  :L. {highest_bid}</h1>
-                </div>
-                <div className="w-[30%] flex flex-col justify-center px-11 ">
+    
+
+<div className="w-full flex flex-col-2 h-[20%] shadow-2xl mb-3 bg-bidcraft-grey-2 ">
+
+
+<div className="w-[30%]  "> 
+                <Link to={`/Auction/${idAuction}`} >                <img src={imgUrl ? imgUrl.image_url : null}className="w-full h-full object-cover" alt="" />
+                </Link>
+            </div> 
+
+            
+
+            <div className="w-[70%] flex flex-col-2 ">
+                <div className="w-[70%] p-5 shadow-2xl  font-bold">
+                    <h1 className="text-2xl text-white ">{name} -{description}</h1>
+                    <h1 className="text-xl text-gray-400">Precio de actual  :L. {highest_bid}</h1>             </div>
+                <div className="w-[30%] flex flex-col justify-center px-11 text-white ">
                     <button className="border-2 border-blue-600 px-3 py-2 rounded-md">Editar</button>
                     <button className="border-2 border-red-500 px-3 py-2 mt-1 rounded-md" data-twe-toggle="modal"
                         data-twe-target="#exampleModal"
                         data-twe-ripple-init
-                        data-twe-ripple-color="light">Eliminar</button>
+                        data-twe-ripple-color="light" onClick={openModal}>Eliminar </button>
 
                 </div>
             </div>
-            {/* modad*/}
-            <div
-                data-twe-modal-init
-                className="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
-                id="exampleModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div
-                    data-twe-modal-dialog-ref
-                    className="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]">
-                    <div
-                        className="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-4 outline-none dark:bg-surface-dark">
-                        <div
-                            className="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
-                            <h5
-                                className="text-xl font-medium leading-normal text-surface dark:text-white"
-                                id="exampleModalLabel">
-                                ¿Esta seguro que desea eliminar esta subasta?
-                            </h5>
-                            <button
-                                type="button"
-                                className="box-content rounded-none border-none text-neutral-500 hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
-                                data-twe-modal-dismiss
-                                aria-label="Close">
-                                <span className="[&>svg]:h-6 [&>svg]:w-6">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor">
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </span>
-                            </button>
-                        </div>
-                        {/* modal body*/}
-                        <div className="relative flex-auto p-4" data-twe-modal-body-ref>
-                            Estos Cambios no se pueden revertir
-                        </div>
 
-                        {/* modal footer*/}
-                        <div
-                            className="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 p-4 dark:border-white/10">
-                            <button
-                                onClick={deleteAuction}
-                                type="button"
-                                className="inline-block rounded bg-primary-100 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-200 focus:bg-primary-accent-200 focus:outline-none focus:ring-0 active:bg-primary-accent-200 dark:bg-primary-300 dark:hover:bg-primary-400 dark:focus:bg-primary-400 dark:active:bg-primary-400"
-                                data-twe-modal-dismiss
-                                data-twe-ripple-init
-                                data-twe-ripple-color="light">
-                                Close
-                            </button>
-                            <button
-                                onClick={deleteAuction}
-                                type="button"
-                                className="ms-1 inline-block rounded bg-red-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                                data-twe-ripple-init
-                                data-twe-ripple-color="light">
-                                Eliminar
-                            </button>
+            {isOpen && (
+                <div className="fixed inset-0 flex items-center justify-center z-50 text-bidcraft-grey-2">
+                    <div className="modal-overlay fixed inset-0 bg-black opacity-50"></div>
+
+                    <div className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                        <div className="modal-content py-4 text-left px-6">
+                            <div className="flex justify-between items-center pb-3">
+                                <p className="text-2xl font-bold">¿Deseas eliminar esta subasta?</p>
+                                <button onClick={closeModal} className="modal-close">
+                                    <svg className="fill-current text-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path
+                                            className="heroicon-ui"
+                                            d="M14.95 14.95a1 1 0 0 1-1.41 0L10 11.41l-3.54 3.54a1 1 0 1 1-1.41-1.41L8.59 10 5.05 6.46a1 1 0 0 1 1.41-1.41L10 8.59l3.54-3.54a1 1 0 0 1 1.41 1.41L11.41 10l3.54 3.54a1 1 0 0 1 0 1.41z"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>
+                            <p>Estos cambios son irreversibles</p>
+                            <div className="flex justify-end pt-2">
+                                <button
+                                    onClick={closeModal}
+                                    className="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2"
+                                >
+                                    Cerrar
+                                </button>
+                                <button onClick={() => deleteAuction()} className="modal-close px-4 bg-bidcraft-grey-2 p-3 rounded-lg text-white hover:bg-indigo-400">
+                                    Aceptar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </div>
+       
 
 
 

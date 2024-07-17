@@ -7,10 +7,17 @@ import { HeartIcon } from '@heroicons/react/solid';
 function AuctionInfo({ name, description, idAuction, userId,imgUrl }) {
 
     const [isFavorite, setIsFavorite] = useState(false);
-    const [images, setImages] = useState([
-        imgUrl.image_url
-       
-    ]);
+    const [images, setImages] = useState([]);
+
+
+useEffect(() => {
+    // Verificar si imgUrl.image_url no es nulo antes de asignarlo al estado
+    if (imgUrl && imgUrl.image_url) {
+        setImages([imgUrl.image_url]);
+    } else {
+        setImages([]); // Manejar el caso donde imgUrl.image_url es nulo o indefinido
+    }
+}, [imgUrl]);
 
     const dataFavorite = {
         user: userId,
@@ -59,19 +66,25 @@ function AuctionInfo({ name, description, idAuction, userId,imgUrl }) {
             </div>
 
             <div className="mb-8">
-                <Carousel
-                    showArrows={true}
-                    showStatus={false}
-                    showThumbs={false}
-                    infiniteLoop={true}
-                    className="rounded-lg overflow-hidden shadow-xl"
-                >
-                    {images.map((img, index) => (
-                        <div key={index}>
-                            <img src={img} alt={`Item de subasta ${index + 1}`} className="w-full h-[60vh] object-cover" />
-                        </div>
-                    ))}
-                </Carousel>
+            <Carousel
+    showArrows={true}
+    showStatus={false}
+    showThumbs={false}
+    infiniteLoop={true}
+    className="rounded-lg overflow-hidden shadow-xl"
+>
+    {images.length > 0 ? (
+        images.map((img, index) => (
+            <div key={index}>
+                <img src={img} alt={`Item de subasta ${index + 1}`} className="w-full h-[60vh] object-cover" />
+            </div>
+        ))
+    ) : (
+        <div className="w-full h-[60vh] flex items-center justify-center">
+            <p className="text-gray-400">No hay imágenes disponibles</p>
+        </div>
+    )}
+</Carousel>;
             </div>
 
             <div className="bg-bidcraft-grey-2 shadow overflow-hidden sm:rounded-lg">

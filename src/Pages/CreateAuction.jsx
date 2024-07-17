@@ -194,7 +194,7 @@ const CreateAuction = () => {
                 </label>
                 <input onChange={(e) => handleChange(e)}
                   name="buy_it_now_price"
-                  type="number"
+                  type="text"
                   id="initialPrice"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
                 />
@@ -205,7 +205,7 @@ const CreateAuction = () => {
                 </label>
                 <input onChange={(e) => handleChange(e)}
                   name="starting_price"
-                  type="number"
+                  type="text"
                   id="initialPrice"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
                 />
@@ -255,6 +255,17 @@ const CreateAuction = () => {
               </div>
 
               <TagInput />
+              <div>
+                <label htmlFor="title" className="block text-sm font-medium mb-2">
+                  Agregar Tag
+                </label>
+                <input onChange={(e) => handleChange(e)}
+                  name="tag"
+                  type="text"
+                  id="title"
+                  className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
+                />
+              </div>
 
               <button
                 type="submit"
