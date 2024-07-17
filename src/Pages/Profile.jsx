@@ -1,18 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Tab, initTWE } from "tw-elements";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
-
+import axios from "axios";
 import Review from "../Components/profile/Review";
 import MyAuctions from "../Components/profile/myAuction"
 
 function Profile() {
   useEffect(() => {
     initTWE({ Tab });
-  });
+    myAuctions();
+  },[]);
+
+//-------------------------aca obtenemos ---------------------
+const [productMyInfo, setProductInfo] = useState([]);
+
+//-----------------------Esto nos sirve para obtener my toquen del localstorage
+  const jwt = JSON.parse(localStorage.getItem("token"));
+//-----------------------Esta funcion nos sirve para obtener mis subastas---------------------------------------
+
+const myAuctions = async () => {
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/api/auction/show/all/user/", {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
+
+    });
+   console.log(response.data)
+   setProductInfo(response.data)
+  } catch (error) {
+   
+  }
+};
+
+
+
+
+//--------------------------------------------------------------------------------------------------------
 
   return (
     <div>
@@ -46,7 +75,7 @@ function Profile() {
       </div>
       <div
         id="tabs"
-        className="mx-[30px] xl:mx-[200px] lg:mx-[200px] md:mx-[100px] sm:mx-[59px]   "
+        className="mx-[30px] xl:mx-[400px] lg:mx-[200px] md:mx-[100px] sm:mx-[59px]   "
       >
         <ul
           className="mb-5 flex list-none flex-row flex-wrap border-b-0 ps-0"
@@ -212,7 +241,16 @@ function Profile() {
             role="tabpanel"
             aria-labelledby="tabs-profile-tab02"
           >
-           <MyAuctions/>
+{productMyInfo.length > 0 ? (
+  <div>
+    {productMyInfo.map((producto) => (
+      <div key={producto.auction_id}>
+        <MyAuctions idAuction={producto.auction_id} name={producto.name} description={producto.description} highest_bid={producto.highest_bid} updateAuction={myAuctions} />
+      </div>
+    ))}
+  </div>
+) : null}
+          
           </div>
           <div
             className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"

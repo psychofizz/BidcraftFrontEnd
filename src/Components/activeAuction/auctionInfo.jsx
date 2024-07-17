@@ -4,12 +4,12 @@ import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { HeartIcon } from '@heroicons/react/solid';
 
-function AuctionInfo({ name, description, idAuction, userId }) {
+function AuctionInfo({ name, description, idAuction, userId,imgUrl }) {
+
     const [isFavorite, setIsFavorite] = useState(false);
     const [images, setImages] = useState([
-        "https://dummyimage.com/800x600/000/fff",
-        "https://dummyimage.com/800x600/333/fff",
-        "https://dummyimage.com/800x600/666/fff",
+        imgUrl.image_url
+       
     ]);
 
     const dataFavorite = {

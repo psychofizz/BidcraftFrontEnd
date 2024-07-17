@@ -39,7 +39,7 @@ function Auction() {
 
 
 
-    //aca obtenemos la informacion de cada subasta si
+    //-------------------aca obtenemos la informacion de cada subasta si-----------------------------
     const infoAuction = async () => {
         try {
             if (data) {
@@ -64,7 +64,7 @@ function Auction() {
                 {data.name && data.description ? (
                     <>
                         <div className="col-span-2 lg:col-span-3">
-                            <AuctionInfo name={data.name} description={data.description} idAuction={data.auction_id} userId={userId.id} />
+                            <AuctionInfo name={data.name} description={data.description} idAuction={data.auction_id} userId={userId.id} imgUrl={data.images[0]} />
                         </div>
                         <div className="mr-10 mt-4">
 
