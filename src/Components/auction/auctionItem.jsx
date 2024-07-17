@@ -39,7 +39,7 @@ const AuctionItem = ({
           alt={title}
           className="w-full h-80 object-cover"
         />
-        <div className="absolute top-2 left-2 flex gap-2 flex-wrap z-40">
+        <div className="absolute top-2 left-2 flex gap-2 flex-wrap z-20">
           <TagItem category={category} color="bg-blue-100 text-blue-800" />
         </div>
         <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 backdrop-blur-sm rounded-t-lg p-4 transform translate-y-1/2 hover:translate-y-0 transition-transform duration-300 flex flex-col">
