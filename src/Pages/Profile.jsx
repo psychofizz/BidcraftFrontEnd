@@ -1,21 +1,51 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Tab, initTWE } from "tw-elements";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
-
+import axios from "axios";
 import Review from "../Components/profile/Review";
 import MyAuctions from "../Components/profile/myAuction"
 
 function Profile() {
   useEffect(() => {
     initTWE({ Tab });
-  });
+    myAuctions();
+  },[]);
+//-------------------------- obtener--------------------------
+var user = JSON.parse(localStorage.getItem("User"));
+//-------------------------aca obtenemos ---------------------
+const [productMyInfo, setProductInfo] = useState([]);
+
+//-----------------------Esto nos sirve para obtener my toquen del localstorage
+  const jwt = JSON.parse(localStorage.getItem("token"));
+//-----------------------Esta funcion nos sirve para obtener mis subastas---------------------------------------
+
+const myAuctions = async () => {
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/api/auction/show/all/user/", {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
+
+    });
+   console.log(response.data)
+   setProductInfo(response.data)
+  } catch (error) {
+   
+  }
+};
+
+
+
+
+//--------------------------------------------------------------------------------------------------------
 
   return (
-    <div>
+    <div className="bg-bidcraft-grey">
       <div id="imgProfile">
         <MainNavbar></MainNavbar>
         <CategoriesBar></CategoriesBar>
@@ -37,8 +67,8 @@ function Profile() {
             </div>
 
             <div className="xl:w-[80%] lg:w-[90%] md:w-[94%] sm:w-[96%] xs:w-[92%] mx-auto flex flex-col gap-4 justify-center items-center relative xl:-top-[6rem] lg:-top-[6rem] md:-top-[4rem] sm:-top-[3rem] xs:-top-[2.2rem]">
-              <h1 className="text-center text-gray-800 dark:text-white text-4xl font-serif">
-                Samuel Abera
+              <h1 className="text-center text-gray-800 dark:text-white text-4xl font-serif text-white">
+                {user.first_name+ " "+ user.last_name }
               </h1>
             </div>
           </div>
@@ -46,7 +76,7 @@ function Profile() {
       </div>
       <div
         id="tabs"
-        className="mx-[30px] xl:mx-[200px] lg:mx-[200px] md:mx-[100px] sm:mx-[59px]   "
+        className="mx-[30px] xl:mx-[400px] lg:mx-[200px] md:mx-[100px] sm:mx-[59px]   "
       >
         <ul
           className="mb-5 flex list-none flex-row flex-wrap border-b-0 ps-0"
@@ -56,7 +86,7 @@ function Profile() {
           <li role="presentation" className="flex-grow basis-0 text-center">
             <a
               href="#tabs-home02"
-              className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
+              className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-white hover:isolate hover:border-transparent  focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
               data-twe-toggle="pill"
               data-twe-target="#tabs-home02"
               data-twe-nav-active
@@ -70,7 +100,7 @@ function Profile() {
           <li role="presentation" className="flex-grow basis-0 text-center">
             <a
               href="#tabs-profile02"
-              className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
+              className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-white hover:isolate hover:border-transparent  focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
               data-twe-toggle="pill"
               data-twe-target="#tabs-profile02"
               role="tab"
@@ -83,7 +113,7 @@ function Profile() {
           <li role="presentation" className="flex-grow basis-0 text-center">
             <a
               href="#tabs-messages02"
-              className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-neutral-500 hover:isolate hover:border-transparent hover:bg-neutral-100 focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
+              className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-white hover:isolate hover:border-transparent  focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
               data-twe-toggle="pill"
               data-twe-target="#tabs-messages02"
               role="tab"
@@ -103,100 +133,16 @@ function Profile() {
             aria-labelledby="tabs-home-tab02"
             data-twe-tab-active
           >
-            <section className="text-gray-600 body-font grip ">
-              <div className="container flex md:flex-row flex-col items-center">
-                <div className="lg:max-w-[300px] lg:w-full md:w-1/2 w-full mb-10 md:mb-0">
-                  <img
-                    className="object-cover object-center rounded"
-                    alt="hero"
-                    src="https://dummyimage.com/720x600"
-                  />
-                </div>
-                <div className="lg:flex-grow md:w-1/2 lg:pl-10 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-                  <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-                    Before they sold out
-                    <br className="hidden lg:inline-block" />
-                    readymade gluten
-                  </h1>
-                  <p className="mb-8 leading-relaxed">
-                    Copper mug try-hard pitchfork pour-over freegan heirloom
-                    neutra air plant cold-pressed tacos poke beard tote bag.
-                    Heirloom echo park mlkshk tote bag selvage hot chicken
-                    authentic tumeric truffaut hexagon try-hard chambray.
-                  </p>
-                  <div className="flex justify-end w-full">
-                    <button className="inline-flex text-white  border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#FFD43B" }}
-                      />
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#FFD43B" }}
-                      />
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#FFD43B" }}
-                      />
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#FFD43B" }}
-                      />
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#FFD43B" }}
-                      />
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="container flex md:flex-row flex-col items-center mt-8">
-                <div className="lg:max-w-[300px] lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
-                  <img
-                    className="object-cover object-center rounded"
-                    alt="hero"
-                    src="https://dummyimage.com/720x600"
-                  />
-                </div>
-                <div className="lg:flex-grow md:w-1/2 lg:pl-10 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-                  <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-                    Before they sold out
-                    <br className="hidden lg:inline-block" />
-                    readymade gluten
-                  </h1>
-                  <p className="mb-8 leading-relaxed">
-                    Copper mug try-hard pitchfork pour-over freegan heirloom
-                    neutra air plant cold-pressed tacos poke beard tote bag.
-                    Heirloom echo park mlkshk tote bag selvage hot chicken
-                    authentic tumeric truffaut hexagon try-hard chambray.
-                  </p>
-                  <div className="flex justify-end w-full">
-                    <button className="inline-flex text-white  border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#FFD43B" }}
-                      />
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#FFD43B" }}
-                      />
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#FFD43B" }}
-                      />
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#FFD43B" }}
-                      />
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        style={{ color: "#FFD43B" }}
-                      />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </section>
+           {productMyInfo.length > 0 ? (
+  <div>
+    {productMyInfo.map((producto) => (
+      <div key={producto.auction_id}>
+        
+        <MyAuctions idAuction={producto.auction_id} name={producto.name} description={producto.description} highest_bid={producto.highest_bid} updateAuction={myAuctions} imgUrl={producto.images[0]} />
+      </div>
+    ))}
+  </div>
+) : null}
           </div>
           <div
             className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
@@ -212,7 +158,8 @@ function Profile() {
             role="tabpanel"
             aria-labelledby="tabs-profile-tab02"
           >
-           <MyAuctions/>
+
+          
           </div>
           <div
             className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"

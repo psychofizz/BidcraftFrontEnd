@@ -11,10 +11,7 @@ const HomeTest = () => {
 
   const [productInfo, setProductInfo] = useState([]);
 
-  //Esto nos srive para obtener todos los productos
-
-
-
+  //Esto nos sirve para obtener todos los productos
   const obtenProducto = async () => {
     try {
       const response = await fetch(
@@ -30,6 +27,7 @@ const HomeTest = () => {
       } else {
         const data = await response.json();
         setProductInfo(data);
+        console.log(data)
 
 
       }
@@ -51,11 +49,12 @@ const HomeTest = () => {
                   userId={producto.seller}
                   title={producto.name}
                   description={producto.description}
-                  price={producto.starting_price}
+                  price={producto.highest_bid}
                   endDate={producto.end_time}
                   num_of_favorites="12"
                   auctionId={producto.auction_id}
                   category={producto.category.category_name}
+                  imgUrl={producto.images[0]}
                 ></AuctionItem>
               </div>
             ))}

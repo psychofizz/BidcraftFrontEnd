@@ -1,0 +1,119 @@
+import React from "react";
+import axios from "axios";
+import AuctionItem from "../Components/auction/auctionItem";
+import { useState } from "react";
+import LoadingAuctionItems from "../Components/auction/LoadingAuctionItem";
+
+function TagsAuction() {
+  const [values, setValues] = useState({
+    nameTags: "",
+  });
+  const [productInfo, setProductInfo] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // Estado para manejar el loading
+
+  const handleChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+    console.log(values);
+  };
+
+  //------------------------- Esta funcion nos ayuda a buscar por tags-------------------
+  const searchTags = async (event) => {
+    event.preventDefault();
+    setIsLoading(true); // Inicia el loading
+    try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/tags/find/one/${values.nameTags}/`);
+        console.log(response.data[0].tag_id +" response1 primera prueba");
+        const response2 = await axios.get(`http://127.0.0.1:8000/api/auctions/tag/${response.data[0].tag_id}/`);
+        console.log(response2.data[0].auction_id +" Response 2" );
+        const response3 = await axios.get(`http://127.0.0.1:8000/api/auction/show/one/62/`);
+        console.log(response3 + " response3");
+        
+    } catch (error) {
+      console.log("Tag no encontrado"+ error);
+    } finally {
+      setIsLoading(false); // Termina el loading
+    }
+  };
+
+  //------------------------- Esta funcion nos ayuda a traer las subastas relacionado a esos tags-------------------
+  const searchAuctionByTags = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/auctions/tag/17/`);
+      console.log(response.data[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div>
+      <div>
+        <form className="max-w-md mx-auto" onSubmit={(event) => searchTags(event)}>
+          <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
+            Search
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              onChange={(e) => handleChange(e)}
+              name="nameTags"
+              type="search"
+              id="default-search"
+              className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search Mockups, Logos..."
+              required
+            />
+            <button
+              type="submit"
+              className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+      <div>
+        {isLoading ? (
+          <LoadingAuctionItems count={6} />
+        ) : productInfo.length > 0 ? (
+          <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2 shadow-lg lg:grid-cols-4 xl:grid-cols-5">
+            {productInfo.map((producto) => (
+              <div key={producto.auction_id}>
+                <AuctionItem
+                  title={producto.name}
+                  description={producto.description}
+                  price={producto.highest_bid}
+                  endDate={producto.end_time}
+                  num_of_favorites="12"
+                  auctionId={producto.auction_id}
+                  category={producto.category.category_name}
+                  imgUrl={producto.images[0]}
+                ></AuctionItem>
+              </div>
+            ))}
+          </section>
+        ) : (
+          <p>No se encontraron productos.</p>
+        )}
+      </div>
+    </div>
+  );
+}
+export default TagsAuction;
