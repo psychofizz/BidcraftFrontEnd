@@ -7,46 +7,14 @@ import CategoriesBar from "../Components/navBar/CategoriesBar";
 import LoadingAuctionItems from "../Components/auction/LoadingAuctionItem";
 
 const HomeTest = () => {
-  //Validando que  este el token en el local storage
-  const [userInfo, setUserInfo] = useState([]);
+
+
   const [productInfo, setProductInfo] = useState([]);
-  const jwt = JSON.parse(localStorage.getItem("token"));
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    //Estableciendo las rutas protegidas
-    if (jwt === null) {
-
-      navigate("/login");
-    } else {
-      console.log("probando uses efect")
-      obtenInfo(jwt);
-      obtenProducto();
-    }
-  }, [jwt]);
-
-  //Esto nos srive para obtener informacion del usuario
-
-  const obtenInfo = async (token) => {
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/auth/profile", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-      } else {
-        const dataUser = await response.json();
-        localStorage.setItem("User", JSON.stringify(dataUser));
-        console.log(dataUser);
-        setUserInfo(dataUser);
-      }
-    } catch (error) { }
-  };
 
   //Esto nos srive para obtener todos los productos
+
+
+
   const obtenProducto = async () => {
     try {
       const response = await fetch(
@@ -68,9 +36,11 @@ const HomeTest = () => {
     } catch (error) { }
   };
 
+  obtenProducto()
+
   return (
     <div className="min-h-screen bg-bidcraft-grey">
-      <MainNavbar userName={userInfo ? userInfo.first_name : null} />
+      <MainNavbar />
       <CategoriesBar></CategoriesBar>
       <div>
         {productInfo.length > 0 ? (
@@ -78,7 +48,7 @@ const HomeTest = () => {
             {productInfo.map((producto) => (
               <div key={producto.auction_id}>
                 <AuctionItem
-                  userId={userInfo.id}
+                  userId={producto.seller}
                   title={producto.name}
                   description={producto.description}
                   price={producto.starting_price}
