@@ -17,7 +17,7 @@ function Auction() {
     const navigate = useNavigate();
 
     var userId = JSON.parse(localStorage.getItem("User"));
-    console.log(userId.id)
+
 
     useEffect(() => {
 
@@ -45,7 +45,7 @@ function Auction() {
             if (data) {
                 const response = await axios.get(`http://127.0.0.1:8000/api/auction/show/one/${auctionId.id}/`);
                 setData(response.data);
-                console.log(response.data)
+
             }
 
         } catch (error) {
