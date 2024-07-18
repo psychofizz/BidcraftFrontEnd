@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Tab, initTWE } from "tw-elements";
@@ -13,36 +13,36 @@ function Profile() {
   useEffect(() => {
     initTWE({ Tab });
     myAuctions();
-  },[]);
-//-------------------------- obtener--------------------------
-var user = JSON.parse(localStorage.getItem("User"));
-//-------------------------aca obtenemos ---------------------
-const [productMyInfo, setProductInfo] = useState([]);
+  }, []);
+  //-------------------------- obtener--------------------------
+  var user = JSON.parse(localStorage.getItem("User"));
+  //-------------------------aca obtenemos ---------------------
+  const [productMyInfo, setProductInfo] = useState([]);
 
-//-----------------------Esto nos sirve para obtener my toquen del localstorage
+  //-----------------------Esto nos sirve para obtener my toquen del localstorage
   const jwt = JSON.parse(localStorage.getItem("token"));
-//-----------------------Esta funcion nos sirve para obtener mis subastas---------------------------------------
+  //-----------------------Esta funcion nos sirve para obtener mis subastas---------------------------------------
 
-const myAuctions = async () => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/auction/show/all/user/", {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-        "Content-Type": "application/json",
-      },
+  const myAuctions = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/api/auction/show/all/user/", {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          "Content-Type": "application/json",
+        },
 
-    });
-   console.log(response.data)
-   setProductInfo(response.data)
-  } catch (error) {
-   
-  }
-};
+      });
+      console.log(response.data)
+      setProductInfo(response.data)
+    } catch (error) {
 
-
+    }
+  };
 
 
-//--------------------------------------------------------------------------------------------------------
+
+
+  //--------------------------------------------------------------------------------------------------------
 
   return (
     <div className="bg-bidcraft-grey">
@@ -68,7 +68,7 @@ const myAuctions = async () => {
 
             <div className="xl:w-[80%] lg:w-[90%] md:w-[94%] sm:w-[96%] xs:w-[92%] mx-auto flex flex-col gap-4 justify-center items-center relative xl:-top-[6rem] lg:-top-[6rem] md:-top-[4rem] sm:-top-[3rem] xs:-top-[2.2rem]">
               <h1 className="text-center text-gray-800 dark:text-white text-4xl font-serif text-white">
-                {user.first_name+ " "+ user.last_name }
+                {user.first_name + " " + user.last_name}
               </h1>
             </div>
           </div>
@@ -94,7 +94,7 @@ const myAuctions = async () => {
               aria-controls="tabs-home02"
               aria-selected="true"
             >
-              Historial de Subastas
+              Mis Subastas
             </a>
           </li>
           <li role="presentation" className="flex-grow basis-0 text-center">
@@ -110,7 +110,7 @@ const myAuctions = async () => {
               Reseñas
             </a>
           </li>
-          <li role="presentation" className="flex-grow basis-0 text-center">
+          <li role="presentation hidden" className="flex-grow basis-0 text-center">
             <a
               href="#tabs-messages02"
               className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-white hover:isolate hover:border-transparent  focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
@@ -120,7 +120,7 @@ const myAuctions = async () => {
               aria-controls="tabs-messages02"
               aria-selected="false"
             >
-              Mis subastas
+              Historial de Subastas
             </a>
           </li>
         </ul>
@@ -133,16 +133,16 @@ const myAuctions = async () => {
             aria-labelledby="tabs-home-tab02"
             data-twe-tab-active
           >
-           {productMyInfo.length > 0 ? (
-  <div>
-    {productMyInfo.map((producto) => (
-      <div key={producto.auction_id}>
-        
-        <MyAuctions idAuction={producto.auction_id} name={producto.name} description={producto.description} highest_bid={producto.highest_bid} updateAuction={myAuctions} imgUrl={producto.images[0]} />
-      </div>
-    ))}
-  </div>
-) : null}
+            {productMyInfo.length > 0 ? (
+              <div>
+                {productMyInfo.map((producto) => (
+                  <div key={producto.auction_id}>
+
+                    <MyAuctions idAuction={producto.auction_id} name={producto.name} description={producto.description} highest_bid={producto.highest_bid} updateAuction={myAuctions} imgUrl={producto.images[0]} />
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </div>
           <div
             className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
@@ -159,7 +159,7 @@ const myAuctions = async () => {
             aria-labelledby="tabs-profile-tab02"
           >
 
-          
+
           </div>
           <div
             className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"

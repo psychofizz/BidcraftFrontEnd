@@ -130,12 +130,12 @@ const CreateAuction = () => {
     const fetchCategories = async () => {
       try {
         const response = await fetch('http://localhost:8000/api/categories/show/all/');
-       
+
         if (!response.ok) {
           throw new Error('Failed to fetch categories');
         }
         const data = await response.json();
-      console.log(data)
+        console.log(data)
         setCategories(data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -213,37 +213,27 @@ const CreateAuction = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="startDate" className="block text-sm font-medium mb-2">
-                    Fecha Inicio
-                  </label>
-                  <input onChange={(e) => handleChange(e)}
-                    name="start_time"
-                    type="date"
-                    id="startDate"
-                    className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="endDate" className="block text-sm font-medium mb-2">
-                    Fecha Final
-                  </label>
-                  <input onChange={(e) => handleChange(e)}
-                    name="end_time"
-                    type="date"
-                    id="endDate"
-                    className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                  />
-                </div>
+
+
+              <div>
+                <label htmlFor="endDate" className="block text-sm font-medium mb-2">
+                  Fecha Final
+                </label>
+                <input onChange={(e) => handleChange(e)}
+                  name="end_time"
+                  type="date"
+                  id="endDate"
+                  className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
+                />
               </div>
+
 
               <div>
                 <label htmlFor="category" className="block text-sm font-medium mb-2">
                   Categoria
                 </label>
                 <select onChange={(e) => handleChange(e)}
-                name="category"
+                  name="category"
                   id="category"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
                 >
@@ -256,7 +246,7 @@ const CreateAuction = () => {
                 </select>
               </div>
 
-              <TagInput />
+
               <div>
                 <label htmlFor="title" className="block text-sm font-medium mb-2">
                   Agregar Tag
