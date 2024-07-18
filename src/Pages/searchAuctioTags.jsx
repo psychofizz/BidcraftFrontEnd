@@ -27,12 +27,12 @@ function TagsAuction() {
     event.preventDefault();
     setIsLoading(true); // Inicia el loading
     try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/tags/find/all/auctions/${values.nameTags}/`);
-     console.log(response.data[0])
-     setProductInfo(response.data[0])
-        
+      const response = await axios.get(`http://127.0.0.1:8000/api/tags/find/all/auctions/${values.nameTags}/`);
+      console.log(response.data[0])
+      setProductInfo(response.data[0])
+
     } catch (error) {
-      console.log("Tag no encontrado"+ error);
+      console.log("Tag no encontrado" + error);
     } finally {
       setIsLoading(false); // Termina el loading
     }
@@ -94,28 +94,28 @@ function TagsAuction() {
         </form>
       </div>
       <div>
-      {isLoading ? (
-  <LoadingAuctionItems count={6} />
-) : productInfo && productInfo.length > 0 ? (
-  <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2 shadow-lg lg:grid-cols-4 xl:grid-cols-5">
-    {productInfo.map((producto) => (
-      <div key={producto.auction_id}>
-        <AuctionItem
-          title={producto.name}
-          description={producto.description}
-          price={producto.highest_bid}
-          endDate={producto.end_time}
-          num_of_favorites="12"
-          auctionId={producto.auction_id}
-          category={producto.category.category_name}
-          imgUrl={producto.images[0]}
-        />
-      </div>
-    ))}
-  </section>
-) : (
-  <p>No se encontraron productos.</p>
-)}
+        {isLoading ? (
+          <LoadingAuctionItems count={6} />
+        ) : productInfo && productInfo.length > 0 ? (
+          <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2 shadow-lg lg:grid-cols-4 xl:grid-cols-5">
+            {productInfo.map((producto) => (
+              <div key={producto.auction_id}>
+                <AuctionItem
+                  title={producto.name}
+                  description={producto.description}
+                  price={producto.highest_bid}
+                  endDate={producto.end_time}
+                  num_of_favorites="12"
+                  auctionId={producto.auction_id}
+                  category={producto.category.category_name}
+                  imgUrl={producto.images[0]}
+                />
+              </div>
+            ))}
+          </section>
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   );
