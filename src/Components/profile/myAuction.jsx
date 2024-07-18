@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, imgUrl }) {
 
 
-console.log(imgUrl)
+    console.log(imgUrl)
 
     //---------------------------------------Funcion para eliminar ------------------------------------------
 
@@ -27,48 +27,46 @@ console.log(imgUrl)
 
 
 
-    const deleteAuction = async() => {
+    const deleteAuction = async () => {
         console.log(idAuction)
         closeModal()
         try {
-        const response = await axios.delete(`http://127.0.0.1:8000/api/auction/delete/one/${idAuction}/`);
-        toast.success("Subasta eliminada")
-    updateAuction();
+            const response = await axios.delete(`http://127.0.0.1:8000/api/auction/delete/one/${idAuction}/`);
+            toast.success("Subasta eliminada")
+            updateAuction();
 
         } catch (error) {
-    console.log(error)
+            console.log(error)
 
-    };
+        };
     }
 
 
 
     //-------------------------------------------------------------------------------------------------------
     return (
-    
-
-<div className="w-full flex flex-col-2 h-[20%] shadow-2xl mb-3 bg-bidcraft-grey-2 ">
 
 
-<div className="w-[30%]  "> 
-                <Link to={`/Auction/${idAuction}`} >                <img src={imgUrl ? imgUrl.image_url : null}className="w-full h-full object-cover" alt="" />
-                </Link>
-            </div> 
+        <div className="w-full flex flex-col-2 h-[20%] shadow-2xl mb-3 bg-bidcraft-grey-2 ">
 
-            
+
+
+
+
 
             <div className="w-[70%] flex flex-col-2 ">
-                <div className="w-[70%] p-5 shadow-2xl  font-bold">
+                <div className=" p-5 shadow-2xl  font-bold">
                     <h1 className="text-2xl text-white ">{name} -{description}</h1>
                     <h1 className="text-xl text-gray-400">Precio de actual  :L. {highest_bid}</h1>             </div>
-                <div className="w-[30%] flex flex-col justify-center px-11 text-white ">
-                    <button className="border-2 border-blue-600 px-3 py-2 rounded-md">Editar</button>
-                    <button className="border-2 border-red-500 px-3 py-2 mt-1 rounded-md" data-twe-toggle="modal"
-                        data-twe-target="#exampleModal"
-                        data-twe-ripple-init
-                        data-twe-ripple-color="light" onClick={openModal}>Eliminar </button>
 
-                </div>
+            </div>
+            <div className="w-[20%] flex  flex-col justify-center px-11 text-white ">
+                <button className="border-2 border-blue-600 px-3 py-2 rounded-md">Editar</button>
+                <button className="border-2 border-red-500 px-3 py-2 mt-1 rounded-md" data-twe-toggle="modal"
+                    data-twe-target="#exampleModal"
+                    data-twe-ripple-init
+                    data-twe-ripple-color="light" onClick={openModal}>Eliminar </button>
+
             </div>
 
             {isOpen && (
@@ -105,7 +103,7 @@ console.log(imgUrl)
                 </div>
             )}
         </div>
-       
+
 
 
 

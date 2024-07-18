@@ -132,6 +132,11 @@ const MainNavbar = ({ isLandingPage }) => {
                 </button>
                 <button
                   className="w-full md:w-40 h-10 flex items-center justify-center rounded-full text-[#131743] bg-[#EEEDEB] focus:outline-none hover:bg-[#DEDDCB] transition-colors"
+                >
+                  <a href="/auctiontags">Busqueda</a>
+                </button>
+                <button
+                  className="w-full md:w-40 h-10 flex items-center justify-center rounded-full text-[#131743] bg-[#EEEDEB] focus:outline-none hover:bg-[#DEDDCB] transition-colors"
                   onClick={() => toggleModal(showUserModal, setShowUserModal)}
                 >
                   Hola {getUserName()}
