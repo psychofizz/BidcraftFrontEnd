@@ -21,7 +21,7 @@ function CardSeller({ nameSeller }) {
                     </div>
                 </div>
                 <div className="flex gap-2 px-2 mb-8">
-                    <button className="flex-1 rounded-full bg-yellow-500  text-black antialiased font-bold hover:bg-blue-800 dark:hover:bg-blue-900 px-4 py-2 transition duration-300">
+                    <button className=" hidden flex-1 rounded-full bg-yellow-500  text-black antialiased font-bold hover:bg-blue-800 dark:hover:bg-blue-900 px-4 py-2 transition duration-300">
                         Perfil
                     </button>
                     <button className=" hidden flex-1 rounded-full border-2 border-gray-400 font-semibold text-black bg-bidcraft-grey-2 dark:text-white px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-300">

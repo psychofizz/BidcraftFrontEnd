@@ -7,6 +7,7 @@ import TagInput from "../Components/auction/TagInput";
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import AuctionInfo from "../Components/activeAuction/auctionInfo";
 
 const CreateAuction = () => {
   //----------------------------Esta variable sirve para navegar entre pages-----------------------
@@ -17,7 +18,7 @@ const CreateAuction = () => {
   const [file, setFile] = useState(null);
 
   const userId = JSON.parse(localStorage.getItem("User"));
-  console.log(userId.id)
+
   const [values, setValues] = useState({
     seller: userId.id,
     name: "",
@@ -37,6 +38,9 @@ const CreateAuction = () => {
   });
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
+
+
+
 
 
   };
@@ -170,6 +174,8 @@ const CreateAuction = () => {
     { text: "Subastas", link: "/home" },
     { text: "Crear Subasta", link: "/auctions/create" }
   ];
+
+
   return (
     <div className="min-h-screen bg-bidcraft-grey-2">
       <MainNavbar />
@@ -232,30 +238,20 @@ const CreateAuction = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="startDate" className="block text-sm font-medium mb-2">
-                    Fecha Inicio
-                  </label>
-                  <input onChange={(e) => handleChange(e)}
-                    name="start_time"
-                    type="date"
-                    id="startDate"
-                    className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="endDate" className="block text-sm font-medium mb-2">
-                    Fecha Final
-                  </label>
-                  <input onChange={(e) => handleChange(e)}
-                    name="end_time"
-                    type="date"
-                    id="endDate"
-                    className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                  />
-                </div>
+
+
+              <div>
+                <label htmlFor="endDate" className="block text-sm font-medium mb-2">
+                  Fecha Final
+                </label>
+                <input onChange={(e) => handleChange(e)}
+                  name="end_time"
+                  type="date"
+                  id="endDate"
+                  className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
+                />
               </div>
+
 
               <div>
                 <label htmlFor="category" className="block text-sm font-medium mb-2">
@@ -275,7 +271,7 @@ const CreateAuction = () => {
                 </select>
               </div>
 
-              <TagInput />
+
               <div>
                 <label htmlFor="title" className="block text-sm font-medium mb-2">
                   Agregar Tag
@@ -301,7 +297,14 @@ const CreateAuction = () => {
           <div className="lg:col-span-3">
             <div className="bg-bidcraft-modal-bg text-white h-full rounded-xl overflow-hidden">
               <h3 className="p-6 text-xl font-semibold">Vista Previa</h3>
+              <div >
+                <AuctionInfo
+                  name={values.name}
+                  description={values.description}
 
+
+                ></AuctionInfo>
+              </div>
             </div>
           </div>
         </div>
