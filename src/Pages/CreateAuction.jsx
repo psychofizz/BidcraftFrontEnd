@@ -28,10 +28,23 @@ const CreateAuction = () => {
     category: "", //id de la categoria 
     start_time: "",
     end_time: "",
+    tag_name: ""
+
+  });
+
+  const [values2, setValues2] = useState({
+
+    tag_name: ""
   });
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
+
+
+
+
+
   };
+
 
 
   //----------------------------------Este codigo srive para subir la iamgen en el servidor de imgur--------------------
@@ -76,6 +89,16 @@ const CreateAuction = () => {
     try {
 
       const response = await axios.post(`http://127.0.0.1:8000/api/auction/image/add`, imgData);
+
+      console.log("--------------------------------------------deub crate-" + response.data)
+      const tabs = {
+
+        tag_name: values.tag_name
+      }
+
+      const response2 = await axios.post(`http://127.0.0.1:8000/api/tags/create/${imgData.auction}/`, tabs);
+
+      console.log(response2)
       console.log("aca esta para crear una nueva imagen man" + response.data.data.auction_id)
 
 
@@ -94,6 +117,8 @@ const CreateAuction = () => {
 
 
 
+
+
       const imageUrl = await handleImageUpload();
       if (imageUrl) {
         console.log('Imagen subida a Imgur:', imageUrl);
@@ -102,7 +127,7 @@ const CreateAuction = () => {
 
         saveImgur(response.data.data.auction_id, imageUrl);
         toast.success(response.data.message)
-        navigate("/home")
+        // navigate("/home")
 
       }
     } catch (error) {
@@ -252,7 +277,7 @@ const CreateAuction = () => {
                   Agregar Tag
                 </label>
                 <input onChange={(e) => handleChange(e)}
-                  name="tag"
+                  name="tag_name"
                   type="text"
                   id="title"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
