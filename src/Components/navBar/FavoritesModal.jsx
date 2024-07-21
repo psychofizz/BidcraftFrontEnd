@@ -11,7 +11,7 @@ const Item = ({ auctionId, userId, initialIsFavorite, onToggleFavorite }) => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/auction/show/one/${auctionId}`);
         setAuctionData(response.data);
-        console.log(response.data)
+
       } catch (error) {
         console.error('Error de item de subasta:', error);
       }

@@ -66,7 +66,7 @@ const CreateAuction = () => {
 
       if (response.status === 200) {
         const data = response.data;
-        console.log('Enlace de la imagen en Imgur:', data);
+
         const u = `https://i.imgur.com/${data.data.id}.png`;
         return u;
       } else {
@@ -90,7 +90,7 @@ const CreateAuction = () => {
 
       const response = await axios.post(`http://127.0.0.1:8000/api/auction/image/add`, imgData);
 
-      console.log("--------------------------------------------deub crate-" + response.data)
+
       const tabs = {
 
         tag_name: values.tag_name
@@ -98,8 +98,8 @@ const CreateAuction = () => {
 
       const response2 = await axios.post(`http://127.0.0.1:8000/api/tags/create/${imgData.auction}/`, tabs);
 
-      console.log(response2)
-      console.log("aca esta para crear una nueva imagen man" + response.data.data.auction_id)
+
+
 
 
     } catch (error) {
@@ -121,7 +121,7 @@ const CreateAuction = () => {
 
       const imageUrl = await handleImageUpload();
       if (imageUrl) {
-        console.log('Imagen subida a Imgur:', imageUrl);
+
 
 
 
@@ -136,7 +136,7 @@ const CreateAuction = () => {
         for (const field in errors) {
           if (errors.hasOwnProperty(field)) {
             errors[field].forEach((errorMessage) => {
-              console.log(errorMessage);
+
               toast.warning(errorMessage)
             });
           }
@@ -155,12 +155,12 @@ const CreateAuction = () => {
     const fetchCategories = async () => {
       try {
         const response = await fetch('http://localhost:8000/api/categories/show/all/');
-       
+
         if (!response.ok) {
           throw new Error('Failed to fetch categories');
         }
         const data = await response.json();
-      console.log(data)
+
         setCategories(data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -268,7 +268,7 @@ const CreateAuction = () => {
                   Categoria
                 </label>
                 <select onChange={(e) => handleChange(e)}
-                name="category"
+                  name="category"
                   id="category"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
                 >

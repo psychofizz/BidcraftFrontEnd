@@ -31,12 +31,12 @@ const AuctionItem = ({
   imgUrl
 }) => {
 
-console.log(imgUrl)
+
   return (
     <Link to={`/Auction/${auctionId}`} className="block m-2">
       <div className="relative bg-bidcraft-grey-2 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-[1.02] z-10">
         <img
-        src={imgUrl ? imgUrl.image_url : 'https://picsum.photos/400/300'}
+          src={imgUrl ? imgUrl.image_url : 'https://picsum.photos/400/300'}
           alt={title}
           className="w-full h-80 object-cover"
         />

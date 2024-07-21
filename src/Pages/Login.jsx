@@ -15,7 +15,7 @@ function Login() {
   };
 
   const handleValidation = () => {
-    console.log(values);
+
 
     if (values.password.length < 7) {
       toast.error("Minimo 7 caracteres para la contraseña");
@@ -44,7 +44,7 @@ function Login() {
 
         if (!response.ok) {
           const resultado = await response.json();
-          console.log(resultado);
+
           toast.warning(resultado.detail);
         } else {
           const resultado = await response.json();

@@ -14,8 +14,8 @@ const Review = () => {
     };
 
     const handleSubmit = () => {
-        console.log("Description:", description);
-        console.log("Rating:", rating);
+
+
     };
 
     return (

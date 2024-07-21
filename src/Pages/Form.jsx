@@ -14,7 +14,7 @@ function Form() {
     email: "",
     password: "",
     passwordconfirm: "",
-    userName:"",
+    userName: "",
   });
   //Esta funcion no pormite capturar los valores de los inputo con la clave name cada vez que se modifiquen agregandolos a la variable values
   const handleChange = (event) => {
@@ -22,8 +22,8 @@ function Form() {
   };
   //Aca simplemente hacemos validaciones  sobre los input con lo datos controlados
   const handleValidation = () => {
-    const {  id_number,  password, passwordconfirm } = values;
-    console.log(values);
+    const { id_number, password, passwordconfirm } = values;
+
 
     if (password.length < 7) {
       toast.error("Minimo 7 caracteres para la contraseña");
@@ -56,7 +56,7 @@ function Form() {
       const usuario = {
         id: values.id_number,
         email: values.email,
-        username:values.userName ,
+        username: values.userName,
         first_name: values.names,
         second_name: values.names,
         last_name: values.last_names,
@@ -81,16 +81,16 @@ function Form() {
 
         if (!response.ok) {
           const resultado = await response.json();
-          console.log(resultado.email[0])
+
           //toast.warning(resultado.id[0])
           toast.warning(resultado.email[0])
-             
-          
+
+
         } else {
           toast.done("Codigo verificado");
           navigate("/Autc");
         }
-      } catch (error) {}
+      } catch (error) { }
     }
   };
 
@@ -159,7 +159,7 @@ function Form() {
                   name="email"
                   className={"p-4"}
                 />
-                  <ComponentsInput
+                <ComponentsInput
                   handleChange={handleChange}
                   values={values}
                   inputType={"Text"}
@@ -203,7 +203,7 @@ function Form() {
                 ></label>
               </div>
 
-            
+
 
 
 

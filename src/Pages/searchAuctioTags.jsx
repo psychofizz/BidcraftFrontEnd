@@ -19,7 +19,7 @@ function TagsAuction() {
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
-    console.log(values);
+
   };
 
   //------------------------- Esta funcion nos ayuda a buscar por tags-------------------
@@ -28,11 +28,11 @@ function TagsAuction() {
     setIsLoading(true); // Inicia el loading
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/tags/find/all/auctions/${values.nameTags}/`);
-      console.log(response.data[0])
+
       setProductInfo(response.data[0])
 
     } catch (error) {
-      console.log("Tag no encontrado" + error);
+
     } finally {
       setIsLoading(false); // Termina el loading
     }
@@ -43,9 +43,9 @@ function TagsAuction() {
     event.preventDefault();
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/auctions/tag/17/`);
-      console.log(response.data[0]);
+
     } catch (error) {
-      console.log(error);
+
     }
   };
 

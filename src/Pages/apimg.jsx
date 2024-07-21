@@ -30,7 +30,7 @@ const UploadToImgur = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Enlace de la imagen en Imgur:', data);
+
         const u = `https://i.imgur.com/${data.data.id}.png`;
         setImageUrl(u);
       } else {

@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Tab, initTWE } from "tw-elements";
@@ -13,36 +13,36 @@ function Profile() {
   useEffect(() => {
     initTWE({ Tab });
     myAuctions();
-  },[]);
-//-------------------------- obtener--------------------------
-var user = JSON.parse(localStorage.getItem("User"));
-//-------------------------aca obtenemos ---------------------
-const [productMyInfo, setProductInfo] = useState([]);
+  }, []);
+  //-------------------------- obtener--------------------------
+  var user = JSON.parse(localStorage.getItem("User"));
+  //-------------------------aca obtenemos ---------------------
+  const [productMyInfo, setProductInfo] = useState([]);
 
-//-----------------------Esto nos sirve para obtener my toquen del localstorage
+  //-----------------------Esto nos sirve para obtener my toquen del localstorage
   const jwt = JSON.parse(localStorage.getItem("token"));
-//-----------------------Esta funcion nos sirve para obtener mis subastas---------------------------------------
+  //-----------------------Esta funcion nos sirve para obtener mis subastas---------------------------------------
 
-const myAuctions = async () => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/api/auction/show/all/user/", {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-        "Content-Type": "application/json",
-      },
+  const myAuctions = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/api/auction/show/all/user/", {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          "Content-Type": "application/json",
+        },
 
-    });
-   console.log(response.data)
-   setProductInfo(response.data)
-  } catch (error) {
-   
-  }
-};
+      });
 
+      setProductInfo(response.data)
+    } catch (error) {
 
+    }
+  };
 
 
-//--------------------------------------------------------------------------------------------------------
+
+
+  //--------------------------------------------------------------------------------------------------------
 
   return (
     <div className="bg-bidcraft-grey">
@@ -69,7 +69,7 @@ const myAuctions = async () => {
                 className="w-w-48 h-48 rounded-full border-2 border-white"
               />
               <h1 className="text-center text-gray-800 dark:text-white text-4xl font-serif text-white">
-                {user.first_name+ " "+ user.last_name }
+                {user.first_name + " " + user.last_name}
               </h1>
             </div>
           </div>
@@ -134,16 +134,16 @@ const myAuctions = async () => {
             aria-labelledby="tabs-home-tab02"
             data-twe-tab-active
           >
-           {productMyInfo.length > 0 ? (
-  <div>
-    {productMyInfo.map((producto) => (
-      <div key={producto.auction_id}>
-        
-        <MyAuctions idAuction={producto.auction_id} name={producto.name} description={producto.description} highest_bid={producto.highest_bid} updateAuction={myAuctions} imgUrl={producto.images[0]} />
-      </div>
-    ))}
-  </div>
-) : null}
+            {productMyInfo.length > 0 ? (
+              <div>
+                {productMyInfo.map((producto) => (
+                  <div key={producto.auction_id}>
+
+                    <MyAuctions idAuction={producto.auction_id} name={producto.name} description={producto.description} highest_bid={producto.highest_bid} updateAuction={myAuctions} imgUrl={producto.images[0]} />
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </div>
           <div
             className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
@@ -160,7 +160,7 @@ const myAuctions = async () => {
             aria-labelledby="tabs-profile-tab02"
           >
 
-          
+
           </div>
           <div
             className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"

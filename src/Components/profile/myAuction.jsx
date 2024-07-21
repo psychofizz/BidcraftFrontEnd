@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, imgUrl }) {
 
 
-    console.log(imgUrl)
+
 
     //---------------------------------------Funcion para eliminar ------------------------------------------
 
@@ -28,7 +28,7 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
 
 
     const deleteAuction = async () => {
-        console.log(idAuction)
+
         closeModal()
         try {
             const response = await axios.delete(`http://127.0.0.1:8000/api/auction/delete/one/${idAuction}/`);
@@ -36,7 +36,7 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
             updateAuction();
 
         } catch (error) {
-            console.log(error)
+
 
         };
     }

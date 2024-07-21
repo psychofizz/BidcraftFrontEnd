@@ -27,7 +27,7 @@ const HomeTest = () => {
       } else {
         const data = await response.json();
         setProductInfo(data);
-        console.log(data)
+
 
 
       }

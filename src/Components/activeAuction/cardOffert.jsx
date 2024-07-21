@@ -23,7 +23,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
     useEffect(() => {
         initTWE({ Input });
         setBaseNumber(lastOffert)
-        console.log("mira aca man " + baseNumber)
+
 
     }, [])
 
@@ -45,7 +45,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
     });
     const handleChange = (event) => {
         setValues({ ...values, [event.target.name]: event.target.value });
-        console.log(values.bid_amount)
+
     };
     //esta funcion sirve para hacer una nueva subasta 
     const newBit = async () => {
@@ -105,7 +105,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
     //Esta funcion sirve para  las ofertas automaticas
     const autoBit = (number) => {
         autobitAmount.bid_amount = number
-        console.log(autobitAmount)
+
         newBitAuto();
     }
 
