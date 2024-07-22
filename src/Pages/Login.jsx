@@ -3,6 +3,7 @@ import mainLogo from "../img/bidLogo.png";
 import ComponentsInput from "../Components/input";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 function Login() {
   const navigate = useNavigate();
@@ -34,29 +35,27 @@ function Login() {
         password: values.password,
       };
       try {
-        const response = await fetch("http://localhost:8000/api/auth/login/", {
-          method: "POST",
+        const response = await axios.post("http://localhost:8000/api/auth/login/", users, {
           headers: {
             "Content-Type": "application/json",
-          },
-          body: JSON.stringify(users),
+          }
         });
-
-        if (!response.ok) {
-          const resultado = await response.json();
-
+      
+        const resultado = response.data;
+      
+        localStorage.setItem("token", JSON.stringify(resultado.access_token));
+        localStorage.setItem("refresh_token", JSON.stringify(resultado.refresh_token));
+        toast.done("Login exitoso");
+        navigate("/home");
+      } catch (error) {
+        if (error.response) {
+          const resultado = error.response.data;
           toast.warning(resultado.detail);
         } else {
-          const resultado = await response.json();
-          localStorage.setItem("token", JSON.stringify(resultado.access_token));
-          localStorage.setItem(
-            "refresh_token",
-            JSON.stringify(resultado.refresh_token)
-          );
-          toast.done("Login exitoso");
-          navigate("/home");
+          // Manejo de errores de red u otros errores
+          toast.warning("Error en la solicitud");
         }
-      } catch (error) { }
+      }
     }
   };
 

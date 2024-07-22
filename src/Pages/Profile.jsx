@@ -14,7 +14,7 @@ function Profile() {
     initTWE({ Tab });
     myAuctions();
   }, []);
-  //-------------------------- obtener--------------------------
+  //-------------------------- obtener el nombre de usuario desde el localstorage--------------------------
   var user = JSON.parse(localStorage.getItem("User"));
   //-------------------------aca obtenemos ---------------------
   const [productMyInfo, setProductInfo] = useState([]);

@@ -39,10 +39,6 @@ const CreateAuction = () => {
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
 
-
-
-
-
   };
 
 
@@ -99,9 +95,6 @@ const CreateAuction = () => {
       const response2 = await axios.post(`http://127.0.0.1:8000/api/tags/create/${imgData.auction}/`, tabs);
 
 
-
-
-
     } catch (error) {
 
     }
@@ -127,7 +120,7 @@ const CreateAuction = () => {
 
         saveImgur(response.data.data.auction_id, imageUrl);
         toast.success(response.data.message)
-        // navigate("/home")
+        navigate("/home")
 
       }
     } catch (error) {
@@ -154,17 +147,19 @@ const CreateAuction = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/categories/show/all/');
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch categories');
-        }
-        const data = await response.json();
-
+        const response = await axios.get('http://localhost:8000/api/categories/show/all/');
+      
+        const data = response.data;
+      
         setCategories(data);
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        if (error.response) {
+          console.error('Error fetching categories:', error.response.data);
+        } else {
+          console.error('Error fetching categories:', error.message);
+        }
       }
+      
     };
 
     fetchCategories();

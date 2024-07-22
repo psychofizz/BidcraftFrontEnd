@@ -5,6 +5,7 @@ import AuctionItem from "../Components/auction/auctionItem";
 import { useNavigate } from "react-router-dom";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import LoadingAuctionItems from "../Components/auction/LoadingAuctionItem";
+import axios from "axios"
 
 const HomeTest = () => {
 
@@ -14,24 +15,18 @@ const HomeTest = () => {
   //Esto nos sirve para obtener todos los productos
   const obtenProducto = async () => {
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/auction/show/all/",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-      } else {
-        const data = await response.json();
-        setProductInfo(data);
-
-
-
-      }
-    } catch (error) { }
+      const response = await axios.get("http://127.0.0.1:8000/api/auction/show/all/", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    
+      const data = response.data;
+      setProductInfo(data);
+    } catch (error) {
+      // Manejo de errores, si es necesario
+    }
+    
   };
 
   obtenProducto()
