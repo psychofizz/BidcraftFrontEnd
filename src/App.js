@@ -2,6 +2,7 @@ import './App.css';
 import Login from './Pages/Login';
 import Form from './Pages/Form';
 import LandingPage from './Pages/LandingPage';
+import AdminPage from './Pages/AdminPage';
 import HomePage from './Pages/HomePage'
 import HomeTest from './Pages/HomeTest';
 import Profile from './Pages/Profile';
@@ -40,6 +41,7 @@ function App() {
         <Route path='/HomeCat' element={<Home/>}></Route>
         <Route path='/Games' element={<Games/>}></Route>
         <Route path='/Sports' element={<Sports/>}></Route>
+        <Route path='/AdminPage' element={<AdminPage/>}></Route>
       </Routes>
     </BrowserRouter>
 
