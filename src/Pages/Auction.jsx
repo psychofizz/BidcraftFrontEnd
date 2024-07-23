@@ -43,7 +43,7 @@ function Auction() {
     const infoAuction = async () => {
         try {
             if (data) {
-                const response = await axios.get(`http://127.0.0.1:8000/api/auction/show/one/${auctionId.id}/`);
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/one/${auctionId.id}/`);
                 setData(response.data);
 
             }

@@ -22,7 +22,7 @@ const Categories = () => {
 
     const obtenProducto = async (categoryName) => {
         try {
-          const response = await axios.get('http://localhost:8000/api/categories/show/all/', {
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories/show/all/`, {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -37,7 +37,7 @@ const Categories = () => {
           }
       
           const productResponse = await axios.get(
-            `http://127.0.0.1:8000/api/auction/show/all/category/${category.category_id}/`,
+            `${process.env.REACT_APP_API_URL}/api/auction/show/all/category/${category.category_id}/`,
             {
               headers: {
                 'Content-Type': 'application/json',

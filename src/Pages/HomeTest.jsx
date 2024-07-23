@@ -15,7 +15,7 @@ const HomeTest = () => {
   //Esto nos sirve para obtener todos los productos
   const obtenProducto = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/auction/show/all/", {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/all/`, {
         headers: {
           "Content-Type": "application/json",
         },

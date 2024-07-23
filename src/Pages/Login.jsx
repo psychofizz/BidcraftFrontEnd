@@ -5,7 +5,9 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
 
+
 function Login() {
+  
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -35,7 +37,7 @@ function Login() {
         password: values.password,
       };
       try {
-        const response = await axios.post("http://localhost:8000/api/auth/login/", users, {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login/`, users, {
           headers: {
             "Content-Type": "application/json",
           }

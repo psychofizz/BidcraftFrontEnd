@@ -8,7 +8,7 @@ function AuctionInfo({ name, description, idAuction, userId,imgUrl }) {
 
     const [isFavorite, setIsFavorite] = useState(false);
     const [images, setImages] = useState([]);
-
+console.log(idAuction+userId)
 
 useEffect(() => {
     // Verificar si imgUrl.image_url no es nulo antes de asignarlo al estado
@@ -27,7 +27,7 @@ useEffect(() => {
     useEffect(() => {
         const stateFavorite = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/favorites/${userId}/${idAuction}/`);
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/favorites/${userId}/${idAuction}/`);
                 setIsFavorite(response.data.exists);
             } catch (error) {
                 console.error('Error en favorito:', error);
@@ -39,9 +39,9 @@ useEffect(() => {
     const toggleFavorite = async () => {
         try {
             if (isFavorite) {
-                await axios.delete(`http://127.0.0.1:8000/api/favorites/delete/one/${dataFavorite.user}/${dataFavorite.auction}/`);
+                await axios.delete(`${process.env.REACT_APP_API_URL}/api/favorites/delete/one/${dataFavorite.user}/${dataFavorite.auction}/`);
             } else {
-                await axios.post('http://127.0.0.1:8000/api/favorites/create/one/', dataFavorite);
+                await axios.post(`${process.env.REACT_APP_API_URL}/api/favorites/create/one/`, dataFavorite);
             }
             setIsFavorite(!isFavorite);
         } catch (error) {
@@ -76,7 +76,7 @@ useEffect(() => {
     {images.length > 0 ? (
         images.map((img, index) => (
             <div key={index}>
-                <img src={img} alt={`Item de subasta ${index + 1}`} className="w-full h-[60vh] object-cover" />
+                <img src={img} alt={`Item de subasta ${index + 1}`} className="object-cover" />
             </div>
         ))
     ) : (

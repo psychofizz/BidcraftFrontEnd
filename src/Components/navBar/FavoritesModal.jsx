@@ -9,7 +9,7 @@ const Item = ({ auctionId, userId, initialIsFavorite, onToggleFavorite }) => {
   useEffect(() => {
     const fetchAuctionData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/auction/show/one/${auctionId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/one/${auctionId}`);
         setAuctionData(response.data);
 
       } catch (error) {
@@ -28,9 +28,9 @@ const Item = ({ auctionId, userId, initialIsFavorite, onToggleFavorite }) => {
 
     try {
       if (isFavorite) {
-        await axios.delete(`http://127.0.0.1:8000/api/favorites/delete/one/${dataFavorite.user}/${dataFavorite.auction}/`);
+        await axios.delete(`${process.env.REACT_APP_API_URL}/api/favorites/delete/one/${dataFavorite.user}/${dataFavorite.auction}/`);
       } else {
-        await axios.post('http://127.0.0.1:8000/api/favorites/create/one/', dataFavorite);
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/favorites/create/one/`, dataFavorite);
       }
       setIsFavorite(!isFavorite);
       onToggleFavorite(auctionId, !isFavorite);
@@ -90,7 +90,7 @@ const FavoritesModal = ({ handleClose, show, userId }) => {
     try {
       const userString = localStorage.getItem("User");
       const userTemp = JSON.parse(userString);
-      const response = await axios.get(`http://127.0.0.1:8000/api/favorites/user/${userTemp.id}/`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/favorites/user/${userTemp.id}/`);
       setFavorites(response.data);
     } catch (error) {
       console.error('Error fetching favorites:', error);

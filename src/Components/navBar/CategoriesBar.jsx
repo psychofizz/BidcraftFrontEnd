@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import axios from 'axios';
 const CategoryItem = ({ id, name }) => {
   return (
     <Link
@@ -82,21 +82,20 @@ const CategoriesBar = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/categories/show/all');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setCategories(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        setError('Failed to fetch categories. Please try again later.');
-        setIsLoading(false);
-      }
-    };
+    
+
+const fetchCategories = async () => {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories/show/all`);
+    setCategories(response.data);
+    setIsLoading(false);
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    setError('Failed to fetch categories. Please try again later.');
+    setIsLoading(false);
+  }
+};
+
 
     fetchCategories();
   }, []);

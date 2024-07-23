@@ -84,7 +84,7 @@ const CreateAuction = () => {
     }
     try {
 
-      const response = await axios.post(`http://127.0.0.1:8000/api/auction/image/add`, imgData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
 
 
       const tabs = {
@@ -92,7 +92,7 @@ const CreateAuction = () => {
         tag_name: values.tag_name
       }
 
-      const response2 = await axios.post(`http://127.0.0.1:8000/api/tags/create/${imgData.auction}/`, tabs);
+      const response2 = await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs);
 
 
     } catch (error) {
@@ -106,7 +106,7 @@ const CreateAuction = () => {
     event.preventDefault()
     try {
 
-      const response = await axios.post(`http://127.0.0.1:8000/api/auction/create/one/`, values);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/create/one/`, values);
 
 
 
@@ -147,7 +147,7 @@ const CreateAuction = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/categories/show/all/');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories/show/all/`);
       
         const data = response.data;
       

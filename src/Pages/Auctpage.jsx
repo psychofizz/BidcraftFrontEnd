@@ -6,6 +6,8 @@ import axios from "axios"
 
 
 function AucPage() {
+
+
   const navigate = useNavigate();
   const [values, setValues] = useState({
     otp: "",
@@ -22,7 +24,7 @@ function AucPage() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/auth/verify_email/",
+        `${process.env.REACT_APP_API_URL}/api/auth/verify_email/`,
         values,
         {
           headers: {

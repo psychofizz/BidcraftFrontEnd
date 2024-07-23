@@ -24,7 +24,7 @@ const Homepage = () => {
   //Obteniendo informacion del token
   const obtenInfo = async (token) => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/auth/test/", {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/test/`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

@@ -25,7 +25,7 @@ function Profile() {
 
   const myAuctions = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/auction/show/all/user/", {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/all/user/`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
           "Content-Type": "application/json",

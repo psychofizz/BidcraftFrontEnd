@@ -51,7 +51,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
     const newBit = async () => {
         try {
 
-            const response = await axios.post(`http://127.0.0.1:8000/api/bids/create/one/${idAuction}/`, values, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/bids/create/one/${idAuction}/`, values, {
                 headers: {
                     'Authorization': `Bearer ${jwt}`
                 }
@@ -73,7 +73,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
     const newBitAuto = async () => {
         try {
 
-            const response = await axios.post(`http://127.0.0.1:8000/api/bids/create/one/${idAuction}/`, autobitAmount, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/bids/create/one/${idAuction}/`, autobitAmount, {
                 headers: {
                     'Authorization': `Bearer ${jwt}`
                 }
