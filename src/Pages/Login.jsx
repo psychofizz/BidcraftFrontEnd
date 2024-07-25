@@ -1,22 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import mainLogo from '../img/bidLogo.png'
-import ComponentsInput from '../Components/input'
-import { toast } from 'react-toastify';
-import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
-
-
+import React, { useState } from "react";
+import mainLogo from "../img/bidLogo.png";
+import ComponentsInput from "../Components/input";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 
 function Login() {
-  // const users3 = {
-  //   full_name: "josue2"
-
-  // }
-
-  // localStorage.setItem(
-  //   process.env.REACT_APP_LOCALHOST_KEY,
-  //   JSON.stringify(users3)
-  // );
+  
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -28,14 +19,12 @@ function Login() {
 
   const handleValidation = () => {
 
-    console.log(values);
 
     if (values.password.length < 7) {
       toast.error("Minimo 7 caracteres para la contraseña");
       return false;
     }
 
-    // Add more validations as necessary
     return true;
   };
 
@@ -45,90 +34,92 @@ function Login() {
     if (handleValidation()) {
       const users = {
         email: values.email,
-        password: values.password
-      }
+        password: values.password,
+      };
       try {
-        const response = await fetch(
-          "http://localhost:8000/api/auth/login/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(users),
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login/`, users, {
+          headers: {
+            "Content-Type": "application/json",
           }
-        );
-
-        if (!response.ok) {
-          switch (response.status) {
-            case 400:
-              const resultado = await response.json();
-              toast.warning("Datos invalidos o datos no existentes");
-              break;
-            default:
-              toast("Error desconocido")
-              break;
-          }
-        } else {
-          const usuario = await response.json();
-          delete usuario.password;
-          localStorage.setItem(
-            process.env.REACT_APP_LOCALHOST_KEY,
-            JSON.stringify(usuario)
-          );
-          navigate("/homepage");
-        }
+        });
+      
+        const resultado = response.data;
+      
+        localStorage.setItem("token", JSON.stringify(resultado.access_token));
+        localStorage.setItem("refresh_token", JSON.stringify(resultado.refresh_token));
+        toast.done("Login exitoso");
+        navigate("/home");
       } catch (error) {
+        if (error.response) {
+          const resultado = error.response.data;
+          toast.warning(resultado.detail);
+        } else {
+          // Manejo de errores de red u otros errores
+          toast.warning("Error en la solicitud");
+        }
       }
     }
   };
 
-
-
   return (
-
-
-    <div className="flex flex-col min-h-screen items-center justify-center">
-
-      <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl ">
-        <div className="grid place-content-center h-44 bg-ffc327" >
-          <div className='flex justify-center'>
-            <img src={mainLogo} className='w-[90px]' alt="Ejemplo de imagen" />
+    <div className="flex flex-col min-h-screen items-center justify-center bg-[#EEEDEB]">
+      <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl bg-slate-50">
+        <div className="grid place-content-center h-44 bg-ffc327">
+          <div className="flex justify-center">
+            <img src={mainLogo} className="w-[90px]" alt="Ejemplo de imagen" />
           </div>
           <div>
-            <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased text-white">BidCraft</h4>
+            <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased text-white">
+              BidCraft
+            </h4>
           </div>
         </div>
 
         <div className="p-10">
-          <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 " onSubmit={(event) => handleSubmit(event)}>
+          <form
+            className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 "
+            onSubmit={(event) => handleSubmit(event)}
+          >
             <div className="mb-4 flex flex-col gap-6">
-              <ComponentsInput inputType="email" text="Correo" handleChange={handleChange} values={values} name="email" className={'p-4'} />
-              <ComponentsInput inputType="Password" text="Contraseña" handleChange={handleChange} values={values} name="password" className={'p-4'} />
+              <ComponentsInput
+                inputType="email"
+                text="Correo"
+                handleChange={handleChange}
+                values={values}
+                name="email"
+                className={"p-4 "}
+              />
+              <ComponentsInput
+                inputType="Password"
+                text="Contraseña"
+                handleChange={handleChange}
+                values={values}
+                name="password"
+                className={"p-4"}
+              />
             </div>
-            <div className="inline-flex items-center">
+            <div className="inline-flex items-center ">
               <label
                 className="relative -ml-2.5 flex cursor-pointer items-center rounded-full p-3"
                 htmlFor="checkbox"
                 data-ripple-dark="true"
-              >
-
-              </label>
-
+              ></label>
             </div>
-            <div className='w-full flex justify-between'>
-              <div>
-                <button style={{ backgroundColor: 'none', paddingLeft: '60px', paddingRight: '60px' }}
-                  className="underline underline-offset-1 mt-6   select-none   py-5 px-11 text-center align-middle font-sans text-xs font-bold uppercase text-black  shadow-pink-500/20 transition-all   focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            <div className="w-full flex justify-between">
+              <div className="w-40 h-[50] flex items-center justify-center underline">
+                <a
+                  className=""
                   type="button"
                   data-ripple-light="true"
+                  href="/register"
                 >
                   Crear Cuenta
-                </button>
+                </a>
               </div>
-              <div >
-                <button style={{ backgroundColor: '#FFC327', paddingLeft: '60px', paddingRight: '60px' }}
-                  className="mt-6   select-none   py-5  text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              <div>
+                <button
+                  className="
+                bg-bidcraft-dark w-40 h-[50] text-white"
                   type="submit"
                   data-ripple-light="true"
                 >
@@ -136,31 +127,20 @@ function Login() {
                 </button>
               </div>
             </div>
-
           </form>
-
-
-        </div>
-
-      </div>
-      <div className="flex justify-around ">
-        <div className="text-sm text-gray-700 py-5 px-10">
-          <p>Español(Honduras)                    </p>
-        </div>
-        <div className="text-sm text-gray-700 py-5 px-10">
-          <p>
-            <a href="">Ayuda    </a>
-            <a href="">Privacidad    </a>
-            <a href="">Terminos    </a>
-          </p>
-
         </div>
       </div>
-
-
-
+      <div className="flex justify-around">
+        <div className="text-sm text-gray-700 py-5 px-10">
+          <p>Español(Honduras) </p>
+        </div>
+        <div className="text-sm text-gray-700 py-5 px-10 flex flex-col md:flex-row">
+          <p className="pl-2">Ayuda </p>
+          <p className="pl-2">Privacidad </p>
+          <p className="pl-2">Terminos </p>
+        </div>
+      </div>
     </div>
-  )
-
+  );
 }
-export default Login
+export default Login;

@@ -1,20 +1,19 @@
 import React from 'react';
-import Header from '../Components/header';
 import AboutUs from '../Components/aboutus';
 import Features from '../Components/features';
-import Footer from '../Components/footer';
 import Hero from '../Components/hero';
 import Testimonials from '../Components/testimonials';
+import MainNavbar from '../Components/navBar/mainNavbar';
 
 
 const LandingPage = () => (
   <div className='bg-white overflow-x-hidden'>
-    <Header />
+    <MainNavbar isLandingPage={true} />
+
     <Hero />
     <Features />
     <AboutUs />
     <Testimonials />
-    <Footer />
   </div>
 );
 

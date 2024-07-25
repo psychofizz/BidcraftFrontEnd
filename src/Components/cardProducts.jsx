@@ -1,58 +1,58 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify'
-function CardProducts({ nombreProducto, descripcion, precio,nameProduct, id_product }) {
+function CardProducts({ nombreProducto, descripcion, precio, nameProduct, id_product }) {
     const [favorito, setFavorito] = useState(false);
 
     const toggleFavorito = () => {
         setFavorito(!favorito); // Cambia el estado de favorito al contrario del estado actual
     };
-const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY); // "miClaveDeUsuario"
-const usuario = JSON.parse(storedData)
+    const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY); // "miClaveDeUsuario"
+    const usuario = JSON.parse(storedData)
 
 
     //Peticion para agregar a favoritos------------------------------------------------------------------
-const agregarFavorito = async (id_product) => {
-    const favoriteData={
-   
-     user: usuario.user_id,
-     product:id_product ,
-     date_added: "2024-07-02T12:00:00Z"
-   
-   
-   
+    const agregarFavorito = async (id_product) => {
+        const favoriteData = {
+
+            user: usuario.user_id,
+            product: id_product,
+            date_added: "2024-07-02T12:00:00Z"
+
+
+
+        }
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:8000/api/favorites/",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(favoriteData),
+                }
+            );
+
+            if (!response.ok) {
+                switch (response.status) {
+                    case 400:
+                        toast.warning("Producto no existe")
+
+                        break;
+                    default:
+                        toast("Error desconocido")
+                        break;
+                }
+            } else {
+                // Guardar los productos en el estado
+                toast.done("Producto agregado a favoritos exitosamente")
+                // 
+                // 
+            }
+        } catch (error) {
+        }
     }
-     try {
-       const response = await fetch(
-         "http://127.0.0.1:8000/api/favorites/",
-         {
-           method: "POST",
-           headers: {
-             "Content-Type": "application/json",
-           },
-           body: JSON.stringify(favoriteData),
-         }
-       );
-   
-       if (!response.ok) {
-         switch (response.status) {
-           case 400:
-             toast.warning("Producto no existe")
-   
-             break;
-           default:
-             toast("Error desconocido")
-             break;
-         }
-       } else {
-          // Guardar los productos en el estado
-          toast.done("Producto agregado a favoritos exitosamente")
-         // console.log("Nombre del producto:", nombre);
-         // console.log("Precio del producto:", precio);
-       }
-     } catch (error) {
-     }
-   }
-   
+
     return (
         <section className="w-full" id="historialSubastas">
             <div className="mt-10 bg-white shadow-2xl overflow-hidden w-full relative">
@@ -60,13 +60,12 @@ const agregarFavorito = async (id_product) => {
                 <form className="absolute top-0 right-0 m-4">
                     <button
                         type="button"
-                        className={`text-gray-600 hover:text-red-500 focus:outline-none ${
-                            favorito ? 'text-red-500' : ''
-                        }`}
+                        className={`text-gray-600 hover:text-red-500 focus:outline-none ${favorito ? 'text-red-500' : ''
+                            }`}
                         onClick={() => {
                             toggleFavorito();
                             agregarFavorito(id_product);
-                          }}
+                        }}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

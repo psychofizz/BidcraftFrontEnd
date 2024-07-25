@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import CampanaImg from '../img/campana.png'
 import EstrellaImg from '../img/estrella.png'
 import BigLogo from '../img/bidLogo.png'
-import { Await, Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function Header() {
   const navigate = useNavigate();
 
   //Aca controlamos todo el localstorage----------------------
-  const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY); // "miClaveDeUsuario"
-  const usuario = JSON.parse(storedData)
+  //const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY); // "miClaveDeUsuario"
+ // const usuario = JSON.parse(storedData)
    //Funcion para destruir localstorage-----------------------
    const storageDestroy = () => {
     localStorage.clear()
@@ -71,7 +71,7 @@ function Header() {
   <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
 </span>
                                 <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-cyan-400 "  ><img className='w-[45px]' src={EstrellaImg} alt="" /></button>
-                                <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-white " onClick={toggleVisibility}  >Hola {usuario.full_name}</button>
+                                <button className=" md:order-1  border px-2 py-1 border-none underline underline-offset-1 text-white " onClick={toggleVisibility}  >Hola </button>
                             </div>
     
                             <div className='lg:hidden'>
@@ -101,7 +101,7 @@ function Header() {
                                         <div className="space-y-2 flex flex-col flex-1 truncate text-white">
                                             <div className="relative leading-tight ">
                                                 <span className="flex">
-                                                    <span className="truncate relative pr-8 ">{usuario.full_name}</span>
+                                                    <span className="truncate relative pr-8 "></span>
                                                 </span>
                                             </div>
                                             <p className="text-xs">5 seguidores</p>
@@ -176,3 +176,4 @@ function Header() {
 }
 
 export default Header;
+

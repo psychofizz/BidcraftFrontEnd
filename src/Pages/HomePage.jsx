@@ -1,106 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import ComponentstCard from '../Components/cardProducts'
-import Footer from "../Components/footer";
-import { toast } from 'react-toastify'
-import Header from '../Components/header';
+import React, { useState } from "react";
+import MainNavbar from "../Components/navBar/mainNavbar";
+import { useNavigate } from "react-router-dom";
 
-function HomePage() {
-  const [productos, setProductos] = useState([]);
-//Peticion para obtener productos------------------------------------------------------------------
-  const obtenerProducto = async () => {
+import axios from "axios";
+const Homepage = () => {
+  //Validando que  este el token en el local storage
+  const [userInfo, setUserInfo] = useState(null);
+  const jwt = JSON.parse(localStorage.getItem("token"));
+
+  const navigate = useNavigate();
+  //useEffect(() => {
+
+  //Estableciendo las rutas protegidas
+  //   if (jwt === null) {
+  //     navigate('/login')
+  //   } else {
+  //     obtenInfo(jwt);
+
+  //   }
+
+  // }, [jwt])
+
+  //Obteniendo informacion del token
+  const obtenInfo = async (token) => {
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/products/",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-        }
-      );
-
-      if (!response.ok) {
-        switch (response.status) {
-          case 400:
-            toast.warning("Producto no existe")
-
-            break;
-          default:
-            toast("Error desconocido")
-            break;
-        }
-      } else {
-        const data = await response.json(); // Convertir la respuesta JSON en un objeto JavaScript
-        setProductos(data); // Guardar los productos en el estado
-
-        // console.log("Nombre del producto:", nombre);
-        // console.log("Precio del producto:", precio);
-      }
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/test/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+    
+      const dataUser = response.data;
+      setUserInfo(dataUser);
     } catch (error) {
+      // Manejo de errores, si es necesario
     }
-
-
-  }
-
-  useEffect(() => {
-    obtenerProducto();
-  }, []);
-
-  
-  /* Nos ayuda a mostrar el perfil */
-  const [isVisible, setIsVisible] = useState(false);
-  const [isVisibleDiv2, setIsVisibleDiv2] = useState(false);
-  const toggleDiv2 = () => {
-    setIsVisibleDiv2(!isVisibleDiv2);
-    // Opción: esconder el otro div
+    
   };
-
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
-
-  };
-
   return (
+    <div className="">
+      <MainNavbar userName={userInfo ? userInfo.first_name : null} />
+      <div className="flex flex-col space-y-1 w-3/4"></div>
 
-
-    <div className=''>
-      <Header />
-      <div className='w-full mt-[80px] text-black absolute '>
-
-        {productos.length > 0 ? (
-          <ul>
-            {productos.map(producto => (
-              <ComponentstCard nombreProducto={producto.name} descripcion={producto.description} precio={producto.buy_it_now_price} nameProduct={producto.name} id_product={producto.product_id}/>
-
-            ))}
-          </ul>
-        ) : (
-          <p>No hay productos disponibles.</p>
-        )}
-
-        <Footer />
+      <div id="main" className=" w-full">
+        <section class="text-gray-600 body-font">
+          <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap -m-4"></div>
+          </div>
+        </section>
       </div>
-
-      <div className={` fixed w-[50%] z-40 bg-gray-800 text-white h-full overflow-y-auto transition-transform transform ease-in-out duration-300 ${!isVisibleDiv2 ? '-translate-x-full' : ' translate-x-0'
-        }`}
-        id="sidebar">
-
-        <div className="p-4">
-          <h1 className="text-2xl font-semibold">Sidebar</h1>
-          <ul className="mt-4">
-            <li className="mb-2"><a href="#" className="block hover:text-indigo-400">Home</a></li>
-            <li className="mb-2"><a href="#" className="block hover:text-indigo-400">About</a></li>
-            <li className="mb-2"><a href="#" className="block hover:text-indigo-400">Services</a></li>
-            <li className="mb-2"><a href="#" className="block hover:text-indigo-400">Contact</a></li>
-          </ul>
-        </div>
-
-      </div>
-
     </div>
+  );
+};
 
-  )
-}
-
-export default HomePage
+export default Homepage;
