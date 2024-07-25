@@ -27,7 +27,7 @@ function TagsAuction() {
     event.preventDefault();
     setIsLoading(true); // Inicia el loading
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/tags/find/all/auctions/${values.nameTags}/`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/tags/find/all/auctions/${values.nameTags}/`);
 
       setProductInfo(response.data[0])
 
@@ -42,7 +42,7 @@ function TagsAuction() {
   const searchAuctionByTags = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/auctions/tag/17/`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auctions/tag/17/`);
 
     } catch (error) {
 

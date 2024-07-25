@@ -6,7 +6,7 @@ import UserModal from "./UserModal";
 import AuctionModal from "./AuctionModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBell, faBars } from "@fortawesome/free-solid-svg-icons";
-
+import axios from "axios";
 import bidLogo from "../bidLogo.png";
 
 const MainNavbar = ({ isLandingPage }) => {
@@ -50,18 +50,17 @@ const MainNavbar = ({ isLandingPage }) => {
 
   const obtenInfo = async (token) => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/auth/profile", {
-        method: "GET",
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
-      if (response.ok) {
-        const dataUser = await response.json();
-        localStorage.setItem("User", JSON.stringify(dataUser));
-        setUserInfo(dataUser);
-      }
+  
+      const dataUser = response.data;
+      localStorage.setItem("User", JSON.stringify(dataUser));
+      setUserInfo(dataUser);
+  
     } catch (error) {
       console.error("Error al conseguir la informacion de usuario:", error);
     }

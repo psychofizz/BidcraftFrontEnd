@@ -22,49 +22,40 @@ const Categories = () => {
 
     const obtenProducto = async (categoryName) => {
         try {
-            const response = await fetch(
-                'http://localhost:8000/api/categories/show/all/',
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error('Truena el back');
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories/show/all/`, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+      
+          const categories = response.data;
+      
+          const category = categories.find((cat) => cat.category_name === categoryName);
+      
+          if (!category) {
+            throw new Error(`Category '${categoryName}' not found`);
+          }
+      
+          const productResponse = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/auction/show/all/category/${category.category_id}/`,
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
             }
-
-            const categories = await response.json();
-
-            const category = categories.find(cat => cat.category_name === categoryName);
-
-            if (!category) {
-                throw new Error(`Category '${categoryName}' not found`);
-            }
-
-            const productResponse = await fetch(
-                `http://127.0.0.1:8000/api/auction/show/all/category/${category.category_id}/`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
-
-            if (!productResponse) {
-                throw new Error('No Products');
-            }
-
-
-            const productData = await productResponse.json();
-            setProductInfo(productData);
+          );
+      
+          const productData = productResponse.data;
+          setProductInfo(productData);
         } catch (error) {
-            console.error('Error fetching data:', error);
+          if (error.response) {
+            console.error('Error fetching data:', error.response.data);
+          } else {
+            console.error('Error fetching data:', error.message);
+          }
         }
-    };
+      };
+      
 
 
     obtenProducto(category)

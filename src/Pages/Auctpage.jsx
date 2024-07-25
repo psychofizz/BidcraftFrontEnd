@@ -2,10 +2,12 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
-
+import axios from "axios"
 
 
 function AucPage() {
+
+
   const navigate = useNavigate();
   const [values, setValues] = useState({
     otp: "",
@@ -21,28 +23,26 @@ function AucPage() {
 
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/auth/verify_email/",
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/auth/verify_email/`,
+        values,
         {
-          method: "POST",
           headers: {
             "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
+          }
         }
       );
-
-      if (!response.ok) {
-
-        const resultado = await response.json();
-
-        toast.warning(resultado.message)
-      } else {
-        toast.done("Codigo verificado")
-        navigate("/login")
-      }
+    
+      toast.done("Codigo verificado");
+      navigate("/login");
+    
     } catch (error) {
+      if (error.response) {
+        const resultado = error.response.data;
+        toast.warning(resultado.message);
+      }
     }
+    
 
 
 

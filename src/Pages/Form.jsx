@@ -3,7 +3,7 @@ import mainLogo from "../img/bidLogo.png";
 import ComponentsInput from "../Components/input";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios"
 function Form() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -68,29 +68,23 @@ function Form() {
       };
 
       try {
-        const response = await fetch(
-          "http://localhost:8000/api/auth/register/",
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/auth/register/`,
+          usuario,
           {
-            method: "POST",
             headers: {
               "Content-Type": "application/json",
-            },
-            body: JSON.stringify(usuario),
+            }
           }
         );
-
-        if (!response.ok) {
-          const resultado = await response.json();
-
-          //toast.warning(resultado.id[0])
-          toast.warning(resultado.email[0])
-
-
-        } else {
-          toast.done("Codigo verificado");
-          navigate("/Autc");
-        }
-      } catch (error) { }
+      
+        toast.done("Codigo verificado");
+        navigate("/Autc");
+      
+      } catch (error) {
+   
+      }
+      
     }
   };
 
