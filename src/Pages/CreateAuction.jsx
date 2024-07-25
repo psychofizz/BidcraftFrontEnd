@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
-import TagItem from "../Components/page-essentials/TagItem";
 import PageHeader from "../Components/page-essentials/PageHeader";
 import TagInput from "../Components/auction/TagInput";
 import axios from 'axios';
@@ -32,10 +31,7 @@ const CreateAuction = () => {
 
   });
 
-  const [values2, setValues2] = useState({
 
-    tag_name: ""
-  });
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
 
@@ -78,21 +74,21 @@ const CreateAuction = () => {
 
 
   const saveImgur = async (idAuction, urlmage) => {
-    const imgData = {
-      auction: idAuction,
-      image_url: urlmage
-    }
+    //const imgData = {
+    // auction: idAuction,
+    // image_url: urlmage
+    //}
     try {
 
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
+      //      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
 
 
-      const tabs = {
+      //const tabs = {
 
-        tag_name: values.tag_name
-      }
+      //        tag_name: values.tag_name
+      //    }
 
-      const response2 = await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs);
+      //    const response2 = await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs);
 
 
     } catch (error) {
@@ -148,9 +144,9 @@ const CreateAuction = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories/show/all/`);
-      
+
         const data = response.data;
-      
+
         setCategories(data);
       } catch (error) {
         if (error.response) {
@@ -159,7 +155,7 @@ const CreateAuction = () => {
           console.error('Error fetching categories:', error.message);
         }
       }
-      
+
     };
 
     fetchCategories();

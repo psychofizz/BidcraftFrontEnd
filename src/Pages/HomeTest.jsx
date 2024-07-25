@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
 import AuctionItem from "../Components/auction/auctionItem";
@@ -19,13 +19,13 @@ const HomeTest = () => {
           "Content-Type": "application/json",
         },
       });
-    
+
       const data = response.data;
       setProductInfo(data);
     } catch (error) {
       // Manejo de errores, si es necesario
     }
-    
+
   };
 
   obtenProducto()

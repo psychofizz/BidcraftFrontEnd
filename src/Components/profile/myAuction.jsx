@@ -1,8 +1,5 @@
 
-import React, { useEffect, useState } from "react"
-import axios from "axios";
-
-import { Link } from 'react-router-dom';
+import React, { useState } from "react"
 
 import { toast } from "react-toastify";
 
@@ -31,7 +28,7 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
 
         closeModal()
         try {
-            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/auction/delete/one/${idAuction}/`);
+            // const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/auction/delete/one/${idAuction}/`);
             toast.success("Subasta eliminada")
             updateAuction();
 

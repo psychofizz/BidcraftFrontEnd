@@ -66,9 +66,8 @@ function Form() {
         password_confirm: values.password,
         address_id: 1
       };
-
       try {
-        const response = await axios.post(
+        await axios.post(
           `${process.env.REACT_APP_API_URL}/api/auth/register/`,
           usuario,
           {
@@ -77,14 +76,13 @@ function Form() {
             }
           }
         );
-      
-        toast.done("Codigo verificado");
+        toast.success("Código verificado");
         navigate("/Autc");
-      
       } catch (error) {
-   
+        console.error("Registration error:", error);
+        toast.error("Error during registration");
       }
-      
+
     }
   };
 
