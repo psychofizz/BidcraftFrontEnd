@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { Tab, initTWE } from "tw-elements";
+import { Tab, initTWE, Dropdown,
+  Ripple } from "tw-elements";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
@@ -9,9 +10,13 @@ import axios from "axios";
 import Review from "../Components/profile/Review";
 import MyAuctions from "../Components/profile/myAuction"
 
+
+
 function Profile() {
   useEffect(() => {
     initTWE({ Tab });
+    
+initTWE({ Dropdown, Ripple });
     myAuctions();
   }, []);
   //-------------------------- obtener el nombre de usuario desde el localstorage--------------------------
@@ -52,6 +57,7 @@ function Profile() {
 
         <section className="w-full overflow-hidden dark:bg-gray-900">
           <div className="w-full mx-auto">
+            
             <img
               src="https://images.unsplash.com/photo-1560697529-7236591c0066?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxMHx8Y292ZXJ8ZW58MHwwfHx8MTcxMDQ4MTEwNnww&ixlib=rb-4.0.3&q=80&w=1080"
               alt="User Cover"
@@ -63,14 +69,73 @@ function Profile() {
             </div>
 
             <div className="xl:w-[80%] lg:w-[90%] md:w-[94%] sm:w-[96%] xs:w-[92%] mx-auto flex flex-col gap-4 justify-center items-center relative xl:-top-[6rem] lg:-top-[6rem] md:-top-[4rem] sm:-top-[3rem] xs:-top-[2.2rem]">
+           
               <img
                 src={`https://ui-avatars.com/api/?name=${user.first_name}&background=random`}
                 alt={user.first_name}
-                className="w-w-48 h-48 rounded-full border-2 border-white"
+                className="w-48 h-48 rounded-full border-2 border-white"
               />
+               <div className="position relative     sm:absolute  sm:ml-[80%] lg:ml-[100%]  " >
+
+
+               <div class="relative" data-twe-dropdown-ref>
+  <button
+    class="flex items-center rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+    type="button"
+    id="dropdownMenuButton1"
+    data-twe-dropdown-toggle-ref
+    aria-expanded="false"
+    data-twe-ripple-init
+    data-twe-ripple-color="light">
+    ...
+    <span class="ms-2 w-2 [&>svg]:h-5 [&>svg]:w-5">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor">
+        <path
+          fill-rule="evenodd"
+          d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+          clip-rule="evenodd" />
+      </svg>
+    </span>
+  </button>
+  <ul
+    class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
+    aria-labelledby="dropdownMenuButton1"
+    data-twe-dropdown-menu-ref>
+    <li>
+      <a
+        class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+        href="/verification"
+        data-twe-dropdown-item-ref
+        >Verificar</a
+      >
+    </li>
+    <li>
+      <a
+        class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+        href=""
+        data-twe-dropdown-item-ref
+        >Another action</a
+      >
+    </li>
+    <li>
+      <a
+        class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
+        href="#"
+        data-twe-dropdown-item-ref
+        >Something else here</a
+      >
+    </li>
+  </ul>
+</div>
+               </div>
+             
               <h1 className="text-center text-gray-800 dark:text-white text-4xl font-serif text-white">
                 {user.first_name + " " + user.last_name}
               </h1>
+             
             </div>
           </div>
         </section>

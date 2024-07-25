@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
 import AuctionItem from "../Components/auction/auctionItem";
-import { useNavigate } from "react-router-dom";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import LoadingAuctionItems from "../Components/auction/LoadingAuctionItem";
 import axios from "axios"
