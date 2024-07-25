@@ -15,8 +15,6 @@ const MainNavbar = ({ isLandingPage }) => {
   const [showUserModal, setShowUserModal] = useState(false);
   const [showAuctionModal, setShowAuctionModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [userInfo, setUserInfo] = useState([]);
-  const [productInfo, setProductInfo] = useState([]);
 
   const navigate = useNavigate();
 
@@ -56,11 +54,10 @@ const MainNavbar = ({ isLandingPage }) => {
           "Content-Type": "application/json",
         },
       });
-  
+
       const dataUser = response.data;
       localStorage.setItem("User", JSON.stringify(dataUser));
-      setUserInfo(dataUser);
-  
+
     } catch (error) {
       console.error("Error al conseguir la informacion de usuario:", error);
     }
