@@ -74,21 +74,26 @@ const AdminPage = () => {
     setContentToShow(content);
   };
 
-  const handleAceptarSubastador = async (subastadorId) => {
-    try {
-      console.log(`Subastador aceptado con ID: ${subastadorId}`);
-    } catch (error) {
-      console.error("Error al aceptar el subastador:", error);
-    }
+  const handleAceptarSubastador = (subastadorId) => {
+    setSubastadores((prevSubastadores) =>
+      prevSubastadores.map((subastador) =>
+        subastador.id === subastadorId
+          ? { ...subastador, estado: "aceptado" }
+          : subastador
+      )
+    );
   };
-
-  const handleRechazarSubastador = async (subastadorId) => {
-    try {
-      console.log(`Subastador rechazado con ID: ${subastadorId}`);
-    } catch (error) {
-      console.error("Error al rechazar el subastador:", error);
-    }
+  
+  const handleRechazarSubastador = (subastadorId) => {
+    setSubastadores((prevSubastadores) =>
+      prevSubastadores.map((subastador) =>
+        subastador.id === subastadorId
+          ? { ...subastador, estado: "rechazado" }
+          : subastador
+      )
+    );
   };
+  
 
   const openModal = (subastador) => {
     setSelectedSubastador(subastador);
@@ -109,16 +114,16 @@ const AdminPage = () => {
               Subastadores Pendientes de Verificación
             </h2>
             <div className="overflow-x-auto">
-              <table className="min-w-auto divide-y divide-gray-200">
+              <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Subastador
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Estado
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Acciones
                     </th>
                   </tr>
@@ -127,23 +132,23 @@ const AdminPage = () => {
                   {subastadores.map((subastador) => (
                     <tr key={subastador.id}>
                       <td
-                        className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 cursor-pointer"
+                        className="px-4 py-2 text-sm font-medium text-gray-900 cursor-pointer"
                         onClick={() => openModal(subastador)}
                       >
                         {subastador.nombre}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <td className="px-4 py-2 text-sm">
                         {subastador.estado === "pendiente" ? (
-                          <span className="bg-yellow-200 text-yellow-800 py-1 px-3 rounded-full text-xs">
+                          <span className="bg-yellow-200 text-yellow-800 py-1 px-2 rounded-full text-xs">
                             Pendiente
                           </span>
                         ) : (
-                          <span className="bg-green-200 text-green-800 py-1 px-3 rounded-full text-xs">
+                          <span className="bg-green-200 text-green-800 py-1 px-2 rounded-full text-xs">
                             Aceptado
                           </span>
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <td className="px-4 py-2 text-sm">
                         {subastador.estado === "pendiente" && (
                           <>
                             <button
@@ -182,10 +187,10 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 min-h-screen flex flex-col">
       <MainNavbar adminName={adminName} adminProfilePic={adminProfilePic} />
       <button
-        className="lg:hidden p-4"
+        className="lg:hidden p-4 text-gray-600"
         onClick={() => setSidebarOpen(!sidebarOpen)}
       >
         <svg
@@ -204,12 +209,12 @@ const AdminPage = () => {
         </svg>
       </button>
 
-      <div className="min-h-screen flex flex-row bg-blue-100">
+      <div className="flex flex-1">
         {/* Sidebar */}
         <div
-          className={`w-auto bg-bidcraft-dark p-4 text-white flex flex-col items-center transition-transform transform ${
+          className={`fixed inset-y-0 left-0 w-64 bg-bidcraft-dark p-4 text-white transform transition-transform ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 lg:flex-shrink-0`}
+          } lg:translate-x-0 lg:static lg:w-64 lg:flex-shrink-0`}
         >
           <div className="flex flex-col items-center mb-4">
             <div className="w-16 h-16 rounded-full bg-white mb-2">
@@ -225,19 +230,19 @@ const AdminPage = () => {
           <nav className="flex flex-col w-full">
             <button
               onClick={() => handleSidebarItemClick("verificarSubastador")}
-              className="py-2 px-4 rounded-lg bg-blue-600 mb-2"
+              className="py-2 px-4 rounded-lg bg-blue-600 mb-2 text-white"
             >
               Verificar Subastador
             </button>
             <button
               onClick={() => handleSidebarItemClick("gestionUsuarios")}
-              className="py-2 px-4 rounded-lg bg-blue-600 mb-2"
+              className="py-2 px-4 rounded-lg bg-blue-600 mb-2 text-white"
             >
               Gestión de Usuarios
             </button>
             <button
               onClick={() => handleSidebarItemClick("moderacionContenidos")}
-              className="py-2 px-4 rounded-lg bg-blue-600 mb-2"
+              className="py-2 px-4 rounded-lg bg-blue-600 mb-2 text-white"
             >
               Moderación de Contenidos
             </button>
@@ -245,7 +250,9 @@ const AdminPage = () => {
         </div>
 
         {/* Main Content */}
-        <div className="w-full lg:w-4/5 p-6">{renderMainContent()}</div>
+        <div className="flex-1 p-6 bg-gray-100">
+          {renderMainContent()}
+        </div>
       </div>
 
       {/* Nuevo Modal */}
@@ -263,7 +270,7 @@ const AdminPage = () => {
       {selectedSubastador && (
         <TEModal show={modalOpen} setShow={setModalOpen}>
           <TEModalDialog>
-            <TEModalContent>
+            <TEModalContent className="max-w-lg mx-auto">
               <TEModalHeader>
                 <h5 className="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200">
                   Detalles del Subastador
@@ -291,8 +298,8 @@ const AdminPage = () => {
                 </button>
               </TEModalHeader>
               <TEModalBody>
-                <div className="flex justify-center grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex justify-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex justify-center items-center">
                     <div className="w-32 h-32 rounded-full overflow-hidden">
                       <img
                         src={selectedSubastador.profilePic}
@@ -310,7 +317,7 @@ const AdminPage = () => {
                     <div className="w-full h-48 mt-2 rounded-lg overflow-hidden">
                       <img
                         src={selectedSubastador.idFront}
-                        alt="ID subida"
+                        alt="ID frontal"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -320,7 +327,7 @@ const AdminPage = () => {
                     <div className="w-full h-48 mt-2 rounded-lg overflow-hidden">
                       <img
                         src={selectedSubastador.idBack}
-                        alt="ID subida"
+                        alt="ID trasera"
                         className="w-full h-full object-cover"
                       />
                     </div>
