@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
-import TagItem from "../Components/page-essentials/TagItem";
 import PageHeader from "../Components/page-essentials/PageHeader";
 import TagInput from "../Components/auction/TagInput";
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import AuctionInfo from "../Components/activeAuction/auctionInfo";
+import { useParams } from "react-router-dom";
 
-const CreateAuction = () => {
-  //----------------------------Esta variable sirve para navegar entre pages-----------------------
+function EditAuction() {
   const navigate = useNavigate();
+  const { id: auctionId } = useParams();
 
-  //-----------------------------------------------------------------------------------------------
-
+  // State para manejar el archivo de imagen
   const [file, setFile] = useState(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(null); // Estado para la vista previa de la imagen
-
+  
   const userId = JSON.parse(localStorage.getItem("User"));
 
+  // State para manejar los valores del formulario
   const [values, setValues] = useState({
     seller: userId.id,
     name: "",
@@ -30,37 +29,19 @@ const CreateAuction = () => {
     start_time: "",
     end_time: "",
     tag_name: ""
-
   });
 
-  const [values2, setValues2] = useState({
-
-    tag_name: ""
-  });
+  // Manejar cambios en los inputs del formulario
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
-
   };
 
-
-
-  //----------------------------------Este codigo srive para subir la iamgen en el servidor de imgur--------------------
+  // Manejar cambios en el input de archivo
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    // Crear una vista previa de la imagen usando FileReader
-   if (selectedFile) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreviewUrl(reader.result);
-    };
-    reader.readAsDataURL(selectedFile);
-  }
+    setFile(e.target.files[0]);
   };
 
-   
-
-
+  // Subir imagen a Imgur
   const handleImageUpload = async () => {
     const formData = new FormData();
     formData.append('image', file);
@@ -75,7 +56,6 @@ const CreateAuction = () => {
 
       if (response.status === 200) {
         const data = response.data;
-
         const u = `https://i.imgur.com/${data.data.id}.png`;
         return u;
       } else {
@@ -87,83 +67,71 @@ const CreateAuction = () => {
       return null;
     }
   };
-  //---------------------------------Esta nos srive para enviar la imagen al servidor la url ---------------------------
 
-
+  // Guardar imagen en el servidor
   const saveImgur = async (idAuction, urlmage) => {
     const imgData = {
       auction: idAuction,
       image_url: urlmage
-    }
+    };
     try {
-
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
-
-
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
+      
       const tabs = {
-
         tag_name: values.tag_name
-      }
-
-      const response2 = await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs);
-
-
+      };
+      
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs);
     } catch (error) {
-
+      console.error('Error guardando imagen en el servidor:', error);
     }
   };
 
-  //---------------------------------Esta no sirve para crear una nueva subasta ---------------------------
+  // Editar la subasta
+  const editAuction = async (event) => {
+    event.preventDefault();
+    const { name, description, starting_price, buy_it_now_price, category, start_time, end_time } = values;
 
-  const newAuction = async (event) => {
-    event.preventDefault()
+    const updatedAuctionData = {
+      name,
+      description,
+      starting_price,
+      buy_it_now_price,
+      category,
+      date_listed: new Date().toISOString(), // Puede ajustarse según necesidad
+      is_active: true, // Asegúrate de establecer el valor correcto
+      is_auction: true // o false dependiendo de tu lógica
+    };
+
     try {
-
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/create/one/`, values);
-
-
-
-
+    
+      const response = await axios.patch(`${process.env.REACT_APP_API_URL}/api/auction/edit/one/${auctionId}/`, updatedAuctionData);
 
       const imageUrl = await handleImageUpload();
       if (imageUrl) {
-
-
-
-
         saveImgur(response.data.data.auction_id, imageUrl);
-        toast.success(response.data.message)
-        navigate("/home")
-
+        toast.success("Subasta editada exitosamente");
+        navigate("/home");
       }
     } catch (error) {
       if (error.response && error.response.data) {
         const errors = error.response.data;
-        for (const field in errors) {
-          if (errors.hasOwnProperty(field)) {
-            errors[field].forEach((errorMessage) => {
-
-              toast.warning(errorMessage)
-            });
-          }
-        }
+      
       } else {
-        console.error('An unknown error occurred.');
+       console.log(error)
       }
     }
   };
-  //--------------------------------- ---------------------------------------------------------------------------
 
-
+  // State para manejar las categorías
   const [categories, setCategories] = useState([]);
 
+  // Obtener categorías y datos de la subasta al montar el componente
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories/show/all/`);
-      
         const data = response.data;
-      
         setCategories(data);
       } catch (error) {
         if (error.response) {
@@ -172,35 +140,58 @@ const CreateAuction = () => {
           console.error('Error fetching categories:', error.message);
         }
       }
-      
+    };
+
+    const fetchAuctionData = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/one/${auctionId}/`);
+        const data = response.data;
+        console.log(data)
+        setValues({
+          seller: data.seller.id,
+          name: data.name,
+          description: data.description,
+          starting_price: data.starting_price,
+          buy_it_now_price: data.buy_it_now_price,
+          category: data.category.category_id,
+          start_time: data.start_time.split('T')[0], // Solo la fecha
+          end_time: data.end_time.split('T')[0], // Solo la fecha
+          tag_name: data.tags ? data.tags.join(', ') : '', // Asumiendo que tags es un array
+          imgUrl:data.images[0]
+        });
+      } catch (error) {
+        console.error('Error fetching auction data:', error);
+      }
     };
 
     fetchCategories();
-  }, []);
+    fetchAuctionData();
+  }, [auctionId]);
 
   const breadcrumbs = [
     { text: "Subastas", link: "/home" },
-    { text: "Crear Subasta", link: "/auctions/create" }
+    { text: "Editar Subasta", link: `/auctions/edit/${auctionId}` }
   ];
-
 
   return (
     <div className="min-h-screen bg-bidcraft-grey-2">
       <MainNavbar />
 
       <main className="container mx-auto min-w-full px-2 py-2">
-        <PageHeader title="Crear Subasta" breadcrumbs={breadcrumbs} />
+        <PageHeader title="Editar Subasta" breadcrumbs={breadcrumbs} />
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
           <div className="lg:col-span-1">
-            <form className="bg-bidcraft-modal-bg p-6 rounded-xl text-white space-y-2" onSubmit={(event) => newAuction(event)} >
-              <h2 className="text-xl font-semibold mb-4">Nuevo Item</h2>
+            <form className="bg-bidcraft-modal-bg p-6 rounded-xl text-white space-y-2" onSubmit={(event) => editAuction(event)} >
+              <h2 className="text-xl font-semibold mb-4">Editar Item</h2>
 
               <div>
                 <label htmlFor="title" className="block text-sm font-medium mb-2">
                   Titulo
                 </label>
-                <input onChange={(e) => handleChange(e)}
+                <input
+                  value={values.name}
+                  onChange={(e) => handleChange(e)}
                   name="name"
                   type="text"
                   id="title"
@@ -217,6 +208,7 @@ const CreateAuction = () => {
                   Descripción de la Subasta
                 </label>
                 <textarea
+                  value={values.description}
                   onChange={(e) => handleChange(e)}
                   name="description"
                   id="description"
@@ -224,45 +216,55 @@ const CreateAuction = () => {
                 />
               </div>
               <div>
-                <label htmlFor="initialPrice" className="block text-sm font-medium mb-2">
+                <label htmlFor="buyItNowPrice" className="block text-sm font-medium mb-2">
                   Precio compra ahora
                 </label>
-                <input onChange={(e) => handleChange(e)}
+                <input
+                  value={values.buy_it_now_price}
+                  onChange={(e) => handleChange(e)}
                   name="buy_it_now_price"
                   type="text"
-                  id="initialPrice"
-                  className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                />
-              </div>
-              <div>
-                <label htmlFor="initialPrice" className="block text-sm font-medium mb-2">
-                  Precio Inicial
-                </label>
-                <input onChange={(e) => handleChange(e)}
-                  name="starting_price"
-                  type="text"
-                  id="initialPrice"
+                  id="buyItNowPrice"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="startingPrice" className="block text-sm font-medium mb-2">
+                  Precio inicial
+                </label>
+                <input
+                  value={values.starting_price}
+                  onChange={(e) => handleChange(e)}
+                  name="starting_price"
+                  type="text"
+                  id="startingPrice"
+                  className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
                 <div>
                   <label htmlFor="startDate" className="block text-sm font-medium mb-2">
-                    Fecha Inicio
+                    Fecha Inicial
                   </label>
-                  <input onChange={(e) => handleChange(e)}
+                  <input
+                    value={values.start_time}
+                    onChange={(e) => handleChange(e)}
                     name="start_time"
                     type="date"
                     id="startDate"
                     className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
                   />
                 </div>
+
                 <div>
                   <label htmlFor="endDate" className="block text-sm font-medium mb-2">
                     Fecha Final
                   </label>
-                  <input onChange={(e) => handleChange(e)}
+                  <input
+                    value={values.end_time}
+                    onChange={(e) => handleChange(e)}
                     name="end_time"
                     type="date"
                     id="endDate"
@@ -275,7 +277,9 @@ const CreateAuction = () => {
                 <label htmlFor="category" className="block text-sm font-medium mb-2">
                   Categoria
                 </label>
-                <select onChange={(e) => handleChange(e)}
+                <select
+                  value={values.category}
+                  onChange={(e) => handleChange(e)}
                   name="category"
                   id="category"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
@@ -291,23 +295,24 @@ const CreateAuction = () => {
 
               <TagInput />
               <div>
-                <label htmlFor="title" className="block text-sm font-medium mb-2">
+                <label htmlFor="tagName" className="block text-sm font-medium mb-2">
                   Agregar Tag
                 </label>
-                <input onChange={(e) => handleChange(e)}
+                <input
+                  value={values.tag_name}
+                  onChange={(e) => handleChange(e)}
                   name="tag_name"
                   type="text"
-                  id="title"
+                  id="tagName"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
                 />
               </div>
 
               <button
                 type="submit"
-
                 className="w-full bg-blue-500 text-white px-4 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
               >
-                Crear
+                Guardar Cambios
               </button>
             </form>
           </div>
@@ -315,14 +320,12 @@ const CreateAuction = () => {
           <div className="lg:col-span-3">
             <div className="bg-bidcraft-modal-bg text-white h-full rounded-xl overflow-hidden">
               <h3 className="p-6 text-xl font-semibold">Vista Previa</h3>
-              <div >
+              <div>
                 <AuctionInfo
                   name={values.name}
                   description={values.description}
-                  imageUrl={imagePreviewUrl}
-
-
-                ></AuctionInfo>
+                  imgUrl={values.imgUrl}
+                />
               </div>
             </div>
           </div>
@@ -331,7 +334,7 @@ const CreateAuction = () => {
 
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default CreateAuction;
+export default EditAuction;
