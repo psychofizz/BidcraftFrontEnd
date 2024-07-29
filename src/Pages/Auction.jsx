@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import AuctionInfo from "../Components/activeAuction/auctionInfo"
 import CardOffert from "../Components/activeAuction/cardOffert"
 import CardSeller from "../Components/activeAuction/cardSeller"
@@ -18,14 +18,14 @@ function Auction() {
     const userId = JSON.parse(localStorage.getItem("User"));
 
     //-------------------Obtener la información de la subasta-----------------------------
-    const infoAuction = async () => {
+    const infoAuction = useCallback(async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/one/${auctionId}/`);
             setData(response.data);
         } catch (error) {
             console.error('Error al obtener la subasta:', error);
         }
-    };
+    }, [auctionId]);
 
     //-----------------------------Lógica de favoritos-----------------------------------------------//
     const dataFavorite = {
@@ -33,7 +33,7 @@ function Auction() {
         auction: data.auction_id
     };
 
-    const stateFavorite = async () => {
+    const stateFavorite = useCallback(async () => {
         if (!data.auction_id) return;
 
         try {
@@ -42,7 +42,7 @@ function Auction() {
         } catch (error) {
             console.error('Error en favorito:', error);
         }
-    };
+    }, [data.auction_id, userId.id]);
 
     const toggleFavorite = async () => {
         try {
@@ -65,13 +65,13 @@ function Auction() {
         } else {
             infoAuction();
         }
-    }, [jwt, navigate, auctionId]);
+    }, [jwt, navigate, auctionId, infoAuction]);
 
     useEffect(() => {
         if (data.auction_id) {
             stateFavorite();
         }
-    }, [data.auction_id]);
+    }, [data.auction_id, stateFavorite]);
 
     //---------------------------------------------------------------------------------------------------------
     return (
