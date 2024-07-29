@@ -8,7 +8,6 @@ import axios from "axios"
 
 function Login() {
 
-  console.log(process.env.REACT_APP_API_URL)
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -40,9 +39,6 @@ function Login() {
       try {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login/`, users, {
           headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "Content-Type",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
             "Content-Type": "application/json",
           }
         });
