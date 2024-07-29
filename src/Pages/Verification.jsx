@@ -9,9 +9,8 @@ import {
 } from "tw-elements";
 
 
-import UploadImage from "../Components/ImageAutentication/uploadImage"
 function Verification() {
-const navigate=useNavigate();
+    const navigate = useNavigate();
     useEffect(() => {
         initTWE({ Ripple });
     }, []);
@@ -114,12 +113,12 @@ const navigate=useNavigate();
                                     documento, centrado y completamente visible. Verifica que todos los detalles, como el nombre, número de identificación y fotografía,
                                     sean legibles.</p>
                                 <div className="max-w-sm">
-                             
-                                        <label className="block">
-                                            <span className="sr-only">Choose profile photo</span>
-                                            <input type="file"   accept="image/*"
-                                    name="frontPhoto"
-                                    onChange={handleFileChange} className="block w-full text-sm text-gray-500
+
+                                    <label className="block">
+                                        <span className="sr-only">Choose profile photo</span>
+                                        <input type="file" accept="image/*"
+                                            name="frontPhoto"
+                                            onChange={handleFileChange} className="block w-full text-sm text-gray-500
         file:me-4 file:py-2 file:px-4
         file:rounded-lg file:border-0
         file:text-sm file:font-semibold
@@ -130,10 +129,10 @@ const navigate=useNavigate();
         dark:file:bg-blue-500
         dark:hover:file:bg-blue-400
       "/>
-                                        </label>
-                                    
+                                    </label>
+
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -157,12 +156,12 @@ const navigate=useNavigate();
 
 
                                 <div className="max-w-sm">
-                                 
-                                        <label className="block">
-                                            <span className="sr-only">Choose profile photo</span>
-                                            <input type="file" accept="image/*"
-                                                name="backPhoto"
-                                                onChange={handleFileChange} className="block w-full text-sm text-gray-500
+
+                                    <label className="block">
+                                        <span className="sr-only">Choose profile photo</span>
+                                        <input type="file" accept="image/*"
+                                            name="backPhoto"
+                                            onChange={handleFileChange} className="block w-full text-sm text-gray-500
         file:me-4 file:py-2 file:px-4
         file:rounded-lg file:border-0
         file:text-sm file:font-semibold
@@ -173,9 +172,9 @@ const navigate=useNavigate();
         dark:file:bg-blue-500
         dark:hover:file:bg-blue-400
       "
-                                            />
-                                        </label>
-                                
+                                        />
+                                    </label>
+
                                 </div>
 
                             </div>
@@ -199,10 +198,10 @@ const navigate=useNavigate();
 
                                     .</p>
                                 <div className="max-w-sm">
-                                    
-                                        <label className="block">
-                                            <span className="sr-only">Choose profile photo</span>
-                                            <input type="file" className="block w-full text-sm text-gray-500
+
+                                    <label className="block">
+                                        <span className="sr-only">Choose profile photo</span>
+                                        <input type="file" className="block w-full text-sm text-gray-500
         file:me-4 file:py-2 file:px-4
         file:rounded-lg file:border-0
         file:text-sm file:font-semibold
@@ -214,11 +213,11 @@ const navigate=useNavigate();
         dark:hover:file:bg-blue-400
         
       "
-                                                accept="image/*"
-                                                name="actualPhoto"
-                                                onChange={handleFileChange} />
-                                        </label>
-                                    
+                                            accept="image/*"
+                                            name="actualPhoto"
+                                            onChange={handleFileChange} />
+                                    </label>
+
                                 </div>
 
 
