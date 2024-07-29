@@ -7,7 +7,8 @@ import axios from "axios"
 
 
 function Login() {
-  
+
+  console.log(process.env.REACT_APP_API_URL)
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -42,9 +43,9 @@ function Login() {
             "Content-Type": "application/json",
           }
         });
-      
+
         const resultado = response.data;
-      
+
         localStorage.setItem("token", JSON.stringify(resultado.access_token));
         localStorage.setItem("refresh_token", JSON.stringify(resultado.refresh_token));
         toast.done("Login exitoso");
