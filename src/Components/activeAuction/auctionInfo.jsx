@@ -1,22 +1,53 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { HeartIcon } from '@heroicons/react/solid';
 
-function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFavorite }) {
+function AuctionInfo({ name, description, idAuction, userId,imgUrl }) {
+
+    const [isFavorite, setIsFavorite] = useState(false);
     const [images, setImages] = useState([]);
+console.log(idAuction+userId)
+
+useEffect(() => {
+    // Verificar si imgUrl.image_url no es nulo antes de asignarlo al estado
+    if (imgUrl && imgUrl.image_url) {
+        setImages([imgUrl.image_url]);
+    } else {
+        setImages([]); // Manejar el caso donde imgUrl.image_url es nulo o indefinido
+    }
+}, [imgUrl]);
+
+    const dataFavorite = {
+        user: userId,
+        auction: idAuction
+    };
 
     useEffect(() => {
-        // Crear un arreglo con las URLs de las imágenes disponibles
-        const newImages = [];
-        if (imgUrl && imgUrl.image_url) {
-            newImages.push(imgUrl.image_url);
+        const stateFavorite = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/favorites/${userId}/${idAuction}/`);
+                setIsFavorite(response.data.exists);
+            } catch (error) {
+                console.error('Error en favorito:', error);
+            }
+        };
+        stateFavorite();
+    }, [userId, idAuction]);
+
+    const toggleFavorite = async () => {
+        try {
+            if (isFavorite) {
+                await axios.delete(`${process.env.REACT_APP_API_URL}/api/favorites/delete/one/${dataFavorite.user}/${dataFavorite.auction}/`);
+            } else {
+                await axios.post(`${process.env.REACT_APP_API_URL}/api/favorites/create/one/`, dataFavorite);
+            }
+            setIsFavorite(!isFavorite);
+        } catch (error) {
+            console.error('Error en favorito:', error);
         }
-        if (imageUrl) {
-            newImages.push(imageUrl);
-        }
-        setImages(newImages);
-    }, [imgUrl, imageUrl]);
+    };
 
     return (
         <div className="max-w-7xl w-full sm:px-6 py-8">
@@ -35,25 +66,25 @@ function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFa
             </div>
 
             <div className="mb-8">
-                <Carousel
-                    showArrows={true}
-                    showStatus={false}
-                    showThumbs={false}
-                    infiniteLoop={true}
-                    className="rounded-lg overflow-hidden shadow-xl"
-                >
-                    {images.length > 0 ? (
-                        images.map((img, index) => (
-                            <div key={index}>
-                                <img src={img} alt={`Item de subasta ${index + 1}`} className="object-cover" />
-                            </div>
-                        ))
-                    ) : (
-                        <div className="w-full h-[60vh] flex items-center justify-center">
-                            <p className="text-gray-400">No hay imágenes disponibles</p>
-                        </div>
-                    )}
-                </Carousel>
+            <Carousel
+    showArrows={true}
+    showStatus={false}
+    showThumbs={false}
+    infiniteLoop={true}
+    className="rounded-lg overflow-hidden shadow-xl"
+>
+    {images.length > 0 ? (
+        images.map((img, index) => (
+            <div key={index}>
+                <img src={img} alt={`Item de subasta ${index + 1}`} className="object-cover" />
+            </div>
+        ))
+    ) : (
+        <div className="w-full h-[60vh] flex items-center justify-center">
+            <p className="text-gray-400">No hay imágenes disponibles</p>
+        </div>
+    )}
+</Carousel>;
             </div>
 
             <div className="bg-bidcraft-grey-2 shadow overflow-hidden sm:rounded-lg">

@@ -15,7 +15,6 @@ const CreateAuction = () => {
   //-----------------------------------------------------------------------------------------------
 
   const [file, setFile] = useState(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(null); // Estado para la vista previa de la imagen
 
   const userId = JSON.parse(localStorage.getItem("User"));
 
@@ -42,20 +41,8 @@ const CreateAuction = () => {
 
   //----------------------------------Este codigo srive para subir la iamgen en el servidor de imgur--------------------
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    // Crear una vista previa de la imagen usando FileReader
-   if (selectedFile) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreviewUrl(reader.result);
-    };
-    reader.readAsDataURL(selectedFile);
-  }
+    setFile(e.target.files[0]);
   };
-
-   
-
 
   const handleImageUpload = async () => {
     const formData = new FormData();
@@ -278,7 +265,7 @@ const CreateAuction = () => {
                 >
                   <option value="" className="text-white">Seleccionar categoria</option>
                   {categories.map((category) => (
-                    <option key={category.category_id} value={category.category_id}>
+                    <option key={category.id} value={category.category_id}>
                       {category.category_name}
                     </option>
                   ))}
@@ -315,7 +302,6 @@ const CreateAuction = () => {
                 <AuctionInfo
                   name={values.name}
                   description={values.description}
-                  imageUrl={imagePreviewUrl}
 
 
                 ></AuctionInfo>
