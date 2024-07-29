@@ -6,7 +6,7 @@ const UploadToImgur = () => {
     imagenDelantera: null,
     imagenActual: null,
   });
-  const [imageLinks, setImageLinks] = useState({
+  const [imageLinks] = useState({
     imagenFrontal: '',
     imagenDelantera: '',
     imagenActual: '',
@@ -64,18 +64,18 @@ const UploadToImgur = () => {
       actualPhoto: uploadedLinks.imagenActual || '',
     };
 
-   
- 
+
+
 
     // Imprimir el JSON en la consola
     console.log('JSON de enlaces de imágenes:', newImageLinks);
-    const tryPost = async (argumento) =>{
-      console.log(JSON.stringify(newImageLinks)+"aca suponemos que ya estan las iamgenes")
+    const tryPost = async (argumento) => {
+      console.log(JSON.stringify(newImageLinks) + "aca suponemos que ya estan las iamgenes")
 
 
     }
     tryPost()
- 
+
   };
 
   return (

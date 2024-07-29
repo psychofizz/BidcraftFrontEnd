@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import MainNavbar from "../Components/navBar/mainNavbar";
 
 import AuctionItem from "../Components/auction/auctionItem";
@@ -14,7 +13,7 @@ function TagsAuction() {
   const [values, setValues] = useState({
     nameTags: "",
   });
-  const [productInfo, setProductInfo] = useState([]);
+  const [productInfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false); // Estado para manejar el loading
 
   const handleChange = (event) => {
@@ -27,9 +26,9 @@ function TagsAuction() {
     event.preventDefault();
     setIsLoading(true); // Inicia el loading
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/tags/find/all/auctions/${values.nameTags}/`);
+      //const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/tags/find/all/auctions/${values.nameTags}/`);
 
-      setProductInfo(response.data[0])
+      //setProductInfo(response.data[0])
 
     } catch (error) {
 
@@ -39,15 +38,15 @@ function TagsAuction() {
   };
 
   //------------------------- Esta funcion nos ayuda a traer las subastas relacionado a esos tags-------------------
-  const searchAuctionByTags = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auctions/tag/17/`);
-
-    } catch (error) {
-
-    }
-  };
+  /*   const searchAuctionByTags = async (event) => {
+      event.preventDefault();
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auctions/tag/17/`);
+  
+      } catch (error) {
+  
+      }
+    }; */
 
   return (
     <div className="w-full h-full bg-bidcraft-dark" >

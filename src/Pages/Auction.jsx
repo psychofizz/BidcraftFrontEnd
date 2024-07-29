@@ -78,6 +78,8 @@ function Auction() {
         <div>
             <MainNavbar />
             <CategoriesBar />
+            <MainNavbar />
+            <CategoriesBar />
             <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 bg-bidcraft-grey">
                 {data.name && data.description ? (
                     <>
@@ -94,7 +96,12 @@ function Auction() {
                         </div>
                         <div className="mr-10 mt-4">
                             <div className="grid grid-cols-1 justify-items-center w-full gap-y-4">
-                                <CardOffert lastOffert={data.highest_bid} idAuction={data.auction_id} jwt={jwt} updateAuction={infoAuction} />
+                                <CardOffert
+                                    lastOffert={data.highest_bid}
+                                    idAuction={data.auction_id}
+                                    jwt={jwt}
+                                    updateAuction={infoAuction}
+                                />
                                 <CardSeller nameSeller={data.seller.username} />
                             </div>
                         </div>

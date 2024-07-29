@@ -21,7 +21,6 @@ function AucPage() {
 
     event.preventDefault();
 
-
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/api/auth/verify_email/`,
@@ -32,17 +31,19 @@ function AucPage() {
           }
         }
       );
-    
-      toast.done("Codigo verificado");
-      navigate("/login");
-    
+
+      if (response.status === 200) {
+        toast.done("Código verificado");
+        navigate("/login");
+      }
+
     } catch (error) {
       if (error.response) {
         const resultado = error.response.data;
         toast.warning(resultado.message);
       }
     }
-    
+
 
 
 

@@ -1,59 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { Tab, initTWE, Dropdown,
-  Ripple } from "tw-elements";
+import React, { useEffect, useState, useCallback } from "react";
+import { Tab, initTWE, Dropdown, Ripple } from "tw-elements";
+import axios from "axios";
+
 import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
-import axios from "axios";
-import Review from "../Components/profile/Review";
-import MyAuctions from "../Components/profile/myAuction"
-
-
+import MyAuctions from "../Components/profile/myAuction";
 
 function Profile() {
-  useEffect(() => {
-    initTWE({ Tab });
-    
-initTWE({ Dropdown, Ripple });
-    myAuctions();
-  }, []);
-  //-------------------------- obtener el nombre de usuario desde el localstorage--------------------------
-  var user = JSON.parse(localStorage.getItem("User"));
-  //-------------------------aca obtenemos ---------------------
   const [productMyInfo, setProductInfo] = useState([]);
-
-  //-----------------------Esto nos sirve para obtener my toquen del localstorage
+  const user = JSON.parse(localStorage.getItem("User"));
   const jwt = JSON.parse(localStorage.getItem("token"));
-  //-----------------------Esta funcion nos sirve para obtener mis subastas---------------------------------------
 
-  const myAuctions = async () => {
+  const myAuctions = useCallback(async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/all/user/`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
           "Content-Type": "application/json",
         },
-
       });
-
-      setProductInfo(response.data)
+      setProductInfo(response.data);
     } catch (error) {
-
+      console.error("Error fetching auctions:", error);
     }
-  };
+  }, [jwt]);
 
-
-
-
-  //--------------------------------------------------------------------------------------------------------
+  useEffect(() => {
+    initTWE({ Tab, Dropdown, Ripple });
+    myAuctions();
+  }, [myAuctions]);
 
   return (
     <div className="bg-bidcraft-grey">
-      <div id="imgProfile">
-        <MainNavbar></MainNavbar>
-        <CategoriesBar></CategoriesBar>
+      <MainNavbar />
+      <CategoriesBar />
 
         <section className="w-full overflow-hidden dark:bg-gray-900">
           <div className="w-full mx-auto">
@@ -192,6 +173,7 @@ initTWE({ Dropdown, Ripple });
         </ul>
 
         <div className="mb-6">
+          {/* Tab content */}
           <div
             className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
             id="tabs-home02"
@@ -199,46 +181,28 @@ initTWE({ Dropdown, Ripple });
             aria-labelledby="tabs-home-tab02"
             data-twe-tab-active
           >
-            {productMyInfo.length > 0 ? (
+            {productMyInfo.length > 0 && (
               <div>
                 {productMyInfo.map((producto) => (
-                  <div key={producto.auction_id}>
-
-                    <MyAuctions idAuction={producto.auction_id} name={producto.name} description={producto.description} highest_bid={producto.highest_bid} updateAuction={myAuctions} imgUrl={producto.images[0]} />
-                  </div>
+                  <MyAuctions
+                    key={producto.auction_id}
+                    idAuction={producto.auction_id}
+                    name={producto.name}
+                    description={producto.description}
+                    highest_bid={producto.highest_bid}
+                    updateAuction={myAuctions}
+                    imgUrl={producto.images[0]}
+                  />
                 ))}
               </div>
-            ) : null}
+            )}
           </div>
-          <div
-            className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
-            id="tabs-profile02"
-            role="tabpanel"
-            aria-labelledby="tabs-profile-tab02"
-          >
-            <Review></Review>
-          </div>
-          <div
-            className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
-            id="tabs-messages02"
-            role="tabpanel"
-            aria-labelledby="tabs-profile-tab02"
-          >
-
-
-          </div>
-          <div
-            className="hidden opacity-0 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
-            id="tabs-contact02"
-            role="tabpanel"
-            aria-labelledby="tabs-contact-tab02"
-          >
-            Tab 4 content
-          </div>
+          {/* Other tab content */}
         </div>
       </div>
-      <Footer></Footer>
-    </div>
+      <Footer />
+    </div >
   );
 }
+
 export default Profile;

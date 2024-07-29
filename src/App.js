@@ -3,15 +3,14 @@ import './App.css';
 import Login from './Pages/Login';
 import Form from './Pages/Form';
 import LandingPage from './Pages/LandingPage';
-import HomePage from './Pages/HomePage'
 import HomeTest from './Pages/HomeTest';
 import Auction from './Pages/Auction';
 import Profile from './Pages/Profile';
 import Autc from './Pages/Auctpage';
 import Categories from './Pages/Categories';
 import ImgApi from './Pages/apimg'
-import AuctionTags from  './Pages/searchAuctioTags'
-import Verification from  './Pages/Verification'
+import AuctionTags from './Pages/searchAuctioTags'
+import Verification from './Pages/Verification'
 import EditAuction from './Pages/EditAuction'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -24,11 +23,11 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-      <Route path="/editAuction/:id" element={<EditAuction />}></Route>
+        <Route path="/editAuction/:id" element={<EditAuction />}></Route>
 
-      <Route path="/verification" element={<Verification />}></Route>
-      <Route path="/AuctionTags" element={<AuctionTags />}></Route>
-      <Route path="ImgApi" element={<ImgApi />}></Route>
+        <Route path="/verification" element={<Verification />}></Route>
+        <Route path="/AuctionTags" element={<AuctionTags />}></Route>
+        <Route path="ImgApi" element={<ImgApi />}></Route>
         <Route path="/Auction/:id" element={<Auction />}></Route>
         <Route path="/category/:category" element={<Categories />} />
         <Route path="/Profile" element={<Profile />}></Route>
