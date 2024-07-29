@@ -1,6 +1,5 @@
-
-import React, { useState } from "react"
-
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
@@ -58,8 +57,8 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
 
             </div>
             <div className="w-[20%] flex  flex-col justify-center px-11 text-white ">
-            <Link to={`/editAuction/${idAuction}`} className="block m-2">                <button className="border-2 border-blue-600 px-3 py-2 rounded-md">Editar</button>
-            </Link>
+                <Link to={`/editAuction/${idAuction}`} className="block m-2">                <button className="border-2 border-blue-600 px-3 py-2 rounded-md">Editar</button>
+                </Link>
 
                 <button className="border-2 border-red-500 px-3 py-2 mt-1 rounded-md" data-twe-toggle="modal"
                     data-twe-target="#exampleModal"
