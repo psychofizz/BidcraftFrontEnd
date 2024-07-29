@@ -6,13 +6,13 @@ import Footer from "../Components/page-essentials/Footer";
 import CategoryCard from "../Components/categoryCard";
 import CategorySelector from "../Components/auction/CategorySelector";
 import AuctionFilter from "../Components/auction/AuctionFilter";
+import CommentsCard from "../Components/CommentsCard";
 import cat1 from "../img/cat-1.jpeg";
 import cat2 from "../img/cat-2.jpeg";
 import cat3 from "../img/cat-3.jpeg";
 import cat4 from "../img/cat-4.jpeg";
 import cat5 from "../img/cat-5.jpeg";
 import cat6 from "../img/cat-6.jpeg";
-
 
 const Test = () => {
   const categories = [
@@ -81,10 +81,11 @@ const Test = () => {
     },
   ];
 
+
   return (
     <div className="bg-gray-200">
       <div>
-        <MainNavbar></MainNavbar>
+        <MainNavbar />
 
         <div className="flex items-center gap-4 mb-4">
           <AuctionFilter className="flex-1" />
@@ -135,8 +136,11 @@ const Test = () => {
             ))}
           </div>
         </div>
-
-        <Footer></Footer>
+        {/* Sección de comentarios */}
+        <div className="p-4">
+          <CommentsCard />
+        </div>
+        <Footer />
       </div>
     </div>
   );
