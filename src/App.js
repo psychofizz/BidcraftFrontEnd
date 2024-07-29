@@ -11,6 +11,7 @@ import Categories from './Pages/Categories';
 import ImgApi from './Pages/apimg'
 import AuctionTags from './Pages/searchAuctioTags'
 import Verification from './Pages/Verification'
+import EditAuction from './Pages/EditAuction'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import CreateAuction from './Pages/CreateAuction';
@@ -22,6 +23,8 @@ function App() {
 
     <BrowserRouter>
       <Routes>
+        <Route path="/editAuction/:id" element={<EditAuction />}></Route>
+
         <Route path="/verification" element={<Verification />}></Route>
         <Route path="/AuctionTags" element={<AuctionTags />}></Route>
         <Route path="ImgApi" element={<ImgApi />}></Route>
