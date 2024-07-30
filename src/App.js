@@ -1,4 +1,3 @@
-
 import './App.css';
 import Login from './Pages/Login';
 import Form from './Pages/Form';
@@ -15,6 +14,7 @@ import EditAuction from './Pages/EditAuction'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import CreateAuction from './Pages/CreateAuction';
+import AdminPage from './Pages/AdminPage';
 
 
 
@@ -24,7 +24,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/editAuction/:id" element={<EditAuction />}></Route>
-
         <Route path="/verification" element={<Verification />}></Route>
         <Route path="/AuctionTags" element={<AuctionTags />}></Route>
         <Route path="ImgApi" element={<ImgApi />}></Route>
@@ -37,6 +36,8 @@ function App() {
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/Home" element={<HomeTest />}></Route>
         <Route path="/create-auction" element={<CreateAuction />}></Route>
+        <Route path='/HomeTest' element={<HomeTest />}></Route>
+        <Route path='/admin' element={<AdminPage />}></Route>
       </Routes>
     </BrowserRouter>
 
