@@ -14,7 +14,7 @@ import Verification from './Pages/Verification'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import CreateAuction from './Pages/CreateAuction';
-import PaymentInfo from './Components/payment/PaymentInfo';
+import Payment from './Pages/Payment';
 
 
 
@@ -31,9 +31,9 @@ function App() {
         <Route path="/Profile" element={<Profile />}></Route>
         <Route path="/Autc" element={<Autc />}></Route>
         <Route path="/Login" element={<Login />}></Route>
+        <Route path="/Payment" element={<Payment />}></Route>
         <Route path="/Register" element={<Form />}></Route>
         <Route path="/" element={<LandingPage />}></Route>
-        <Route path="/payment" element={<PaymentInfo></PaymentInfo>}></Route>
         <Route path="/Home" element={<HomeTest />}></Route>
         <Route path="/create-auction" element={<CreateAuction />}></Route>
       </Routes>
