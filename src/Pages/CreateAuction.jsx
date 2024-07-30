@@ -87,21 +87,26 @@ const CreateAuction = () => {
 
 
   const saveImgur = async (idAuction, urlmage) => {
-    //const imgData = {
-    // auction: idAuction,
-    // image_url: urlmage
-    //}
+    const imgData = {
+    auction: idAuction,
+    image_url: urlmage
+    }
     try {
 
-      //      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
 
 
-      //const tabs = {
+      const tabs = {
 
-      //        tag_name: values.tag_name
-      //    }
+             tag_name: values.tag_name
+       }
 
-      //    const response2 = await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs);
+         await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs,{
+
+            headers: {
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
+            }
+          });
 
 
     } catch (error) {

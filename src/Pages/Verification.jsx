@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
+
 // Initialization for ES Users
 import {
     Ripple,
@@ -60,6 +62,7 @@ function Verification() {
                 if (response.ok) {
                     const data = await response.json();
                     uploadedLinks[key] = `https://i.imgur.com/${data.data.id}.png`;
+                    
                 } else {
                     console.error('Error al subir la imagen a Imgur');
                 }
@@ -69,21 +72,32 @@ function Verification() {
 
             formData.delete('image'); // Limpiar formData para la siguiente imagen
         }
-
+       
         const newImageLinks = {
-            frontPhoto: uploadedLinks.imagenFrontal || '',
-            backPhoto: uploadedLinks.imagenDelantera || '',
-            actualPhoto: uploadedLinks.imagenActual || '',
+            
+            front_id: uploadedLinks.frontPhoto || '',
+            back_id: uploadedLinks.backPhoto || '',
+            profile_picture: uploadedLinks.actualPhoto || '',
         };
 
 
 
 
         // Imprimir el JSON en la consola
-        console.log('JSON de enlaces de imágenes:', newImageLinks);
+    
         const tryPost = async () => {
-            navigate("/home")
+           
             console.log(JSON.stringify(newImageLinks) + "aca suponemos que ya estan las iamgenes")
+            try {
+              await axios.post(`${process.env.REACT_APP_API_URL}/api/kyc/create/one/`, newImageLinks, {
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                    }})
+                    navigate("/home")
+            } catch (error) {
+                
+            }
 
 
         }
