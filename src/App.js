@@ -23,7 +23,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/editAuction/:id" element={<EditAuction />}></Route>
-
         <Route path="/verification" element={<Verification />}></Route>
         <Route path="/AuctionTags" element={<AuctionTags />}></Route>
         <Route path="ImgApi" element={<ImgApi />}></Route>
@@ -38,13 +37,6 @@ function App() {
         <Route path="/create-auction" element={<CreateAuction />}></Route>
         <Route path='/test' element={<Test />}></Route>
         <Route path='/HomeTest' element={<HomeTest />}></Route>
-        <Route path='/Electronics' element={<Electronics />}></Route>
-        <Route path='/Clothes' element={<Clothes />}></Route>
-        <Route path='/Furniture' element={<Furniture />}></Route>
-        <Route path='/HomeCat' element={<Home />}></Route>
-        <Route path='/Games' element={<Games />}></Route>
-        <Route path='/Sports' element={<Sports />}></Route>
-        <Route path='/AdminPage' element={<AdminPage />}></Route>
       </Routes>
     </BrowserRouter>
 
