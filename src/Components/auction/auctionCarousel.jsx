@@ -10,6 +10,7 @@ const AuctionCarousel = ({ products }) => {
         showStatus={false}
         showThumbs={false}
         infiniteLoop={true}
+        className="mx-auto max-w-[600] w-full "
       >
         {products.map((product, index) => (
           <div key={index} className="carousel-item">

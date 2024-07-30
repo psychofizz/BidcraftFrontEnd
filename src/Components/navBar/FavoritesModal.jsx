@@ -29,26 +29,27 @@ const Item = ({ auctionId, userId, initialIsFavorite, onToggleFavorite }) => {
 
     try {
       if (isFavorite) {
-        
-          await axios.delete(
-            
-                    `${process.env.REACT_APP_API_URL}/api/favorites/delete/one/auction/${dataFavorite.auction}/`,
-                    {
-                      headers: {
-                        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
-                      }
-                    }
-                  );            } else {
-                    
-                    await axios.post(
-                        `${process.env.REACT_APP_API_URL}/api/favorites/auction/${dataFavorite.auction}/`,
-                        {}, // Cuerpo de la solicitud (vacío en este caso)
-                        {
-                          headers: {
-                            Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
-                          }
-                        }
-                      );           
+
+        await axios.delete(
+
+          `${process.env.REACT_APP_API_URL}/api/favorites/delete/one/auction/${dataFavorite.auction}/`,
+          {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
+            }
+          }
+        );
+      } else {
+
+        await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/favorites/auction/${dataFavorite.auction}/`,
+          {}, // Cuerpo de la solicitud (vacío en este caso)
+          {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
+            }
+          }
+        );
       }
       setIsFavorite(!isFavorite);
       onToggleFavorite(auctionId, !isFavorite);
@@ -81,7 +82,7 @@ const Item = ({ auctionId, userId, initialIsFavorite, onToggleFavorite }) => {
 };
 
 const FavoritesModal = ({ handleClose, show, userId }) => {
- 
+
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -98,30 +99,29 @@ const FavoritesModal = ({ handleClose, show, userId }) => {
     if (userString) {
       const user = JSON.parse(userString);
       return user.id || "Usuario";
-
     }
     return "Usuario";
   };
 
-const fetchFavorites = async () => {
-  setLoading(true);
-  setError(null);
-  try {
-    const userString = localStorage.getItem("User");
-  
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/favorites/user/`, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`, // Incluir el token en los headers
-      }
-    });
-    setFavorites(response.data);
-  } catch (error) {
-    console.error('Error fetching favorites:', error);
-    setError('Failed to fetch favorites. Please try again.');
-  } finally {
-    setLoading(false);
-  }
-};
+  const fetchFavorites = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+
+
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/favorites/user/`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`, // Incluir el token en los headers
+        }
+      });
+      setFavorites(response.data);
+    } catch (error) {
+      console.error('Error fetching favorites:', error);
+      setError('Failed to fetch favorites. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleToggleFavorite = (auctionId, newIsFavorite) => {
     if (!newIsFavorite) {
