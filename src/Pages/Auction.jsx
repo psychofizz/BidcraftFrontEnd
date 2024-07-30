@@ -37,7 +37,14 @@ function Auction() {
         if (!data.auction_id) return;
 
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/favorites/${userId.id}/${data.auction_id}/`);
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/favorites/check/${dataFavorite.auction}/`,
+                {
+                    headers: {
+                      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`, // Incluir el token en los headers
+                    }
+                  }
+            );
+           
             setIsFavorite(response.data.exists);
         } catch (error) {
             console.error('Error en favorito:', error);
@@ -46,11 +53,27 @@ function Auction() {
 
     const toggleFavorite = async () => {
         try {
+            const token=JSON.parse(localStorage.getItem("token"))
+       
             if (isFavorite) {
-                await axios.delete(`${process.env.REACT_APP_API_URL}/api/favorites/delete/one/${dataFavorite.user}/${dataFavorite.auction}/`);
-            } else {
-                await axios.post(`${process.env.REACT_APP_API_URL}/api/favorites/create/one/`, dataFavorite);
-            }
+                await axios.delete(
+                    `${process.env.REACT_APP_API_URL}/api/favorites/delete/one/auction/${dataFavorite.auction}/`,
+                    {
+                      headers: {
+                        Authorization: `Bearer ${token}` // Incluir el token en los headers
+                      }
+                    }
+                  );            } else {
+                    
+                    await axios.post(
+                        `${process.env.REACT_APP_API_URL}/api/favorites/auction/${dataFavorite.auction}/`,
+                        {}, // Cuerpo de la solicitud (vacío en este caso)
+                        {
+                          headers: {
+                            Authorization: `Bearer ${token}` // Incluir el token en los headers
+                          }
+                        }
+                      );           }
             setIsFavorite(!isFavorite);
         } catch (error) {
             console.error('Error en favorito:', error);
