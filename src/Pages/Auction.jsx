@@ -16,7 +16,29 @@ function Auction() {
     const navigate = useNavigate();
     const { id: auctionId } = useParams();
     const userId = JSON.parse(localStorage.getItem("User"));
+    const [status, setStatus] = useState(null);
+    const [loading, setLoading] = useState(true);
 
+
+
+ //-----------------------------------------------------Este nos ayudara a ver si el usuario ya envio su verificacion------------------
+ const StatusUser = async () => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/kyc/detail/`, {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                "Content-Type": "application/json",
+            },
+        });
+        
+        setStatus(response.data.status.status_id);
+    
+    } catch (error) {
+        
+    } finally {
+        setLoading(false); // Termina la carga después de obtener el estado
+    }
+};
     //-------------------Obtener la información de la subasta-----------------------------
     const infoAuction = useCallback(async () => {
         try {
@@ -90,6 +112,7 @@ function Auction() {
 
     //----------------------------------------------------------------------------------------------------------------------
     useEffect(() => {
+        StatusUser();
         // Estableciendo las rutas protegidas
         if (jwt === null) {
             navigate("/login");
@@ -102,8 +125,9 @@ function Auction() {
         if (data.auction_id) {
             stateFavorite();
         }
+     
     }, [data.auction_id, stateFavorite]);
-
+ 
     //---------------------------------------------------------------------------------------------------------
     return (
         <div>
@@ -130,6 +154,8 @@ function Auction() {
                                     idAuction={data.auction_id}
                                     jwt={jwt}
                                     updateAuction={infoAuction}
+                                    loading={loading}
+                                    status={status}
                                 />
                                 <CardSeller nameSeller={data.seller.username} />
                             </div>
