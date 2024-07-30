@@ -14,10 +14,11 @@ module.exports = {
         'bidcraft-main': '#05A3DB',
         'bidcraft-main-2': '#0093CB',
         'bidcraft-main-3': '#007BA5',
-        'bidcraft-modal-bg': '#2a2b3d',
-        'bidcraft-grey': '#3b3c4d',
-        'bidcraft-grey-2': '#5a5b6c',
-        'bidcraft-dark': '#0f172a',
+        'bidcraft-dark': '#0f172a',  // Unchanged
+        'bidcraft-modal-bg': '#1a2235',
+        'bidcraft-grey': '#2c3548',
+        'bidcraft-grey-2': '#3d4659',
+        'bidcraft-bg-page': '#e2e5e9',
       },
       backgroundImage: {
         'parallax1': 'url("img/h-1.jpg")',

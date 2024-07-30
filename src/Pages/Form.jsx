@@ -3,7 +3,7 @@ import mainLogo from "../img/bidLogo.png";
 import ComponentsInput from "../Components/input";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios"
 function Form() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -14,7 +14,7 @@ function Form() {
     email: "",
     password: "",
     passwordconfirm: "",
-    userName:"",
+    userName: "",
   });
   //Esta funcion no pormite capturar los valores de los inputo con la clave name cada vez que se modifiquen agregandolos a la variable values
   const handleChange = (event) => {
@@ -22,8 +22,8 @@ function Form() {
   };
   //Aca simplemente hacemos validaciones  sobre los input con lo datos controlados
   const handleValidation = () => {
-    const {  id_number,  password, passwordconfirm } = values;
-    console.log(values);
+    const { id_number, password, passwordconfirm } = values;
+
 
     if (password.length < 7) {
       toast.error("Minimo 7 caracteres para la contraseña");
@@ -56,7 +56,7 @@ function Form() {
       const usuario = {
         id: values.id_number,
         email: values.email,
-        username:values.userName ,
+        username: values.userName,
         first_name: values.names,
         second_name: values.names,
         last_name: values.last_names,
@@ -66,31 +66,23 @@ function Form() {
         password_confirm: values.password,
         address_id: 1
       };
-
       try {
-        const response = await fetch(
-          "http://localhost:8000/api/auth/register/",
+        await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/auth/register/`,
+          usuario,
           {
-            method: "POST",
             headers: {
               "Content-Type": "application/json",
-            },
-            body: JSON.stringify(usuario),
+            }
           }
         );
+        toast.success("Código verificado");
+        navigate("/Autc");
+      } catch (error) {
+        console.error("Registration error:", error);
+        toast.error("Error during registration");
+      }
 
-        if (!response.ok) {
-          const resultado = await response.json();
-          console.log(resultado.email[0])
-          //toast.warning(resultado.id[0])
-          toast.warning(resultado.email[0])
-             
-          
-        } else {
-          toast.done("Codigo verificado");
-          navigate("/Autc");
-        }
-      } catch (error) {}
     }
   };
 
@@ -159,7 +151,7 @@ function Form() {
                   name="email"
                   className={"p-4"}
                 />
-                  <ComponentsInput
+                <ComponentsInput
                   handleChange={handleChange}
                   values={values}
                   inputType={"Text"}
@@ -203,7 +195,7 @@ function Form() {
                 ></label>
               </div>
 
-            
+
 
 
 

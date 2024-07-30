@@ -9,7 +9,7 @@ const TestNotification = () => {
       text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       link="#example-link"
       onErase={() => {
-        console.log("Notification erased");
+
       }}
     />
   );

@@ -1,57 +1,64 @@
-import React, { useState } from "react";
-import FavoriteButton from "../FavoriteButton";
+import React from "react";
+import { Link } from 'react-router-dom';
+import { differenceInDays, isPast } from 'date-fns';
+import TagItem from "../page-essentials/TagItem";
+
+const CountdownOrDaysSince = ({ endDate }) => {
+  const today = new Date();
+  const end = new Date(endDate);
+  const diffDays = Math.abs(differenceInDays(end, today));
+
+  const isPastDate = isPast(end);
+
+  const message = isPastDate
+    ? `${diffDays} dia${diffDays !== 1 ? 's' : ''} desde`
+    : `${diffDays} dia${diffDays !== 1 ? 's' : ''} faltan`;
+
+  return (
+    <div className="text-xs text-gray-500">
+      {message}
+    </div>
+  );
+};
 
 const AuctionItem = ({
   title,
   description,
   price,
   endDate,
-  num_of_favorites,
+  auctionId,
+  category,
+  imgUrl
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
 
 
   return (
-    <div className="block rounded-lg bg-slate-200 flex md:flex-cols flex-rows p-3 shadow-lg text-surface m-2 relative">
-      <div>
+    <Link to={`/Auction/${auctionId}`} className="block m-2">
+      <div className="relative bg-bidcraft-grey-2 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-[1.02] z-10">
         <img
-          src="https://picsum.photos/200"
+          src={imgUrl ? imgUrl.image_url : 'https://picsum.photos/400/300'}
           alt={title}
-          className="rounded-lg w-40 h-20 overflow-auto md:h-40 w-40"
+          className="w-full h-80 object-cover"
         />
-        {/*<div className="absolute top-0 left-0 m-2 flex items-center space-x-1 bg-opacity-50 bg-gray-800 p-1 rounded-md">
-          <FontAwesomeIcon icon={faHeart} className="text-red-500" />
-          <span>{num_of_favorites}</span>
-        </div>*/}
-      </div>
-
-      <div className="m-2 flex flex-col justify-between">
-        <div>
-          <h3 className="text-lg font-semibold">{title}</h3>
-          <p className="mt-2 text-sm text-gray-500">{description}</p>
+        <div className="absolute top-2 left-2 flex gap-2 flex-wrap z-20">
+          <TagItem category={category} color="bg-blue-100 text-blue-800" />
         </div>
-        <div className="mt-4 flex items-center justify-between">
-          <span className="text-sm text-gray-500">Precio Actual</span>
-          <span className="text-lg font-bold ml-2">{`L.${price}`}</span>
-        </div>
-        <div className="mt-2 text-sm text-gray-500">
-          {`Finaliza: ${endDate}`}
+        <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 backdrop-blur-sm rounded-t-lg p-4 transform translate-y-1/2 hover:translate-y-0 transition-transform duration-300 flex flex-col">
+          <h3 className="text-2xl font-bold text-gray-900 truncate">
+            {title}
+          </h3>
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium text-gray-500 uppercase">Precio Actual</span>
+            <span className="text-xl font-bold text-indigo-600">{`L.${price}`}</span>
+
+          </div>
+          <p className="text-sm text-gray-600 line-clamp-2 mt-4">
+            {description}
+          </p>
+          <CountdownOrDaysSince endDate={endDate} />
         </div>
       </div>
-
-      {/*<button
-        onClick={handleFavoriteClick}
-        className={`absolute top-2 right-2 rounded-full p-2 ${
-          isFavorite ? "bg-red-500 text-white" : "bg-gray-300 text-gray-600"
-        }`}
-      >
-        <FontAwesomeIcon icon={faHeart} />
-      </button>*/}
-
-      <div className="absolute top-2 right-2">
-        <FavoriteButton isFavorite={isFavorite} />
-      </div>
-    </div>
+    </Link>
   );
 };
 

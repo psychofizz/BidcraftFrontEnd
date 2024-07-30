@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import { useNavigate } from "react-router-dom";
 
+import axios from "axios";
 const Homepage = () => {
   //Validando que  este el token en el local storage
   const [userInfo, setUserInfo] = useState(null);
@@ -23,19 +24,19 @@ const Homepage = () => {
   //Obteniendo informacion del token
   const obtenInfo = async (token) => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/auth/test/", {
-        method: "GET",
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/test/`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
-      if (!response.ok) {
-      } else {
-        const dataUser = await response.json();
-        setUserInfo(dataUser);
-      }
-    } catch (error) {}
+    
+      const dataUser = response.data;
+      setUserInfo(dataUser);
+    } catch (error) {
+      // Manejo de errores, si es necesario
+    }
+    
   };
   return (
     <div className="">
