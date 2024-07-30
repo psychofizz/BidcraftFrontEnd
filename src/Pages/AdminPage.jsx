@@ -19,8 +19,8 @@ const AdminPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedSubastador, setSelectedSubastador] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  //const [currentPage, setCurrentPage] = useState(1);
+  //const [itemsPerPage] = useState(5);
 
   useEffect(() => {
     fetchAdminData();
@@ -221,20 +221,21 @@ const AdminPage = () => {
   };
 
   // Función para manejar el cambio de página
-  const handlePageChange = (pageNumber) => {
+  /* const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-  };
+  }; */
 
   // Obtener los subastadores para la página actual
-  const indexOfLastSubastador = currentPage * itemsPerPage;
-  const indexOfFirstSubastador = indexOfLastSubastador - itemsPerPage;
-  const currentSubastadores = subastadores.slice(
-    indexOfFirstSubastador,
-    indexOfLastSubastador
-  );
+  /* const indexOfLastSubastador = currentPage * itemsPerPage;
+   
+   const indexOfFirstSubastador = indexOfLastSubastador - itemsPerPage;
+      const currentSubastadores = subastadores.slice(
+       indexOfFirstSubastador,
+       indexOfLastSubastador
+     ); */
 
   // Calcular el número total de páginas
-  const totalPages = Math.ceil(subastadores.length / itemsPerPage);
+  //const totalPages = Math.ceil(subastadores.length / itemsPerPage);
 
   const renderMainContent = () => {
     switch (contentToShow) {
@@ -349,9 +350,8 @@ const AdminPage = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div
-          className={`fixed inset-y-0 left-0 w-64 bg-bidcraft-dark p-4 text-white transform transition-transform ${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 lg:static lg:w-64 lg:flex-shrink-0 z-30`}
+          className={`fixed inset-y-0 left-0 w-64 bg-bidcraft-dark p-4 text-white transform transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+            } lg:translate-x-0 lg:static lg:w-64 lg:flex-shrink-0 z-30`}
         >
           <div className="flex flex-col items-center mb-4">
             <div className="w-16 h-16 rounded-full bg-white mb-2">

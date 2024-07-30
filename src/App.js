@@ -14,6 +14,7 @@ import EditAuction from './Pages/EditAuction'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import CreateAuction from './Pages/CreateAuction';
+import AdminPage from './Pages/AdminPage';
 
 
 
@@ -35,8 +36,8 @@ function App() {
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/Home" element={<HomeTest />}></Route>
         <Route path="/create-auction" element={<CreateAuction />}></Route>
-        <Route path='/test' element={<Test />}></Route>
         <Route path='/HomeTest' element={<HomeTest />}></Route>
+        <Route path='/admin' element={<AdminPage />}></Route>
       </Routes>
     </BrowserRouter>
 
