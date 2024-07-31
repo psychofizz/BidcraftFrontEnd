@@ -136,7 +136,7 @@ useEffect(() => {
     hover:opacity-90 transition-opacity 
     ${status !== 2 ? 'pointer-events-none opacity-50' : ''}
   `}
-  href={status === 2 ? "/create-auction" : undefined}
+  href={status === 2 ? "/create-auction" : "#"}
   onClick={(e) => {
     if (status !== 2) {
       e.preventDefault(); // Evita la acción de navegación
