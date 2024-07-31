@@ -123,7 +123,7 @@ function Auction() {
                                 isFavorite={isFavorite}
                             />
                         </div>
-                        <div className="mr-10 mt-4">
+                        <div className="md:mr-10 md:mt-4 p-2">
                             <div className="grid grid-cols-1 justify-items-center w-full gap-y-4">
                                 <CardOffert
                                     lastOffert={data.highest_bid}
