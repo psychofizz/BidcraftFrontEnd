@@ -320,24 +320,18 @@ if (statusParam===3) {
                           </span>
                         )}
                       </td>
+
                       <td className="px-4 py-2">
-                        {subastador.estado === "En revisión" && (
+                        {subastador.estado === "Aprovado" && (
                           <>
-                            <button
-                              onClick={() =>
-                                editVerification(2, subastador.id)
-                              }
-                              className="bg-green-500 text-white py-1 px-2 rounded-lg mr-2"
-                            >
-                              Aceptar
-                            </button>
+                           
                             <button
                               onClick={() =>
                                 editVerification(3, subastador.id)
                               }
                               className="bg-red-500 text-white py-1 px-2 rounded-lg"
                             >
-                              Rechazar
+                              Denegar
                             </button>
                           </>
                         )}
@@ -380,6 +374,7 @@ if (statusParam===3) {
                         >
                           {subastador.nombre}
                         </td>
+                        
                         <td className="px-4 py-2">
                           {
                             subastador.estado === "En revisión" ? (
@@ -400,10 +395,11 @@ if (statusParam===3) {
                               </span>
                             )
                           }
+                         
 
                         </td>
                         <td className="px-4 py-2">
-                          {subastador.estado === "En revisión" && (
+                          {subastador.estado === "Denegado" && (
                             <>
                               <button
                                 onClick={() =>
@@ -411,16 +407,9 @@ if (statusParam===3) {
                                 }
                                 className="bg-green-500 text-white py-1 px-2 rounded-lg mr-2"
                               >
-                                Aceptar
+                                Integrar
                               </button>
-                              <button
-                                onClick={() =>
-                                  editVerification(3, subastador.id)
-                                }
-                                className="bg-red-500 text-white py-1 px-2 rounded-lg"
-                              >
-                                Rechazar
-                              </button>
+                             
                             </>
                           )}
                         </td>
