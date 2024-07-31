@@ -15,6 +15,7 @@ const CreateAuction = () => {
   //-----------------------------------------------------------------------------------------------
 
   const [file, setFile] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null); // Estado para la vista previa de la imagen
 
   const userId = JSON.parse(localStorage.getItem("User"));
 
@@ -41,8 +42,20 @@ const CreateAuction = () => {
 
   //----------------------------------Este codigo srive para subir la iamgen en el servidor de imgur--------------------
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    // Crear una vista previa de la imagen usando FileReader
+   if (selectedFile) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreviewUrl(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
+  }
   };
+
+   
+
 
   const handleImageUpload = async () => {
     const formData = new FormData();
@@ -74,21 +87,26 @@ const CreateAuction = () => {
 
 
   const saveImgur = async (idAuction, urlmage) => {
-    //const imgData = {
-    // auction: idAuction,
-    // image_url: urlmage
-    //}
+    const imgData = {
+    auction: idAuction,
+    image_url: urlmage
+    }
     try {
 
-      //      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
 
 
-      //const tabs = {
+      const tabs = {
 
-      //        tag_name: values.tag_name
-      //    }
+             tag_name: values.tag_name
+       }
 
-      //    const response2 = await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs);
+         await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs,{
+
+            headers: {
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
+            }
+          });
 
 
     } catch (error) {
@@ -265,7 +283,7 @@ const CreateAuction = () => {
                 >
                   <option value="" className="text-white">Seleccionar categoria</option>
                   {categories.map((category) => (
-                    <option key={category.id} value={category.category_id}>
+                    <option key={category.category_id} value={category.category_id}>
                       {category.category_name}
                     </option>
                   ))}
@@ -302,6 +320,7 @@ const CreateAuction = () => {
                 <AuctionInfo
                   name={values.name}
                   description={values.description}
+                  imageUrl={imagePreviewUrl}
 
 
                 ></AuctionInfo>

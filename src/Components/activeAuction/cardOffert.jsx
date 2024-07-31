@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from "react-toastify";
 import { Input, initTWE } from "tw-elements";
 
-function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
+function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status }) {
     // State declarations
     const [baseNumber, setBaseNumber] = useState(null);
     const [firstNumber, setFirstNumber] = useState(null);
@@ -87,30 +87,34 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
                 <div>
                     <div><center className="text-white">Ofertas</center></div>
                     <div className="grid grid-cols-3 gap-x-2 my-[10px]">
-                        <button onClick={() => autoBit(firstNumber)}>
-                            <div className="w-full border text-white border-yellow-500 flex justify-center">
+                        <button onClick={() => autoBit(firstNumber)} disabled={ status !== 2}>
+                            <div className={`w-full border text-white border-yellow-500 flex justify-center ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                 <p className="p-2">L.{firstNumber !== null ? firstNumber : ''}</p>
                             </div>
                         </button>
-                        <button onClick={() => autoBit(secondNumber)}>
-                            <div className="w-full border text-white border-yellow-500 flex justify-center">
+                        <button onClick={() => autoBit(secondNumber)} disabled={ status !== 2}>
+                            <div className={`w-full border text-white border-yellow-500 flex justify-center ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                 <p className="p-2">L.{secondNumber !== null ? secondNumber : ''}</p>
                             </div>
                         </button>
-                        <button onClick={() => autoBit(thirdNumber)}>
-                            <div className="w-full border text-white border-yellow-500 flex justify-center">
+                        <button onClick={() => autoBit(thirdNumber)} disabled={ status !== 2}>
+                            <div className={`w-full border text-white border-yellow-500 flex justify-center ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                 <p className="p-2">L.{thirdNumber !== null ? thirdNumber : ''}</p>
                             </div>
                         </button>
                     </div>
                     <div className="relative mb-3 mt-4">
+
+
                         <input
                             onChange={handleChange}
                             name="bid_amount"
                             type="number"
-                            className="peer w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all bg-bidcraft-dark text-white"
+                            className={`peer w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all bg-bidcraft-dark text-white ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''
+                                }`}
                             id="exampleFormControlInputNumber"
                             placeholder=" "
+                            disabled={ status !== 2} // Deshabilita el input si status es 1 o 3
                         />
                         <label
                             htmlFor="exampleFormControlInputNumber"
@@ -120,10 +124,10 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction }) {
                         </label>
                     </div>
                     <section className="flex flex-col">
-                        <button onClick={newBit} className="p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold">
+                        <button  disabled={ status !== 2} onClick={newBit} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
                             Colocar oferta
                         </button>
-                        <button className="hidden p-[5%] my-2">Comprar ahora</button>
+                        <button className="hidden p-[5%] my-2" >Comprar ahora</button>
                     </section>
                 </div>
             </div>
