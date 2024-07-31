@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
 import { HiUserGroup, HiDocument, HiShieldCheck } from "react-icons/hi";
+import axios from "axios";
+import { toast } from "react-toastify";
 import {
   TERipple,
   TEModal,
@@ -14,6 +16,9 @@ import {
 const AdminPage = () => {
   const [contentToShow, setContentToShow] = useState(null);
   const [subastadores, setSubastadores] = useState([]);
+  const [subastadoresaAccepted, setSubastadoresAccepted] = useState([]);
+  const [subastadoresaRefused, setSubastadoresRefused] = useState([]);
+
   const [adminName, setAdminName] = useState("");
   const [adminProfilePic, setAdminProfilePic] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,152 +29,6 @@ const AdminPage = () => {
 
   useEffect(() => {
     fetchAdminData();
-  }, []);
-
-  useEffect(() => {
-    const simulatedSubastadores = [
-      {
-        id: 1,
-        nombre: "John Doe",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/hombre-feliz-guapo_144627-6288.jpg?t=st=1721927160~exp=1721930760~hmac=ce729002e26f60e1c7b81922fbbde4784bcab1a97c77d382294c6a9d4d337800&w=740",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "123456789",
-      },
-      {
-        id: 2,
-        nombre: "Jane Smith",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/hombre-esta-feliz-sonriendo-ojos_114579-13387.jpg?t=st=1721927248~exp=1721930848~hmac=cc82ed5270cf254cf3c1686beba6289c81aaa44ab376a3ca08ea05e14d27c1a9&w=740",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "987654321",
-      },
-      {
-        id: 3,
-        nombre: "Michael Johnson",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/retrato-modelo-masculino-atractivo-feliz-aspecto-amigable-bigote-barba-gafas-transparentes-moda-sonriendo-ampliamente-mientras-escucha-historia-interesante-o-espera-que-mama-de-comer_176420-22400.jpg?t=st=1721927350~exp=1721930950~hmac=452ebd131075275ebc90d181ddcab5f6278c3bb89b0b111f4c12d769f76b9555&w=740",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "567891234",
-      },
-      {
-        id: 4,
-        nombre: "Emily Davis",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/mujer-sonriendo-vestido-elegante_1150-11694.jpg?t=st=1721932484~exp=1721936084~hmac=7f91740550e7b78a94fdc758d8376dbfb8cddc05fc1e6e501adce092ef42a9fd",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "345678901",
-      },
-      {
-        id: 5,
-        nombre: "David Wilson",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/hombre-sonriente-camisa-casual_1150-11822.jpg?t=st=1721932598~exp=1721936198~hmac=8c6f7377a080e9144cda5e1b4e6e8f0ff5426d63762b39387229ae368e4d6a2b",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "456789012",
-      },
-      {
-        id: 6,
-        nombre: "Sophia Brown",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/mujer-feliz-sonriendo-siendo-retrato_1150-11830.jpg?t=st=1721932710~exp=1721936310~hmac=de5bb418a1e83d9d671dc63d55b9062c8a3c4b5011a027c2c62398f9e3f4ae9d",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "567890123",
-      },
-      {
-        id: 7,
-        nombre: "James Lee",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/hombre-sonriente-barba-corta_1150-12200.jpg?t=st=1721932818~exp=1721936418~hmac=b55b6f1c09854839f89ddfdc7b373fdc4a7d9296828fdf70a4d134e9b11e6c11",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "678901234",
-      },
-      {
-        id: 8,
-        nombre: "Olivia Martinez",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/mujer-sonriente-con-pelo-largo_1150-12100.jpg?t=st=1721932915~exp=1721936515~hmac=9a4b9e9350f5f09f2f435e0a4235d8d4a00a184d6de5f55027d73ef87f7f4f62",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "789012345",
-      },
-      {
-        id: 9,
-        nombre: "William Garcia",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/hombre-rubio-sonriendo_1150-12190.jpg?t=st=1721933034~exp=1721936634~hmac=45c7ff59bdf6c799a0e1f5d8d37e019c0c3f8557c5f0c8ae6e5d14c7e8a55b2",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "890123456",
-      },
-      {
-        id: 10,
-        nombre: "Isabella Thompson",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/mujer-sonriente-pelo-rizado_1150-12345.jpg?t=st=1721933146~exp=1721936746~hmac=1e4a36b746d3bb4b903b2c929fbf3402e9c3cf3f828d76a92b2954bbd53ad8d6",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "901234567",
-      },
-      {
-        id: 11,
-        nombre: "Ethan White",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/hombre-sonriente-camiseta-blanca_1150-12450.jpg?t=st=1721933252~exp=1721936852~hmac=134f5172f20d44f5e095081fe631a527f57d99b9f089bdf7d50195d09a44ed91",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "012345678",
-      },
-      {
-        id: 12,
-        nombre: "Ava Robinson",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/mujer-sonriente-morada-sombrero_1150-12520.jpg?t=st=1721933358~exp=1721936958~hmac=cad6a82f4a282d6ae4312b207e9c52800598b5b593d86583f08e35d4b8474b5d",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "123456780",
-      },
-      {
-        id: 13,
-        nombre: "Liam Harris",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/hombre-sonriente-ojos-verdes_1150-12630.jpg?t=st=1721933463~exp=1721937063~hmac=7a4e5fba2e2d9b20f71c681d6b0a93c5dfe7cfc4776e1cbe94a418a4cbf8c97c",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "234567890",
-      },
-      {
-        id: 14,
-        nombre: "Mia Clark",
-        estado: "pendiente",
-        profilePic:
-          "https://img.freepik.com/foto-gratis/mujer-sonriente-pelo-largo_1150-12740.jpg?t=st=1721933571~exp=1721937171~hmac=6e9e5fca145d3f9c3b587477d19c3b3a0a6dc050f9b0581ab2b4f2bfb3c10b9d",
-        idFront: "https://imagizer.imageshack.com/img923/8783/albFg0.jpg",
-        idBack: "https://imagizer.imageshack.com/img924/5734/ARXjdg.jpg",
-        numID: "345678900",
-      },
-    ];
-    setSubastadores(simulatedSubastadores);
   }, []);
 
   const fetchAdminData = async () => {
@@ -190,25 +49,6 @@ const AdminPage = () => {
     setContentToShow(content);
   };
 
-  const handleAceptarSubastador = (subastadorId) => {
-    setSubastadores((prevSubastadores) =>
-      prevSubastadores.map((subastador) =>
-        subastador.id === subastadorId
-          ? { ...subastador, estado: "aceptado" }
-          : subastador
-      )
-    );
-  };
-
-  const handleRechazarSubastador = (subastadorId) => {
-    setSubastadores((prevSubastadores) =>
-      prevSubastadores.map((subastador) =>
-        subastador.id === subastadorId
-          ? { ...subastador, estado: "rechazado" }
-          : subastador
-      )
-    );
-  };
 
   const openModal = (subastador) => {
     setSelectedSubastador(subastador);
@@ -219,29 +59,149 @@ const AdminPage = () => {
     setSelectedSubastador(null);
     setModalOpen(false);
   };
+  //-------------------------------------------------------Aca obtenemos los usuarios pendientes  a verficiar---------------------------------
+  const getUsersPending = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/kyc/status/1/`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`, // Incluir el token en los headers
+          },
+        }
+      );
 
-  // Función para manejar el cambio de página
-  /* const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  }; */
+      const users = response.data; // Supongo que la respuesta contiene un array de usuarios
 
-  // Obtener los subastadores para la página actual
-  /* const indexOfLastSubastador = currentPage * itemsPerPage;
-   
-   const indexOfFirstSubastador = indexOfLastSubastador - itemsPerPage;
-      const currentSubastadores = subastadores.slice(
-       indexOfFirstSubastador,
-       indexOfLastSubastador
-     ); */
+      const mappedSubastadores = users.map((user) => ({
+        id: user.user.id,
+        nombre: `${user.user.first_name} ${user.user.last_name}`,
+        estado: user.status.status, // Usar el estado desde la respuesta
+        profilePic: user.profile_picture,
+        idFront: user.front_id,
+        idBack: user.back_id,
+        numID: user.user.id,
+      }));
 
-  // Calcular el número total de páginas
-  //const totalPages = Math.ceil(subastadores.length / itemsPerPage);
+      setSubastadores(mappedSubastadores);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+  //---------------------------------------------------------------Aca obtenemos los usuarios que fueorn aceptados-----------------------------------------------------
+  const getUsersAccepted = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/kyc/status/2/`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`, // Incluir el token en los headers
+          },
+        }
+      );
 
+      const users = response.data; // Supongo que la respuesta contiene un array de usuarios
+
+      const mappedSubastadores = users.map((user) => ({
+        id: user.user.id,
+        nombre: `${user.user.first_name} ${user.user.last_name}`,
+        estado: user.status.status, // Usar el estado desde la respuesta
+        profilePic: user.profile_picture,
+        idFront: user.front_id,
+        idBack: user.back_id,
+        numID: user.user.id,
+      }));
+      console.log(mappedSubastadores)
+      setSubastadoresAccepted(mappedSubastadores);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
+
+
+  //---------------------------------------------------------------Aca obtenemos los usuarios que fueorn rechazados-----------------------------------------------------
+  const getUsersRefused = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/kyc/status/3/`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`, // Incluir el token en los headers
+          },
+        }
+      );
+
+      const users = response.data; // Supongo que la respuesta contiene un array de usuarios
+
+      const mappedSubastadores = users.map((user) => ({
+        id: user.user.id,
+        nombre: `${user.user.first_name} ${user.user.last_name}`,
+        estado: user.status.status, // Usar el estado desde la respuesta
+        profilePic: user.profile_picture,
+        idFront: user.front_id,
+        idBack: user.back_id,
+        numID: user.user.id,
+      }));
+      console.log(mappedSubastadores)
+      setSubastadoresRefused(mappedSubastadores);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+  useEffect(() => {
+    getUsersPending();
+    getUsersAccepted();
+    getUsersRefused();
+
+  }, []);
+
+
+
+  async function editVerification(statusParam, idUsers) {
+    try {
+      const statusJson = {
+        status: statusParam
+
+      }
+      await axios.patch(`${process.env.REACT_APP_API_URL}/api/kyc/update/status/${idUsers}/`, statusJson, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        }
+      })
+
+      getUsersPending()
+      getUsersAccepted();
+      getUsersRefused();
+if (statusParam===2) {
+  toast.success("Usuario aceptado");
+}
+if (statusParam===3) {
+  toast.success("Usuario denegado");
+}
+    
+
+
+    } catch (error) {
+      console.log(error)
+    }
+
+
+
+  }
   const renderMainContent = () => {
+
     switch (contentToShow) {
       case "verificarSubastador":
         return (
-          <div className="bg-white p-6 rounded-lg shadow-lg mx-auto max-w-4xl">
+          <div className="bg-white p-6 rounded-lg shadow-lg mx-auto w-full max-w-4xl">
             <h2 className="text-xl font-bold mb-4">
               Subastadores Pendientes de Verificación
             </h2>
@@ -271,26 +231,26 @@ const AdminPage = () => {
                           {subastador.nombre}
                         </td>
                         <td className="px-4 py-2">
-                          {subastador.estado === "pendiente" ? (
+                          {subastador.estado === "En revisión" ? (
                             <span className="bg-yellow-200 text-yellow-800 py-1 px-2 rounded-full text-xs">
-                              Pendiente
+                              En revision
                             </span>
-                          ) : subastador.estado === "aceptado" ? (
+                          ) : subastador.estado === "Aprovado" ? (
                             <span className="bg-green-200 text-green-800 py-1 px-2 rounded-full text-xs">
                               Aceptado
                             </span>
-                          ) : (
+                          ) : subastador.estado === "Denegado"(
                             <span className="bg-red-200 text-red-800 py-1 px-2 rounded-full text-xs">
                               Rechazado
                             </span>
                           )}
                         </td>
                         <td className="px-4 py-2">
-                          {subastador.estado === "pendiente" && (
+                          {subastador.estado === "En revisión" && (
                             <>
                               <button
                                 onClick={() =>
-                                  handleAceptarSubastador(subastador.id)
+                                  editVerification(2, subastador.id)
                                 }
                                 className="bg-green-500 text-white py-1 px-2 rounded-lg mr-2"
                               >
@@ -298,7 +258,7 @@ const AdminPage = () => {
                               </button>
                               <button
                                 onClick={() =>
-                                  handleRechazarSubastador(subastador.id)
+                                  editVerification(3, subastador.id)
                                 }
                                 className="bg-red-500 text-white py-1 px-2 rounded-lg"
                               >
@@ -315,10 +275,161 @@ const AdminPage = () => {
             </div>
           </div>
         );
+      case "Usuarios_verificados":
+        return (<div className="bg-white p-6 rounded-lg shadow-lg mx-auto w-full max-w-4xl">
+          <h2 className="text-xl font-bold mb-4">
+            Subastadores aceptados
+          </h2>
+          <div className="overflow-hidden">
+            <div className="relative overflow-x-auto">
+              <table className="w-full table-auto text-sm sm:text-base divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Subastador
+                    </th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Estado
+                    </th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Acciones
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {subastadoresaAccepted.map((subastador) => (
+                    <tr key={subastador.id}>
+                      <td
+                        className="px-4 py-2 font-medium text-gray-900 cursor-pointer"
+                        onClick={() => openModal(subastador)}
+                      >
+                        {subastador.nombre}
+                      </td>
+                      <td className="px-4 py-2">
+                        {subastador.estado === "En revisión" ? (
+                          <span className="bg-yellow-200 text-yellow-800 py-1 px-2 rounded-full text-xs">
+                            En revision
+                          </span>
+                        ) : subastador.estado === "Aprovado" ? (
+                          <span className="bg-green-200 text-green-800 py-1 px-2 rounded-full text-xs">
+                            Aceptado
+                          </span>
+                        ) : subastador.estado === "Denegado"(
+                          <span className="bg-red-200 text-red-800 py-1 px-2 rounded-full text-xs">
+                            Rechazado
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-4 py-2">
+                        {subastador.estado === "En revisión" && (
+                          <>
+                            <button
+                              onClick={() =>
+                                editVerification(2, subastador.id)
+                              }
+                              className="bg-green-500 text-white py-1 px-2 rounded-lg mr-2"
+                            >
+                              Aceptar
+                            </button>
+                            <button
+                              onClick={() =>
+                                editVerification(3, subastador.id)
+                              }
+                              className="bg-red-500 text-white py-1 px-2 rounded-lg"
+                            >
+                              Rechazar
+                            </button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>)
       default:
         return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-6 mx-auto max-w-4xl">
-            {/* Contenido predeterminado */}
+          <div className="bg-white p-6 rounded-lg shadow-lg mx-auto w-full max-w-4xl">
+            <h2 className="text-xl font-bold mb-4">
+              Subastadores rechazados
+            </h2>
+            <div className="overflow-hidden">
+              <div className="relative overflow-x-auto">
+                <table className="w-full table-auto text-sm sm:text-base divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Subastador
+                      </th>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Estado
+                      </th>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Acciones
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {subastadoresaRefused.map((subastador) => (
+                      <tr key={subastador.id}>
+                        <td
+                          className="px-4 py-2 font-medium text-gray-900 cursor-pointer"
+                          onClick={() => openModal(subastador)}
+                        >
+                          {subastador.nombre}
+                        </td>
+                        <td className="px-4 py-2">
+                          {
+                            subastador.estado === "En revisión" ? (
+                              <span className="bg-yellow-200 text-yellow-800 py-1 px-2 rounded-full text-xs">
+                                En revisión
+                              </span>
+                            ) : subastador.estado === "Aprobado" ? (
+                              <span className="bg-green-200 text-green-800 py-1 px-2 rounded-full text-xs">
+                                Aceptado
+                              </span>
+                            ) : subastador.estado === "Denegado" ? (
+                              <span className="bg-red-200 text-red-800 py-1 px-2 rounded-full text-xs">
+                                Rechazado
+                              </span>
+                            ) : (
+                              <span className="bg-gray-200 text-gray-800 py-1 px-2 rounded-full text-xs">
+                                Estado desconocido
+                              </span>
+                            )
+                          }
+
+                        </td>
+                        <td className="px-4 py-2">
+                          {subastador.estado === "En revisión" && (
+                            <>
+                              <button
+                                onClick={() =>
+                                  editVerification(2, subastador.id)
+                                }
+                                className="bg-green-500 text-white py-1 px-2 rounded-lg mr-2"
+                              >
+                                Aceptar
+                              </button>
+                              <button
+                                onClick={() =>
+                                  editVerification(3, subastador.id)
+                                }
+                                className="bg-red-500 text-white py-1 px-2 rounded-lg"
+                              >
+                                Rechazar
+                              </button>
+                            </>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         );
     }
@@ -373,18 +484,19 @@ const AdminPage = () => {
               Verificar Subastador
             </button>
             <button
-              onClick={() => handleSidebarItemClick("gestionUsuarios")}
+              onClick={() => handleSidebarItemClick("Usuarios_verificados")}
               className="flex items-center py-2 px-4 rounded-lg bg-blue-600 mb-2 text-white"
             >
               <HiUserGroup className="w-5 h-5 mr-2" />
-              Gestión de Usuarios
+              Usuarios aceptados
             </button>
             <button
               onClick={() => handleSidebarItemClick("moderacionContenidos")}
               className="flex items-center py-2 px-4 rounded-lg bg-blue-600 mb-2 text-white"
             >
               <HiDocument className="w-5 h-5 mr-2" />
-              Contenidos
+              Usuarios Rechazados
+
             </button>
           </nav>
         </div>
