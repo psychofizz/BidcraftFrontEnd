@@ -98,7 +98,7 @@ const PaymentInfo = ({ auctionItem, finalPrice }) => {
                         className="w-full bg-bidcraft-main text-white font-bold py-3 px-4 rounded-full hover:bg-opacity-90 transition duration-300 ease-in-out"
                         type="submit"
                     >
-                        Pagar ${finalPrice}
+                        Pagar L.{finalPrice}
                     </button>
                 </form>
             </div>
@@ -108,7 +108,7 @@ const PaymentInfo = ({ auctionItem, finalPrice }) => {
                     <div className="bg-white p-8 rounded-3xl shadow-xl max-w-sm w-full mx-4">
                         <h3 className="text-2xl font-bold mb-4 text-gray-800">Confirmar Pago</h3>
                         <p className="text-gray-600 mb-6">
-                            ¿Estás seguro de que deseas proceder con el pago de ${finalPrice}?
+                            ¿Estás seguro de que deseas proceder con el pago de L.{finalPrice}?
                         </p>
                         <div className="space-y-3">
                             <button
