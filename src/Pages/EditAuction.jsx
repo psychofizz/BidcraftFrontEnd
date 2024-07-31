@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
 import PageHeader from "../Components/page-essentials/PageHeader";
-import TagInput from "../Components/auction/TagInput";
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +13,7 @@ function EditAuction() {
     const { id: auctionId } = useParams();
 
     // State para manejar el archivo de imagen
-    const [file, setFile] = useState(null);
+    // const [file, setFile] = useState(null);
 
     const userId = JSON.parse(localStorage.getItem("User"));
 
@@ -37,60 +36,60 @@ function EditAuction() {
     };
 
     // Manejar cambios en el input de archivo
-    const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
-    };
+    // const handleFileChange = (e) => {
+    //     setFile(e.target.files[0]);
+    // };
 
-    // Subir imagen a Imgur
-    const handleImageUpload = async () => {
-        const formData = new FormData();
-        formData.append('image', file);
+    // // Subir imagen a Imgur
+    // const handleImageUpload = async () => {
+    //     const formData = new FormData();
+    //     formData.append('image', file);
 
-        try {
-            const response = await axios.post('https://api.imgur.com/3/image', formData, {
-                headers: {
-                    Authorization: 'Client-ID 66a3c4364f2dc63', // Reemplaza con tu propio Client ID
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+    //     try {
+    //         const response = await axios.post('https://api.imgur.com/3/image', formData, {
+    //             headers: {
+    //                 Authorization: 'Client-ID 66a3c4364f2dc63', // Reemplaza con tu propio Client ID
+    //                 'Content-Type': 'multipart/form-data',
+    //             },
+    //         });
 
-            if (response.status === 200) {
-                const data = response.data;
-                const u = `https://i.imgur.com/${data.data.id}.png`;
-                return u;
-            } else {
-                console.error('Error al subir la imagen a Imgur');
-                return null;
-            }
-        } catch (error) {
-            console.error('Error de red:', error);
-            return null;
-        }
-    };
+    //         if (response.status === 200) {
+    //             const data = response.data;
+    //             const u = `https://i.imgur.com/${data.data.id}.png`;
+    //             return u;
+    //         } else {
+    //             console.error('Error al subir la imagen a Imgur');
+    //             return null;
+    //         }
+    //     } catch (error) {
+    //         console.error('Error de red:', error);
+    //         return null;
+    //     }
+    // };
 
-    // Guardar imagen en el servidor
-    const saveImgur = async (idAuction, urlmage) => {
-        const imgData = {
-            auction: idAuction,
-            image_url: urlmage
-        };
-        try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
+    // // Guardar imagen en el servidor
+    // const saveImgur = async (idAuction, urlmage) => {
+    //     const imgData = {
+    //         auction: idAuction,
+    //         image_url: urlmage
+    //     };
+    //     try {
+    //         await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
 
-            const tabs = {
-                tag_name: values.tag_name
-            };
+    //         const tabs = {
+    //             tag_name: values.tag_name
+    //         };
 
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs);
-        } catch (error) {
-            console.error('Error guardando imagen en el servidor:', error);
-        }
-    };
+    //         await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs);
+    //     } catch (error) {
+    //         console.error('Error guardando imagen en el servidor:', error);
+    //     }
+    // };
 
     // Editar la subasta
     const editAuction = async (event) => {
         event.preventDefault();
-        const { name, description, starting_price, buy_it_now_price, category } = values;
+        const { name, description, starting_price, buy_it_now_price, category,end_time } = values;
 
         const updatedAuctionData = {
             name,
@@ -98,21 +97,20 @@ function EditAuction() {
             starting_price,
             buy_it_now_price,
             category,
-            date_listed: new Date().toISOString(), // Puede ajustarse según necesidad
-            is_active: true, // Asegúrate de establecer el valor correcto
-            is_auction: true // o false dependiendo de tu lógica
+            end_time
         };
 
         try {
 
-            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/api/auction/edit/one/${auctionId}/`, updatedAuctionData);
+            await axios.patch(`${process.env.REACT_APP_API_URL}/api/auction/edit/one/${auctionId}/`, updatedAuctionData);
 
-            const imageUrl = await handleImageUpload();
-            if (imageUrl) {
-                saveImgur(response.data.data.auction_id, imageUrl);
-                toast.success("Subasta editada exitosamente");
-                navigate("/home");
-            }
+            toast.success("Subasta editada exitosamente");
+            navigate("/home");
+            // const imageUrl = await handleImageUpload();
+            // if (imageUrl) {
+            //     saveImgur(response.data.data.auction_id, imageUrl);
+              
+            // }
         } catch (error) {
             if (error.response && error.response.data) {
                 console.error('Error:', error.response.data);
@@ -153,7 +151,6 @@ function EditAuction() {
                     starting_price: data.starting_price,
                     buy_it_now_price: data.buy_it_now_price,
                     category: data.category.category_id,
-                    start_time: data.start_time.split('T')[0], // Solo la fecha
                     end_time: data.end_time.split('T')[0], // Solo la fecha
                     tag_name: data.tags ? data.tags.join(', ') : '', // Asumiendo que tags es un array
                     imgUrl: data.images[0]
@@ -198,8 +195,8 @@ function EditAuction() {
                                 />
                             </div>
 
-                            <div className="bg-bidcraft-grey-2 h-40 text-white flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400">
-                                <input type="file" accept="image/*" onChange={handleFileChange} />
+                            <div className="bg-bidcraft-grey-2 h-40 text-white flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400 hidden">
+                                {/* <input type="file" accept="image/*" onChange={handleFileChange} /> */}
                             </div>
 
                             <div>
@@ -243,7 +240,7 @@ function EditAuction() {
                             </div>
 
                             <div className="grid grid-cols-2 gap-2">
-                                <div>
+                                <div className="hidden">
                                     <label htmlFor="startDate" className="block text-sm font-medium mb-2">
                                         Fecha Inicial
                                     </label>
@@ -292,8 +289,8 @@ function EditAuction() {
                                 </select>
                             </div>
 
-                            <TagInput />
-                            <div>
+                            {/* <TagInput /> */}
+                            <div className="hidden">
                                 <label htmlFor="tagName" className="block text-sm font-medium mb-2">
                                     Agregar Tag
                                 </label>

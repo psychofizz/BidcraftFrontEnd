@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Tab, initTWE, Dropdown, Ripple } from "tw-elements";
 import axios from "axios";
-
 import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
@@ -9,6 +8,7 @@ import MyAuctions from "../Components/profile/myAuction";
 
 function Profile() {
   const [productMyInfo, setProductInfo] = useState([]);
+  const [loading, setLoading] = useState(true); // Estado para manejar la carga
   const user = JSON.parse(localStorage.getItem("User"));
   const jwt = JSON.parse(localStorage.getItem("token"));
 
@@ -23,6 +23,8 @@ function Profile() {
       setProductInfo(response.data);
     } catch (error) {
       console.error("Error fetching auctions:", error);
+    } finally {
+      setLoading(false); // Termina la carga cuando se completa la solicitud
     }
   }, [jwt]);
 
@@ -38,7 +40,6 @@ function Profile() {
 
       <section className="w-full overflow-hidden dark:bg-gray-900">
         <div className="w-full mx-auto">
-
           <img
             src="https://images.unsplash.com/photo-1560697529-7236591c0066?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxMHx8Y292ZXJ8ZW58MHwwfHx8MTcxMDQ4MTEwNnww&ixlib=rb-4.0.3&q=80&w=1080"
             alt="User Cover"
@@ -46,22 +47,18 @@ function Profile() {
           />
 
           <div className="w-full mx-auto flex justify-center">
-
           </div>
 
           <div className="xl:w-[80%] lg:w-[90%] md:w-[94%] sm:w-[96%] xs:w-[92%] mx-auto flex flex-col gap-4 justify-center items-center relative xl:-top-[6rem] lg:-top-[6rem] md:-top-[4rem] sm:-top-[3rem] xs:-top-[2.2rem]">
-
             <img
               src={`https://ui-avatars.com/api/?name=${user.first_name}&background=random`}
               alt={user.first_name}
               className="w-48 h-48 rounded-full border-2 border-white"
             />
-            <div className="position relative     sm:absolute  sm:ml-[80%] lg:ml-[100%]  " >
-
-
+            <div className="position relative sm:absolute sm:ml-[80%] lg:ml-[100%]">
               <div className="relative" data-twe-dropdown-ref>
                 <button
-                  className="flex items-center rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                  className="flex items-center rounded bg-bidcraft-dark px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-bidcraft-dark hover:shadow-primary-2 focus:bg-bidcraft-dark focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-bidcraft-dark active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                   type="button"
                   id="dropdownMenuButton1"
                   data-twe-dropdown-toggle-ref
@@ -90,25 +87,10 @@ function Profile() {
                       className="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
                       href="/verification"
                       data-twe-dropdown-item-ref
-                    >Verificar</a
-                    >
+                    >Verificar    </a>
                   </li>
-                  <li>
-                    <button
-                      className="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                      href=""
-                      data-twe-dropdown-item-ref
-                    >Another action</button
-                    >
-                  </li>
-                  <li>
-                    <button
-                      className="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                      href="#"
-                      data-twe-dropdown-item-ref
-                    >Something else here</button
-                    >
-                  </li>
+                 
+                 
                 </ul>
               </div>
             </div>
@@ -120,7 +102,6 @@ function Profile() {
           </div>
         </div>
       </section>
-
 
       <div
         id="tabs"
@@ -182,19 +163,45 @@ function Profile() {
             aria-labelledby="tabs-home-tab02"
             data-twe-tab-active
           >
-            {productMyInfo.length > 0 && (
-              <div>
-                {productMyInfo.map((producto) => (
-                  <MyAuctions
-                    key={producto.auction_id}
-                    idAuction={producto.auction_id}
-                    name={producto.name}
-                    description={producto.description}
-                    highest_bid={producto.highest_bid}
-                    updateAuction={myAuctions}
-                    imgUrl={producto.images[0]}
+            {loading ? (
+              <div className="flex justify-center items-center h-48">
+                <svg
+                  className="w-8 h-8 text-gray-500 animate-spin"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
                   />
-                ))}
+                  <path
+                    className="opacity-75"
+                    fill="none"
+                    d="M4 12a8 8 0 1116 0A8 8 0 014 12z"
+                  />
+                </svg>
+              </div>
+            ) : (
+              <div>
+                {productMyInfo.length > 0 ? (
+                  productMyInfo.map((producto) => (
+                    <MyAuctions
+                      key={producto.auction_id}
+                      idAuction={producto.auction_id}
+                      name={producto.name}
+                      description={producto.description}
+                      highest_bid={producto.highest_bid}
+                      updateAuction={myAuctions}
+                      imgUrl={producto.images[0]}
+                    />
+                  ))
+                ) : (
+                  <p className="text-center text-gray-500">No hay subastas disponibles</p>
+                )}
               </div>
             )}
           </div>
