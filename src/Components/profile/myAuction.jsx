@@ -48,11 +48,13 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
       
 
 <div className="transition-transform duration-300 ease-in-out transform hover:scale-[1.040] hover:shadow-2xl shadow-xl p-4 bg-bidcraft-dark">
+<Link to={`/myAuction/${idAuction}`} className="block m-2">
   <img
     src={imgUrl?.image_url || ""}
-    alt={name}
+    
     className="w-full h-48 object-cover mb-2"
   />
+  </Link>
   <h2 className="text-lg font-bold text-warning-100">
     {name}
   </h2>

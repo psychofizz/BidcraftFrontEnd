@@ -123,29 +123,30 @@ function Verification() {
     return (
         <>
 
-            <div className="bg-bidcraft-grey h-full">
+            <div className="bg-bidcraft-grey flex flex-col min-h-screen">
                 <MainNavbar />
-                <section className="text-gray-600 body-font bg-bidcraft-grey">
+                <section className="flex-grow text-gray-600 body-font bg-bidcraft-grey h-full">
                     {loading ? (
-                      <Loading/>
+                        <div className="grid place-content-center h-[65vh] "><Loading/></div>
+                      
  // Muestra cargando mientras espera el estado
                     ) : (
                         status === 1 ? (
-                            <div className="grid place-content-center h-full">
+                            <div className="grid place-content-center h-[65vh] ">
                                 <div className="flex justify-center content-center text-white text-4xl">
                                     <h1>Su solicitud esta siendo revisada </h1>
                                 </div>
                             </div>
                         ) :
                             status === 2 ? (
-                                <div className="grid place-content-center h-full">
+                                <div className="grid place-content-center h-[65vh]">
                                     <div className="flex justify-center content-center text-white text-4xl">
                                         <h1>Su solicitud fue aprovada </h1>
                                     </div>
                                 </div>
                             ) :
                                 status === 3 ? (
-                                    <div className="grid place-content-center h-full">
+                                    <div className="grid place-content-center h-[65vh]">
                                         <div className="flex justify-center content-center text-white text-4xl">
                                             <h1>Su solicitud fue rechazada </h1>
                                         </div>

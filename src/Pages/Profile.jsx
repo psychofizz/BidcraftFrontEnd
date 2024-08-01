@@ -26,7 +26,7 @@ function Profile() {
   const [loading, setLoading] = useState(true);
   const [loadingMyAuction, setLoadingMyAuction] = useState(true);
 
-  const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const fetchAuctions = async () => {
@@ -41,7 +41,7 @@ function Profile() {
         setAuctions(response.data);
         setLoadingMyAuction(false);
       } catch (err) {
-        setError(err);
+        
         
       }
     };
@@ -207,6 +207,7 @@ function Profile() {
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-bidcraft-grey">
       {productMyInfo.length > 0 ? (
         productMyInfo.map((producto) => (
+         
           <MyAuctions
             key={producto.auction_id}
             idAuction={producto.auction_id}
@@ -216,6 +217,7 @@ function Profile() {
             updateAuction={myAuctions}
             imgUrl={producto.images[0]}
           />
+        
         ))
       ) : (
         <p className="text-center text-gray-500">No hay subastas disponibles</p>
@@ -240,6 +242,8 @@ function Profile() {
                 </div>
               ) : auctions && auctions.length > 0 ? (
                 auctions.map((auction) => (
+                 
+
                   <div onClick={() => openModal(auction.highest_bid)} key={auction.completed_auction_id}>
                     <div className="transition-transform duration-300 ease-in-out transform hover:scale-[1.040] hover:shadow-2xl shadow-xl p-4 bg-bidcraft-dark">
                       <img
@@ -263,6 +267,7 @@ function Profile() {
                       </p>
                     </div>
                   </div>
+                 
                 ))
               ) : (
                 <div className="col-span-full text-center text-gray-500">
