@@ -52,12 +52,13 @@ const HomeTest = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
+    <>
     <div className="min-h-screen bg-bidcraft-grey">
       <MainNavbar />
       <CategoriesBar />
       <div>
         {productInfo.length > 0 ? (
-          <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2 shadow-lg lg:grid-cols-4 xl:grid-cols-5">
+          <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2  lg:grid-cols-4 xl:grid-cols-5">
             {productInfo.map((producto) => (
               <div key={producto.auction_id}>
                 <AuctionItem
@@ -83,8 +84,10 @@ const HomeTest = () => {
           </button>
         )}
       </div>
-      <Footer />
+
     </div>
+          <Footer />
+    </>
   );
 };
 

@@ -6,20 +6,22 @@ import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
 import { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
+// Reemplaza con tu clave pública de Stripe
+const stripePromise = loadStripe('tu_clave_publica');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
-  <>
+  <Elements stripe={stripePromise}>
     <App />
     <Toaster />
     <ToastContainer />
-  </>
-
+  </Elements>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Si quieres empezar a medir el rendimiento en tu app, pasa una función
+// para registrar resultados (por ejemplo: reportWebVitals(
+// o enviar a un endpoint de análisis. Aprende más: https://bit.ly/CRA-vitals
 reportWebVitals();
