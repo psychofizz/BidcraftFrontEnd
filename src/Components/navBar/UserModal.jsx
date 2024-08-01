@@ -72,7 +72,7 @@ const UserModal = ({ handleClose, show }) => {
             <ChevronRight size={20} />
           </button>
           <button
-            className="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 rounded transition duration-150"
+            className=" hidden w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 rounded transition duration-150"
           >
             <span className="flex items-center">
               <Settings className="mr-3" size={20} />

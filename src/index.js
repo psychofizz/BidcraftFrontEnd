@@ -10,7 +10,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 // Reemplaza con tu clave pública de Stripe
-const stripePromise = loadStripe('tu_clave_publica');
+const stripePromise = loadStripe('pk_test_51PhHbiRxcO9tjCUhJxboXMnZLh3rymdeQiU6imHTjMosmY11irfCMCz6qBgguAxNlsE2hdGSkVrIgTPt1QqxqV1p00pVynRNtg');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

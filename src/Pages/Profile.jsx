@@ -5,12 +5,50 @@ import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
 import MyAuctions from "../Components/profile/myAuction";
-
+import Modal from "../Components/wonAuction/modalPay"
+import Pay from "./PayAuction"
+import Loading from "../Components/loading"
 function Profile() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+  const openModal = (bid) => {
+    setSelectedBid(bid); // Establece el highest_bid seleccionado
+    setIsModalOpen(true);
+  };
+  const closeModal = () => setIsModalOpen(false);
   const [productMyInfo, setProductInfo] = useState([]);
-  const [loading, setLoading] = useState(true); // Estado para manejar la carga
   const user = JSON.parse(localStorage.getItem("User"));
   const jwt = JSON.parse(localStorage.getItem("token"));
+  const [selectedBid, setSelectedBid] = useState(null); // Nuevo estado para el highest_bid
+
+  const [auctions, setAuctions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadingMyAuction, setLoadingMyAuction] = useState(true);
+
+
+
+  useEffect(() => {
+    const fetchAuctions = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/auctions/win/`, {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
+          }
+        }
+        );
+        setAuctions(response.data);
+        setLoadingMyAuction(false);
+      } catch (err) {
+        
+        
+      }
+    };
+
+    fetchAuctions();
+  }, []);
+
 
   const myAuctions = useCallback(async () => {
     try {
@@ -89,8 +127,8 @@ function Profile() {
                       data-twe-dropdown-item-ref
                     >Verificar    </a>
                   </li>
-                 
-                 
+
+
                 </ul>
               </div>
             </div>
@@ -128,12 +166,12 @@ function Profile() {
           </li>
           <li role="presentation" className="flex-grow basis-0 text-center">
             <a
-              href="#tabs-profile02"
+              href="#tabs-resenas"
               className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-white hover:isolate hover:border-transparent  focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
               data-twe-toggle="pill"
-              data-twe-target="#tabs-profile02"
+              data-twe-target="#tabs-resenas"
               role="tab"
-              aria-controls="tabs-profile02"
+              aria-controls="tabs-resenas"
               aria-selected="false"
             >
               Reseñas
@@ -141,12 +179,12 @@ function Profile() {
           </li>
           <li role="presentation" className="flex-grow basis-0 text-center">
             <a
-              href="#tabs-messages02"
+              href="#tabs-miSubastas"
               className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-white hover:isolate hover:border-transparent  focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
               data-twe-toggle="pill"
-              data-twe-target="#tabs-messages02"
+              data-twe-target="#tabs-miSubastas"
               role="tab"
-              aria-controls="tabs-messages02"
+              aria-controls="tabs-miSubastas"
               aria-selected="false"
             >
               Mis subastas
@@ -157,59 +195,105 @@ function Profile() {
         <div className="mb-6">
           {/* Tab content */}
           <div
+  className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+  id="tabs-home02"
+  role="tabpanel"
+  aria-labelledby="tabs-home02-tab02"
+  data-twe-tab-active
+>
+  {loading ? (
+      <Loading/>
+  ) : (
+    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-bidcraft-grey">
+      {productMyInfo.length > 0 ? (
+        productMyInfo.map((producto) => (
+         
+          <MyAuctions
+            key={producto.auction_id}
+            idAuction={producto.auction_id}
+            name={producto.name}
+            description={producto.description}
+            highest_bid={producto.highest_bid}
+            updateAuction={myAuctions}
+            imgUrl={producto.images[0]}
+          />
+        
+        ))
+      ) : (
+        <p className="text-center text-gray-500">No hay subastas disponibles</p>
+      )}
+    </div>
+  )}
+</div>
+
+          {/* Other tab content */}
+          {/* Tab content */}
+          <div
             className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
-            id="tabs-home02"
+            id="tabs-miSubastas"
             role="tabpanel"
             aria-labelledby="tabs-home-tab02"
-            data-twe-tab-active
+         
           >
-            {loading ? (
-              <div className="flex justify-center items-center h-48">
-                <svg
-                  className="w-8 h-8 text-gray-500 animate-spin"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="none"
-                    d="M4 12a8 8 0 1116 0A8 8 0 014 12z"
-                  />
-                </svg>
-              </div>
-            ) : (
-              <div>
-                {productMyInfo.length > 0 ? (
-                  productMyInfo.map((producto) => (
-                    <MyAuctions
-                      key={producto.auction_id}
-                      idAuction={producto.auction_id}
-                      name={producto.name}
-                      description={producto.description}
-                      highest_bid={producto.highest_bid}
-                      updateAuction={myAuctions}
-                      imgUrl={producto.images[0]}
-                    />
-                  ))
-                ) : (
-                  <p className="text-center text-gray-500">No hay subastas disponibles</p>
-                )}
-              </div>
-            )}
+            <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-bidcraft-grey">
+              {loadingMyAuction ? (
+                <div className="col-span-full text-center text-gray-500">
+                   <Loading/>
+                </div>
+              ) : auctions && auctions.length > 0 ? (
+                auctions.map((auction) => (
+                 
+
+                  <div onClick={() => openModal(auction.highest_bid)} key={auction.completed_auction_id}>
+                    <div className="transition-transform duration-300 ease-in-out transform hover:scale-[1.040] hover:shadow-2xl shadow-xl p-4 bg-bidcraft-dark">
+                      <img
+                        src={auction.auction.images[0]?.image_url}
+                        alt={auction.auction.name}
+                        className="w-full h-48 object-cover mb-2"
+                      />
+                      <h2 className="text-lg font-bold text-warning-100">{auction.auction.name}</h2>
+                      <p className="text-gray-700">{auction.auction.description}</p>
+                      <p className="text-gray-500">
+                        Categoría: {auction.auction.category.category_name}
+                      </p>
+                      <p className="text-white font-bold">
+                        Precio más alto: ${auction.highest_bid}
+                      </p>
+                      <p className="text-gray-600">
+                        Fecha de finalización: {new Date(auction.date_completed).toLocaleDateString()}
+                      </p>
+                      <p className="text-green-600">
+                        {auction.is_paid ? "Pagado" : "Pendiente de pago"}
+                      </p>
+                    </div>
+                  </div>
+                 
+                ))
+              ) : (
+                <div className="col-span-full text-center text-gray-500">
+                  No hay productos
+                </div>
+              )}
+            </div>
+
+
           </div>
-          {/* Other tab content */}
+          <div
+            className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+            id="tabs-resenas"
+            role="tabpanel"
+            aria-labelledby="tabs-home-tab02"
+         
+          >
+            reseñas
+          </div>
         </div>
 
       </div>
       <Footer />
+      <Modal isOpen={isModalOpen} onClose={closeModal}  >
+        <Pay amountBit={selectedBid} />
+      </Modal>
     </div >
   );
 }
