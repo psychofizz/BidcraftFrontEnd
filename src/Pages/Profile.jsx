@@ -128,12 +128,12 @@ function Profile() {
           </li>
           <li role="presentation" className="flex-grow basis-0 text-center">
             <a
-              href="#tabs-profile02"
+              href="#tabs-resenas"
               className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-white hover:isolate hover:border-transparent  focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
               data-twe-toggle="pill"
-              data-twe-target="#tabs-profile02"
+              data-twe-target="#tabs-resenas"
               role="tab"
-              aria-controls="tabs-profile02"
+              aria-controls="tabs-resenas"
               aria-selected="false"
             >
               Reseñas
@@ -141,12 +141,12 @@ function Profile() {
           </li>
           <li role="presentation" className="flex-grow basis-0 text-center">
             <a
-              href="#tabs-messages02"
+              href="#tabs-miSubastas"
               className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-white hover:isolate hover:border-transparent  focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
               data-twe-toggle="pill"
-              data-twe-target="#tabs-messages02"
+              data-twe-target="#tabs-miSubastas"
               role="tab"
-              aria-controls="tabs-messages02"
+              aria-controls="tabs-miSubastas"
               aria-selected="false"
             >
               Mis subastas
@@ -206,6 +206,25 @@ function Profile() {
             )}
           </div>
           {/* Other tab content */}
+           {/* Tab content */}
+           <div
+            className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+            id="tabs-miSubastas"
+            role="tabpanel"
+            aria-labelledby="tabs-home-tab02"
+            data-twe-tab-active
+          >
+            holap
+          </div>
+          <div
+            className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+            id="tabs-resenas"
+            role="tabpanel"
+            aria-labelledby="tabs-home-tab02"
+            data-twe-tab-active
+          >
+            reseñas
+          </div>
         </div>
 
       </div>
