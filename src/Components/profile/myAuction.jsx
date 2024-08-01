@@ -41,44 +41,48 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
     //-------------------------------------------------------------------------------------------------------
     return (
 
-<div className="max-w-md mx-auto mt-3 bg-bidcraft-dark rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-  <div className="md:flex">
-    <div className="md:flex-shrink-0">
-      <img
-        className="h-48 w-full object-cover md:w-48"
-        src={imgUrl?.image_url || ""}
-        alt={name}
-      />
-    </div>
-    <div className="p-8">
-      <h2 className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-        {name}
-      </h2>
-      <p className="block mt-1 text-lg leading-tight font-medium text-gray-500">
-        {description}
-      </p>
-      <p className="mt-2 text-gray-500">
-        Precio actual: <span className="font-bold">L. {highest_bid}</span>
-      </p>
-      <div className="flex mt-4 space-x-2">
-        <Link to={`/editAuction/${idAuction}`}>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300">
-            Editar
-          </button>
-        </Link>
-        <button
-          className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300"
-          data-twe-toggle="modal"
-          data-twe-target="#exampleModal"
-          data-twe-ripple-init
-          data-twe-ripple-color="light"
-          onClick={openModal}
-        >
-          Eliminar
-        </button>
-      </div>
-    </div>
+
+
+
+
+      
+
+<div className="transition-transform duration-300 ease-in-out transform hover:scale-[1.040] hover:shadow-2xl shadow-xl p-4 bg-bidcraft-dark">
+<Link to={`/myAuction/${idAuction}`} className="block m-2">
+  <img
+    src={imgUrl?.image_url || ""}
+    
+    className="w-full h-48 object-cover mb-2"
+  />
+  </Link>
+  <h2 className="text-lg font-bold text-warning-100">
+    {name}
+  </h2>
+  <p className="text-gray-700">
+    {description}
+  </p>
+  <p className="text-gray-500">
+    Precio actual: <span className="font-bold">L. {highest_bid}</span>
+  </p>
+  <div className="flex mt-4 space-x-2">
+    <Link to={`/editAuction/${idAuction}`}>
+      <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300">
+        Editar
+      </button>
+    </Link>
+    <button
+      className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300"
+      data-twe-toggle="modal"
+      data-twe-target="#exampleModal"
+      data-twe-ripple-init
+      data-twe-ripple-color="light"
+      onClick={openModal}
+    >
+      Eliminar
+    </button>
   </div>
+
+
 
   {isOpen && (
     <div className="fixed inset-0 flex items-center justify-center z-50 text-bidcraft-grey-2">

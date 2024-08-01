@@ -46,6 +46,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
                 values,
                 { headers: { 'Authorization': `Bearer ${jwt}` } }
             );
+            console.log(response)
             toast.success(response.data.message);
             updateAuction();
             setBaseNumber(values.bid_amount);
@@ -62,6 +63,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
                 autobitAmount,
                 { headers: { 'Authorization': `Bearer ${jwt}` } }
             );
+            console.log(response.data)
             toast.success(response.data.message);
             updateAuction();
             setBaseNumber(autobitAmount.bid_amount);

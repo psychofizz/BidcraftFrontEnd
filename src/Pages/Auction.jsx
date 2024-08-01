@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Footer from '../Components/page-essentials/Footer'
 import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
+import Loading from "../Components/loading"
 
 import axios from 'axios'
 
@@ -130,12 +131,14 @@ function Auction() {
  
     //---------------------------------------------------------------------------------------------------------
     return (
-        <div>
+        <div className="flex flex-col min-h-screen">
             <MainNavbar />
+            
+            <div className=" flex-grow w-full bg-bidcraft-grey ">
             <CategoriesBar />
-            <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 bg-bidcraft-grey">
                 {data.name && data.description ? (
-                    <>
+                    <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 bg-bidcraft-grey">
+                        
                         <div className="col-span-2 lg:col-span-3">
                             <AuctionInfo
                                 name={data.name}
@@ -160,11 +163,16 @@ function Auction() {
                                 <CardSeller nameSeller={data.seller.username} />
                             </div>
                         </div>
-                    </>
+                   </div>
                 ) : (
-                    <div className="w-full h-full ">Cargando...</div>
+                    <div className="w-full min-h-screen flex justify-center bg-bidcraft-grey"> 
+                    <div className="grid place-content-center"><Loading/></div>
+                    </div>
+                    
+
                 )}
             </div>
+           
             <Footer />
         </div>
     )
