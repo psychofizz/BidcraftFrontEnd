@@ -1,42 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
 import AuctionItem from "../Components/auction/auctionItem";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import LoadingAuctionItems from "../Components/auction/LoadingAuctionItem";
-import axios from "axios"
+import axios from "axios";
 
 const HomeTest = () => {
-
-
   const [productInfo, setProductInfo] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [nextPage, setNextPage] = useState(null);
+  const [hasMore, setHasMore] = useState(true); // Track if there's more data to load
 
-  //Esto nos sirve para obtener todos los productos
-  const obtenProducto = async () => {
+  const fetchProducts = async (url) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/all/`, {
+      const response = await axios.get(url, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      const data = response.data;
-      setProductInfo(data);
-    } catch (error) {
-      // Manejo de errores, si es necesario
-    }
+      const { results, next } = response.data;
 
+      // Update the state with new data
+      setProductInfo((prevProducts) => [...prevProducts, ...results]);
+
+      // Update pagination state
+      setNextPage(next);
+      setHasMore(!!next); // Set hasMore to false if no next page
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setError('Failed to fetch products');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  obtenProducto()
+  useEffect(() => {
+    // Initial fetch on component mount
+    fetchProducts(`${process.env.REACT_APP_API_URL}/api/auction/show/all/`);
+  }, []);
+
+  const handleLoadMore = () => {
+    if (nextPage) {
+      fetchProducts(nextPage);
+    }
+  };
+
+  if (loading) return <LoadingAuctionItems count={6} />;
+  if (error) return <div>Error: {error}</div>;
 
   return (
+    <>
     <div className="min-h-screen bg-bidcraft-grey">
       <MainNavbar />
-      <CategoriesBar></CategoriesBar>
+      <CategoriesBar />
       <div>
         {productInfo.length > 0 ? (
-          <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2 shadow-lg lg:grid-cols-4 xl:grid-cols-5">
+          <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2  lg:grid-cols-4 xl:grid-cols-5">
             {productInfo.map((producto) => (
               <div key={producto.auction_id}>
                 <AuctionItem
@@ -49,20 +71,23 @@ const HomeTest = () => {
                   auctionId={producto.auction_id}
                   category={producto.category.category_name}
                   imgUrl={producto.images[0]}
-                ></AuctionItem>
+                />
               </div>
             ))}
           </section>
         ) : (
-
           <LoadingAuctionItems count={6} />
         )}
+        {hasMore && (
+          <button onClick={handleLoadMore} className="mt-4 p-2 bg-blue-500 text-white">
+            Load More
+          </button>
+        )}
       </div>
-      <div>
 
-      </div>
-      <Footer></Footer>
     </div>
+          <Footer />
+    </>
   );
 };
 

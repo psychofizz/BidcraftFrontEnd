@@ -248,7 +248,7 @@ const CreateAuction = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div>
+                <div className="hidden">
                   <label htmlFor="startDate" className="block text-sm font-medium mb-2">
                     Fecha Inicio
                   </label>

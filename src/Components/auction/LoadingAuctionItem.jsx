@@ -25,7 +25,7 @@ const LoadingAuctionItem = () => {
 
 const LoadingAuctionItems = ({ count = 6 }) => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 m-2 p-2 shadow-lg lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid grid-cols-1 md:grid-cols-3  p-2 shadow-lg lg:grid-cols-4 xl:grid-cols-5">
             {[...Array(count)].map((_, index) => (
                 <LoadingAuctionItem key={index} />
             ))}
