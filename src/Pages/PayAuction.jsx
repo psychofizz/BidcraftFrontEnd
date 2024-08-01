@@ -5,7 +5,6 @@ const PaymentForm = ({ amountBit }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentStatus, setPaymentStatus] = useState('');
-  const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState('usd');
   const [description, setDescription] = useState('');
 
