@@ -11,40 +11,49 @@ const PaymentForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (!stripe || !elements) {
       return;
     }
-
+  
     const cardElement = elements.getElement(CardElement);
-
     const { error, token } = await stripe.createToken(cardElement);
-
+  
     if (error) {
       console.error(error);
       setPaymentStatus(error.message);
       return;
     }
-
-    const response = await fetch('/api/payment/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        token: token.id,
-        amount: parseInt(amount) * 100, // Convert to cents
-        currency: currency,
-        description: description
-      })
-    });
-
-    const data = await response.json();
-
-    if (data.status === 200) {
-      setPaymentStatus('Payment Successful');
-    } else {
-      setPaymentStatus(data.message || 'Payment Failed');
+  
+    try {
+      console.log(`${process.env.REACT_APP_API_URL}/api/payment/make/`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/make/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          token: token.id,
+          amount: parseInt(amount) * 100, // Convert to cents
+          currency: currency,
+          description: description
+        })
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      if (data.status === 200) {
+        setPaymentStatus('Payment Successful');
+      } else {
+        setPaymentStatus(data.message || 'Payment Failed');
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+      setPaymentStatus('Payment Failed: ' + error.message);
     }
   };
 
