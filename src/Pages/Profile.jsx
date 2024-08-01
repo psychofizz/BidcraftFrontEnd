@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Tab, initTWE, Dropdown, Ripple } from "tw-elements";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
@@ -8,9 +9,34 @@ import MyAuctions from "../Components/profile/myAuction";
 
 function Profile() {
   const [productMyInfo, setProductInfo] = useState([]);
-  const [loading, setLoading] = useState(true); // Estado para manejar la carga
   const user = JSON.parse(localStorage.getItem("User"));
   const jwt = JSON.parse(localStorage.getItem("token"));
+
+   const [auctions, setAuctions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchAuctions = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/auctions/win/`, {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
+            }
+          }
+        );
+        setAuctions(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err);
+        setLoading(false);
+      }
+    };
+
+    fetchAuctions();
+  }, []);
+
 
   const myAuctions = useCallback(async () => {
     try {
@@ -128,25 +154,25 @@ function Profile() {
           </li>
           <li role="presentation" className="flex-grow basis-0 text-center">
             <a
-              href="#tabs-profile02"
+              href="#tabs-resenas"
               className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-white hover:isolate hover:border-transparent  focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
               data-twe-toggle="pill"
-              data-twe-target="#tabs-profile02"
+              data-twe-target="#tabs-resenas"
               role="tab"
-              aria-controls="tabs-profile02"
+              aria-controls="tabs-resenas"
               aria-selected="false"
             >
-              Reseñas
+      Reseñas
             </a>
           </li>
           <li role="presentation" className="flex-grow basis-0 text-center">
             <a
-              href="#tabs-messages02"
+              href="#tabs-miSubastas"
               className="my-2 block border-x-0 border-b-2 border-t-0 border-transparent px-7 pb-3.5 pt-4 text-xs font-medium uppercase leading-tight text-white hover:isolate hover:border-transparent  focus:isolate focus:border-transparent data-[twe-nav-active]:border-primary data-[twe-nav-active]:text-primary dark:text-white/50 dark:hover:bg-neutral-700/60 dark:data-[twe-nav-active]:text-primary"
               data-twe-toggle="pill"
-              data-twe-target="#tabs-messages02"
+              data-twe-target="#tabs-miSubastas"
               role="tab"
-              aria-controls="tabs-messages02"
+              aria-controls="tabs-miSubastas"
               aria-selected="false"
             >
               Mis subastas
@@ -206,6 +232,51 @@ function Profile() {
             )}
           </div>
           {/* Other tab content */}
+           {/* Tab content */}
+           <div
+            className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+            id="tabs-miSubastas"
+            role="tabpanel"
+            aria-labelledby="tabs-home-tab02"
+            data-twe-tab-active
+          >
+                <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-bidcraft-grey">
+        {auctions.map((auction) => (
+          <Link key={auction.completed_auction_id} to={`/payAuction/${auction.completed_auction_id}`}>
+            <div className="transition-transform duration-300 ease-in-out transform hover:scale-[1.040] hover:shadow-2xl shadow-xl p-4 bg-bidcraft-dark">
+              <img
+                src={auction.auction.images[0]?.image_url}
+                alt={auction.auction.name}
+                className="w-full h-48 object-cover mb-2"
+              />
+              <h2 className="text-lg font-bold text-warning-100">{auction.auction.name}</h2>
+              <p className="text-gray-700">{auction.auction.description}</p>
+              <p className="text-gray-500">
+                Categoría: {auction.auction.category.category_name}
+              </p>
+              <p className="text-gray-900 font-bold">
+                Precio más alto: ${auction.highest_bid}
+              </p>
+              <p className="text-gray-600">
+                Fecha de finalización: {new Date(auction.date_completed).toLocaleDateString()}
+              </p>
+              <p className="text-green-600">
+                {auction.is_paid ? "Pagado" : "Pendiente de pago"}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+          </div>
+          <div
+            className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+            id="tabs-resenas"
+            role="tabpanel"
+            aria-labelledby="tabs-home-tab02"
+            data-twe-tab-active
+          >
+            reseñas
+          </div>
         </div>
 
       </div>
