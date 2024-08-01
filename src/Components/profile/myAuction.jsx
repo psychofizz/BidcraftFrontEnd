@@ -52,7 +52,7 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
   <img
     src={imgUrl?.image_url || ""}
 
-    alt='image subasta'
+    alt='subasta'
     
     className="w-full h-48 object-cover mb-2"
   />
