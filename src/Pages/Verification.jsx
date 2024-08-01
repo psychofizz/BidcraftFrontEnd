@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "../Components/page-essentials/Footer";
 import MainNavbar from "../Components/navBar/mainNavbar";
+import Loading from "../Components/loading"
 
 
 
@@ -126,7 +127,8 @@ function Verification() {
                 <MainNavbar />
                 <section className="text-gray-600 body-font bg-bidcraft-grey">
                     {loading ? (
-                        <h1>Cargando...</h1> // Muestra cargando mientras espera el estado
+                      <Loading/>
+ // Muestra cargando mientras espera el estado
                     ) : (
                         status === 1 ? (
                             <div className="grid place-content-center h-full">
@@ -287,9 +289,9 @@ function Verification() {
                                     )
                     )}
                 </section>
-
+ <Footer />
             </div>
-            <Footer />
+           
         </>
     );
 }
