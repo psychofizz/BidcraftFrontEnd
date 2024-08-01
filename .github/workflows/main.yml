@@ -19,6 +19,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: Build project
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
         run: npm run build
       - name: Deploy to Netlify
         env:

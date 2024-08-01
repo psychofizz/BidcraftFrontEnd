@@ -129,22 +129,23 @@ useEffect(() => {
               </>
             ) : (
               <>
-               <a
+<button
   className={`
     w-full md:w-auto bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 
     text-white rounded-full py-2 px-4 text-center cursor-pointer 
     hover:opacity-90 transition-opacity 
-    ${status !== 2 ? 'pointer-events-none opacity-50' : ''}
+    ${status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}
   `}
-  href={status === 2 ? "/create-auction" : undefined}
-  onClick={(e) => {
-    if (status !== 2) {
-      e.preventDefault(); // Evita la acción de navegación
+  onClick={() => {
+    if (status === 2) {
+      window.location.href = "/create-auction";
     }
   }}
+  disabled={status !== 2} // Disables the button when status is not 2
 >
   Subastar
-</a>
+</button>
+
                 <button
                   className="w-full md:w-10 h-10 flex items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3 transition-colors"
                   onClick={() => toggleModal(showFavoritesModal, setShowFavoritesModal)}
