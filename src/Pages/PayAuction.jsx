@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { toast } from 'react-toastify';
 
-const PaymentForm = ({ amountBit,fetchAuctions,closeModal }) => {
+const PaymentForm = ({ amountBit,fetchAuctions,closeModal,idAuction }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentStatus, setPaymentStatus] = useState('');

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBid, setSelectedBid] = useState(null);
+  const [idAuction, setidAuction] = useState(null);
   const [selectedAuction, setSelectedAuction] = useState(null);
   const [productMyInfo, setProductInfo] = useState([]);
   const [auctions, setAuctions] = useState([]);
@@ -31,6 +32,7 @@ function Profile() {
       });
       setAuctions(response.data);
       setLoadingMyAuction(false);
+      console.log(response.data[0].auction.auction_id)
     } catch (err) {
       console.error("Error fetching auctions:", err);
     }
@@ -58,9 +60,10 @@ function Profile() {
     fetchAuctions();
   }, [myAuctions,fetchAuctions]);
 
-  const openModal = (bid, auction) => {
+  const openModal = (bid, auction,idAuc) => {
     if (!auction.is_paid) {
       setSelectedBid(bid);
+      setidAuction(idAuc);
       setSelectedAuction(auction);
       setIsModalOpen(true);
     } else {
@@ -72,6 +75,7 @@ function Profile() {
     setIsModalOpen(false);
     setSelectedBid(null);
     setSelectedAuction(null);
+    setidAuction(null);
   };
 
   return (
@@ -213,7 +217,7 @@ function Profile() {
               ) : auctions && auctions.length > 0 ? (
                 auctions.map((auction) => (
                   <div
-                    onClick={() => openModal(auction.highest_bid, auction)}
+                    onClick={() => openModal(auction.highest_bid,auction,auction.auction.auction_id)}
                     key={auction.completed_auction_id}
                   >
                     <div className="transition-transform duration-300 ease-in-out transform hover:scale-[1.040] hover:shadow-2xl shadow-xl p-4 bg-bidcraft-dark">
@@ -259,8 +263,8 @@ function Profile() {
       </div>
       <Footer />
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        {selectedBid && selectedAuction && (
-          <Pay amountBit={selectedBid} fetchAuctions={fetchAuctions} closeModal={closeModal} />
+        {selectedBid && selectedAuction && idAuction &&  (
+          <Pay amountBit={selectedBid} fetchAuctions={fetchAuctions} closeModal={closeModal} idAuction={idAuction} />
         )}
       </Modal>
     </div>
