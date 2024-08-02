@@ -13,8 +13,9 @@ function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-  const openModal = (bid) => {
-    setSelectedBid(bid); // Establece el highest_bid seleccionado
+  const openModal = (bid, auctionId) => {
+    setSelectedBid(bid);
+    setSelectedAuctionId(auctionId);
     setIsModalOpen(true);
   };
   const closeModal = () => setIsModalOpen(false);
@@ -22,6 +23,7 @@ function Profile() {
   const user = JSON.parse(localStorage.getItem("User"));
   const jwt = JSON.parse(localStorage.getItem("token"));
   const [selectedBid, setSelectedBid] = useState(null); // Nuevo estado para el highest_bid
+  const [selectedAuctionId, setSelectedAuctionId] = useState(null);
 
   const [auctions, setAuctions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -52,7 +54,6 @@ function Profile() {
     };
 
     fetchAuctions();
-    fetchReviews();
   }, []);
 
   const fetchReviews = useCallback(async () => {
@@ -96,7 +97,8 @@ function Profile() {
   useEffect(() => {
     initTWE({ Tab, Dropdown, Ripple });
     myAuctions();
-  }, [myAuctions]);
+    fetchReviews();
+  }, [myAuctions, fetchReviews]);
 
   return (
     <div className="bg-bidcraft-grey">
@@ -250,8 +252,8 @@ function Profile() {
               ) : auctions && auctions.length > 0 ? (
                 auctions.map((auction) => (
 
-
-                  <div onClick={() => openModal(auction.highest_bid)} key={auction.completed_auction_id}>
+                  <div onClick={() => openModal(auction.highest_bid, auction.auction.auction_id)}
+                    key={auction.completed_auction_id}>
                     <div className="transition-transform duration-300 ease-in-out transform hover:scale-[1.040] hover:shadow-2xl shadow-xl p-4 bg-bidcraft-dark">
                       <img
                         src={auction.auction.images[0]?.image_url}
@@ -311,7 +313,7 @@ function Profile() {
       </div>
       <Footer />
       <Modal isOpen={isModalOpen} onClose={closeModal}  >
-        <Pay amountBit={selectedBid} />
+        <Pay amountBit={selectedBid} auctionId={selectedAuctionId} />
       </Modal>
     </div >
   );

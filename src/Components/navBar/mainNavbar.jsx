@@ -16,7 +16,7 @@ const MainNavbar = ({ isLandingPage }) => {
   const [showAuctionModal, setShowAuctionModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [status, setStatus] = useState(null);
- 
+
 
   const navigate = useNavigate();
 
@@ -70,25 +70,25 @@ const MainNavbar = ({ isLandingPage }) => {
     setModalState(!modalState);
   };
 
-   //-----------------------------------------------------Este nos ayudara a ver si el usuario ya envio su verificacion------------------
- const StatusUser = async () => {
-  try {
+  //-----------------------------------------------------Este nos ayudara a ver si el usuario ya envio su verificacion------------------
+  const StatusUser = async () => {
+    try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/kyc/detail/`, {
-          headers: {
-              Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-              "Content-Type": "application/json",
-          },
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          "Content-Type": "application/json",
+        },
       });
-      
+
       setStatus(response.data.status.status_id);
-  
-  } catch (error) {
-      
-  } 
-};
-useEffect(() => {
-  StatusUser()
-}, []);
+
+    } catch (error) {
+
+    }
+  };
+  useEffect(() => {
+    StatusUser()
+  }, []);
   return (
     <div className="bg-bidcraft-dark text-white px-4 py-4">
       <div className="container mx-auto">
@@ -129,22 +129,23 @@ useEffect(() => {
               </>
             ) : (
               <>
-               <a
-  className={`
+                <button
+                  className={`
     w-full md:w-auto bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 
     text-white rounded-full py-2 px-4 text-center cursor-pointer 
     hover:opacity-90 transition-opacity 
     ${status !== 2 ? 'pointer-events-none opacity-50' : ''}
+
   `}
-  href={status === 2 ? "/create-auction" : undefined}
-  onClick={(e) => {
-    if (status !== 2) {
-      e.preventDefault(); // Evita la acción de navegación
-    }
-  }}
->
-  Subastar
-</a>
+                  href={status === 2 ? "/create-auction" : undefined}
+                  onClick={(e) => {
+                    if (status !== 2) {
+                      e.preventDefault(); // Evita la acción de navegación
+                    }
+                  }}
+                >
+                  Subastar
+                </button>
                 <button
                   className="w-full md:w-10 h-10 flex items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3 transition-colors"
                   onClick={() => toggleModal(showFavoritesModal, setShowFavoritesModal)}
