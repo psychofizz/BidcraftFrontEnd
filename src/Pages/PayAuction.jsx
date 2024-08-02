@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-const PaymentForm = ({ amountBit }) => {
+const PaymentForm = ({ amountBit,fetchAuctions }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentStatus, setPaymentStatus] = useState('');
-  const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState('usd');
   const [description, setDescription] = useState('');
 
@@ -48,6 +47,8 @@ const PaymentForm = ({ amountBit }) => {
 
       if (data.status === 200) {
         setPaymentStatus('Payment Successful');
+        fetchAuctions();
+      
       } else {
         setPaymentStatus(data.message || 'Payment Failed');
       }

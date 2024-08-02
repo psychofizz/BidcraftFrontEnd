@@ -28,7 +28,7 @@ function Profile() {
 
 
 
-  useEffect(() => {
+ 
     const fetchAuctions = async () => {
       try {
         const response = await axios.get(
@@ -47,7 +47,7 @@ function Profile() {
     };
 
     fetchAuctions();
-  }, []);
+ 
 
 
   const myAuctions = useCallback(async () => {
@@ -69,6 +69,7 @@ function Profile() {
   useEffect(() => {
     initTWE({ Tab, Dropdown, Ripple });
     myAuctions();
+    fetchAuctions();
   }, [myAuctions]);
 
   return (
@@ -268,7 +269,7 @@ function Profile() {
       </div>
       <Footer />
       <Modal isOpen={isModalOpen} onClose={closeModal}  >
-        <Pay amountBit={selectedBid} />
+        <Pay amountBit={selectedBid} fetchAuctions={fetchAuctions} />
       </Modal>
     </div >
   );
