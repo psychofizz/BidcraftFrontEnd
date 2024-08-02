@@ -112,17 +112,18 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
                             onChange={handleChange}
                             name="bid_amount"
                             type="number"
+                           
                             className={`peer w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all bg-bidcraft-dark text-white ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''
                                 }`}
                             id="exampleFormControlInputNumber"
-                            placeholder=" "
+                            placeholder=" Ingrese una nueva oferta"
                             disabled={ status !== 2} // Deshabilita el input si status es 1 o 3
                         />
                         <label
                             htmlFor="exampleFormControlInputNumber"
                             className="absolute left-3 top-2 text-white transition-all peer-focus:-top-4 peer-focus:text-sm peer-focus:text-white peer-placeholder-shown:top-2 peer-placeholder-shown:text-base"
                         >
-                            Valor
+                           
                         </label>
                     </div>
                     <section className="flex flex-col">

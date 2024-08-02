@@ -65,7 +65,7 @@ const Item = ({ auctionId, userId, initialIsFavorite, onToggleFavorite }) => {
       <img src={auctionData.images.length > 0 ? auctionData.images[0].image_url : ''} alt="Imagen de subasta" className="w-24 h-24 object-cover mr-4 rounded-lg" />
       <div className="flex-grow">
         <h2 className="text-lg font-semibold">{auctionData.name}</h2>
-        <p className="font-light truncate pr-2">{auctionData.description}</p>
+   
 
       </div>
       <button
