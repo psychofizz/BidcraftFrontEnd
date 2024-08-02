@@ -51,6 +51,8 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
 <Link to={`/myAuction/${idAuction}`} className="block m-2">
   <img
     src={imgUrl?.image_url || ""}
+
+    alt='subasta'
     
     className="w-full h-48 object-cover mb-2"
   />
