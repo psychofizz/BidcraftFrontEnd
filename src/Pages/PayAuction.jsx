@@ -37,8 +37,8 @@ const editWonAuction = async (event) => {
     }
 
     try {
-      console.log(`${process.env.REACT_APP_API_URL}/api/payment/make/`);
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/make/`, {
+      
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/make/${idAuction}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
