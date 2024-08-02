@@ -90,7 +90,7 @@ function Form() {
   
         // Extract errors from response and show them in Spanish
         const errors = error.response?.data || {};
-        for (const [key, messages] of Object.entries(errors)) {
+        for (const [ messages] of Object.entries(errors)) {
           messages.forEach(message => {
             const translatedMessage = errorMapping[message] || message;
             toast.error(translatedMessage);
