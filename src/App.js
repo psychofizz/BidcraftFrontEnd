@@ -16,6 +16,7 @@ import WonAuction from './Pages/wonAuctions'
 import CreateAuction from './Pages/CreateAuction';
 import AdminPage from './Pages/AdminPage';
 import PayAuction from './Pages/PayAuction';
+import MyAuction from './Pages/MyAuction';
 import ProfileView from './Pages/ProfileView';
 
 
@@ -26,6 +27,10 @@ function App() {
 
     <BrowserRouter>
       <Routes>
+        <Route path="/myAuction/:id" element={<MyAuction />}></Route>
+
+        <Route path="/payAuction/:id" element={<PayAuction />}></Route>
+        <Route path="/wonAuctions" element={<WonAuction />}></Route>
         <Route path="/payAuction/:id" element={<PayAuction />}></Route>
 
         <Route path="/wonAuctions" element={<WonAuction />}></Route>

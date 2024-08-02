@@ -33,28 +33,32 @@ function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFa
                     {isFavorite ? 'Remover Favorito' : 'Agregar Favorito'}
                 </button>
             </div>
-
             <div className="mb-8">
-                <Carousel
-                    showArrows={true}
-                    showStatus={false}
-                    showThumbs={false}
-                    infiniteLoop={true}
-                    className="rounded-lg overflow-hidden shadow-xl"
-                >
-                    {images.length > 0 ? (
-                        images.map((img, index) => (
-                            <div key={index}>
-                                <img src={img} alt={`Item de subasta ${index + 1}`} className="object-cover" />
-                            </div>
-                        ))
-                    ) : (
-                        <div className="w-full h-[60vh] flex items-center justify-center">
-                            <p className="text-gray-400">No hay imágenes disponibles</p>
-                        </div>
-                    )}
-                </Carousel>
+    <Carousel
+        showArrows={true}
+        showStatus={false}
+        showThumbs={false}
+        infiniteLoop={true}
+        className="rounded-lg overflow-hidden shadow-xl"
+    >
+        {images.length > 0 ? (
+            images.map((img, index) => (
+                <div key={index} className="w-full h-[60vh] flex items-center justify-center bg-gray-100">
+                    <img
+                        src={img}
+                        alt={`Item de subasta ${index + 1}`}
+                        className="object-contain w-full h-full"
+                    />
+                </div>
+            ))
+        ) : (
+            <div className="w-full h-[60vh] flex items-center justify-center">
+                <p className="text-gray-400">No hay imágenes disponibles</p>
             </div>
+        )}
+    </Carousel>
+</div>
+
 
             <div className="bg-bidcraft-grey-2 shadow overflow-hidden sm:rounded-lg">
                 <div className="px-4 py-5 sm:px-6">
