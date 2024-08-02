@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { toast } from 'react-toastify';
 
-const PaymentForm = ({ amountBit,fetchAuctions }) => {
+const PaymentForm = ({ amountBit,fetchAuctions,closeModal }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentStatus, setPaymentStatus] = useState('');
   const [currency, setCurrency] = useState('usd');
   const [description, setDescription] = useState('');
+//--------------------------------------FUNCION PARA EDITAR SUBASTA A PAGAR
+const editWonAuction = async (event) => {
+//Man solo pasale a chat gpt la url para editar y decile que te haga toda la logica en tres pijasos ,esta funcion ya se llama a realizar un pago exitoso
+
+
+} 
+
+
+
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -48,6 +60,9 @@ const PaymentForm = ({ amountBit,fetchAuctions }) => {
       if (data.status === 200) {
         setPaymentStatus('Payment Successful');
         fetchAuctions();
+        toast.success("Pago realizado con exito")
+        editWonAuction()
+        closeModal();
       
       } else {
         setPaymentStatus(data.message || 'Payment Failed');
