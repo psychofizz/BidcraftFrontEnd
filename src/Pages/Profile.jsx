@@ -257,7 +257,7 @@ function Profile() {
             role="tabpanel"
             aria-labelledby="tabs-home-tab02"
           >
-            reseñas
+           
           </div>
         </div>
       </div>
