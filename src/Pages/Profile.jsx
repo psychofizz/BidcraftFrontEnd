@@ -7,6 +7,7 @@ import Footer from "../Components/page-essentials/Footer";
 import MyAuctions from "../Components/profile/myAuction";
 import Modal from "../Components/wonAuction/modalPay"
 import Pay from "./PayAuction"
+import { useNavigate } from "react-router-dom";
 import Loading from "../Components/loading"
 function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,6 +27,10 @@ function Profile() {
   const [loading, setLoading] = useState(true);
   const [loadingMyAuction, setLoadingMyAuction] = useState(true);
 
+  const [reviews, setReviews] = useState([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+  const [errorReviews, setErrorReviews] = useState(null);
+
 
 
   useEffect(() => {
@@ -41,13 +46,35 @@ function Profile() {
         setAuctions(response.data);
         setLoadingMyAuction(false);
       } catch (err) {
-        
-        
+
+
       }
     };
 
     fetchAuctions();
+    fetchReviews();
   }, []);
+
+  const fetchReviews = useCallback(async () => {
+    setLoadingReviews(true);
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/reviews/seller/${user.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      const reviewsData = response.data.data;
+      setReviews(reviewsData);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+      setErrorReviews(error);
+    } finally {
+      setLoadingReviews(false);
+    }
+  }, [user.id, jwt]);
 
 
   const myAuctions = useCallback(async () => {
@@ -193,56 +220,60 @@ function Profile() {
         </ul>
 
         <div className="mb-6">
-          {/* Tab content */}
-          <div
-  className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
-  id="tabs-home02"
-  role="tabpanel"
-  aria-labelledby="tabs-home02-tab02"
-  data-twe-tab-active
->
-  {loading ? (
-      <Loading/>
-  ) : (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-bidcraft-grey">
-      {productMyInfo.length > 0 ? (
-        productMyInfo.map((producto) => (
-         
-          <MyAuctions
-            key={producto.auction_id}
-            idAuction={producto.auction_id}
-            name={producto.name}
-            description={producto.description}
-            highest_bid={producto.highest_bid}
-            updateAuction={myAuctions}
-            imgUrl={producto.images[0]}
-          />
-        
-        ))
-      ) : (
-        <p className="text-center text-gray-500">No hay subastas disponibles</p>
-      )}
-    </div>
-  )}
-</div>
 
-          {/* Other tab content */}
+
+
+          <div
+            className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+            id="tabs-home02"
+            role="tabpanel"
+            aria-labelledby="tabs-home02-tab02"
+            data-twe-tab-active
+          >
+            {loading ? (
+              <Loading />
+            ) : (
+              <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-bidcraft-grey">
+                {productMyInfo.length > 0 ? (
+                  productMyInfo.map((producto) => (
+
+                    <MyAuctions
+                      key={producto.auction_id}
+                      idAuction={producto.auction_id}
+                      name={producto.name}
+                      description={producto.description}
+                      highest_bid={producto.highest_bid}
+                      updateAuction={myAuctions}
+                      imgUrl={producto.images[0]}
+                    />
+
+                  ))
+                ) : (
+                  <p className="text-center text-gray-500">No hay subastas disponibles</p>
+                )}
+              </div>
+            )}
+          </div>
+
+
+
           {/* Tab content */}
           <div
             className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
             id="tabs-miSubastas"
             role="tabpanel"
             aria-labelledby="tabs-home-tab02"
-         
+
           >
+
             <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-bidcraft-grey">
               {loadingMyAuction ? (
                 <div className="col-span-full text-center text-gray-500">
-                   <Loading/>
+                  <Loading />
                 </div>
               ) : auctions && auctions.length > 0 ? (
                 auctions.map((auction) => (
-                 
+
 
                   <div onClick={() => openModal(auction.highest_bid)} key={auction.completed_auction_id}>
                     <div className="transition-transform duration-300 ease-in-out transform hover:scale-[1.040] hover:shadow-2xl shadow-xl p-4 bg-bidcraft-dark">
@@ -267,7 +298,7 @@ function Profile() {
                       </p>
                     </div>
                   </div>
-                 
+
                 ))
               ) : (
                 <div className="col-span-full text-center text-gray-500">
@@ -283,9 +314,21 @@ function Profile() {
             id="tabs-resenas"
             role="tabpanel"
             aria-labelledby="tabs-home-tab02"
-         
+
           >
-            reseñas
+
+            <h2 className="text-2xl text-white font-bold mb-4">Reseñas</h2>
+            {loadingReviews ? (
+              <Loading />
+            ) : errorReviews ? (
+              <div>Error: {errorReviews.message}</div>
+            ) : reviews.length > 0 ? (
+              reviews.map((review) => (
+                <Review key={review.review_id} review={review} />
+              ))
+            ) : (
+              <p className="text-white">No hay reseñas disponibles</p>
+            )}
           </div>
         </div>
 
@@ -297,5 +340,43 @@ function Profile() {
     </div >
   );
 }
+
+function Review({ review }) {
+  const navigate = useNavigate();
+
+  const handleViewAuction = () => {
+    navigate(`/auction/${review.auction.auction_id}`);
+  };
+
+  return (
+    <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+      <div className="flex justify-between items-center mb-2">
+        <p className="font-bold">Comprador: {review.buyer.first_name} {review.buyer.last_name}</p>
+        <p className="text-sm text-gray-500">
+          {new Date(review.review_date).toLocaleDateString()}
+        </p>
+      </div>
+      <div className="flex items-center mb-2">
+        <span className="mr-2">Calificación:</span>
+        {[...Array(5)].map((_, index) => (
+          <span
+            key={index}
+            className={`text-xl ${index < review.rating ? "text-yellow-400" : "text-gray-300"}`}
+          >
+            ★
+          </span>
+        ))}
+      </div>
+      <p className="text-gray-700 mb-2">{review.comment}</p>
+      <button
+        className="bg-bidcraft-main text-white font-bold py-2 px-4 rounded"
+        onClick={handleViewAuction}
+      >
+        Ver Subasta
+      </button>
+    </div>
+  );
+}
+
 
 export default Profile;
