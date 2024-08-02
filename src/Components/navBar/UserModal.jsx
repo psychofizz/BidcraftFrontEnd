@@ -34,7 +34,7 @@ const UserModal = ({ handleClose, show }) => {
 
   return (
     <div
-  className={`fixed inset-0 z-50 flex ${showHideClassName} ${showHideClassName.includes('hidden') ? 'fade-out' : 'fade-in'} sm:items-center sm:justify-center md:items-start md:justify-end transition-opacity duration-300 ease-out`}
+  className={` fixed z-50 flex ${showHideClassName} ${showHideClassName.includes('hidden') ? 'fade-out' : 'fade-in'} sm:items-center sm:justify-center md:items-start md:justify-end transition-opacity duration-300 ease-out right-0`}
 >
   <div className={`bg-white rounded-lg shadow-xl overflow-hidden w-80 max-w-md transform ${showHideClassName.includes('hidden') ? 'slide-out' : 'slide-in'} transition-transform duration-300 ease-out`}>
     
