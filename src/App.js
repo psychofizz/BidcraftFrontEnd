@@ -18,6 +18,7 @@ import AdminPage from './Pages/AdminPage';
 import PayAuction from './Pages/PayAuction';
 import MyAuction from './Pages/MyAuction';
 import ProfileView from './Pages/ProfileView';
+import Review from './Pages/Review';
 
 
 
@@ -51,6 +52,9 @@ function App() {
         <Route path="/create-auction" element={<CreateAuction />}></Route>
         <Route path='/HomeTest' element={<HomeTest />}></Route>
         <Route path='/admin' element={<AdminPage />}></Route>
+        <Route path="/review/:auctionId" element={<Review />} />
+
+
       </Routes>
     </BrowserRouter>
 
