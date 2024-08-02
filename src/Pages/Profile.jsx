@@ -5,77 +5,38 @@ import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Footer from "../Components/page-essentials/Footer";
 import MyAuctions from "../Components/profile/myAuction";
-import Modal from "../Components/wonAuction/modalPay"
-import Pay from "./PayAuction"
-import { useNavigate } from "react-router-dom";
-import Loading from "../Components/loading"
+import Modal from "../Components/wonAuction/modalPay";
+import Pay from "./PayAuction";
+import Loading from "../Components/loading";
+import { toast } from "react-toastify";
+
 function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-
-  const openModal = (bid) => {
-    setSelectedBid(bid); // Establece el highest_bid seleccionado
-    setIsModalOpen(true);
-  };
-  const closeModal = () => setIsModalOpen(false);
+  const [selectedBid, setSelectedBid] = useState(null);
+  const [idAuction, setidAuction] = useState(null);
+  const [selectedAuction, setSelectedAuction] = useState(null);
   const [productMyInfo, setProductInfo] = useState([]);
-  const user = JSON.parse(localStorage.getItem("User"));
-  const jwt = JSON.parse(localStorage.getItem("token"));
-  const [selectedBid, setSelectedBid] = useState(null); // Nuevo estado para el highest_bid
-
   const [auctions, setAuctions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMyAuction, setLoadingMyAuction] = useState(true);
 
-  const [reviews, setReviews] = useState([]);
-  const [loadingReviews, setLoadingReviews] = useState(true);
-  const [errorReviews, setErrorReviews] = useState(null);
-
-
-
-  useEffect(() => {
-    const fetchAuctions = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/auctions/win/`, {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
-          }
-        }
-        );
-        setAuctions(response.data);
-        setLoadingMyAuction(false);
-      } catch (err) {
-
-
-      }
-    };
-
-    fetchAuctions();
-    fetchReviews();
-  }, []);
-
-  const fetchReviews = useCallback(async () => {
-    setLoadingReviews(true);
+  const user = JSON.parse(localStorage.getItem("User"));
+  const jwt = JSON.parse(localStorage.getItem("token"));
+  const fetchAuctions = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/reviews/seller/${user.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
+        `${process.env.REACT_APP_API_URL}/api/auctions/win/`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
         }
-      );
-      const reviewsData = response.data.data;
-      setReviews(reviewsData);
-    } catch (error) {
-      console.error("Error fetching reviews:", error);
-      setErrorReviews(error);
-    } finally {
-      setLoadingReviews(false);
+      });
+      setAuctions(response.data);
+      setLoadingMyAuction(false);
+      console.log(response.data[0].auction.auction_id)
+    } catch (err) {
+      console.error("Error fetching auctions:", err);
     }
-  }, [user.id, jwt]);
-
+  }, [jwt])
 
   const myAuctions = useCallback(async () => {
     try {
@@ -89,14 +50,33 @@ function Profile() {
     } catch (error) {
       console.error("Error fetching auctions:", error);
     } finally {
-      setLoading(false); // Termina la carga cuando se completa la solicitud
+      setLoading(false);
     }
   }, [jwt]);
 
   useEffect(() => {
     initTWE({ Tab, Dropdown, Ripple });
     myAuctions();
-  }, [myAuctions]);
+    fetchAuctions();
+  }, [myAuctions,fetchAuctions]);
+
+  const openModal = (bid, auction,idAuc) => {
+    if (!auction.is_paid) {
+      setSelectedBid(bid);
+      setidAuction(idAuc);
+      setSelectedAuction(auction);
+      setIsModalOpen(true);
+    } else {
+      toast.success("Sugasta ya pagada ")
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedBid(null);
+    setSelectedAuction(null);
+    setidAuction(null);
+  };
 
   return (
     <div className="bg-bidcraft-grey">
@@ -122,24 +102,19 @@ function Profile() {
             />
             <div className="position relative sm:absolute sm:ml-[80%] lg:ml-[100%]">
               <div className="relative" data-twe-dropdown-ref>
-
                 <a
                   className=" mt-4 flex items-center rounded bg-bidcraft-dark px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-bidcraft-dark hover:shadow-primary-2 focus:bg-bidcraft-dark focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-bidcraft-dark active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-
                   href="/verification"
                   data-twe-dropdown-item-ref
-                >Verificar    </a>
-
-
-
-
+                >
+                  Verificar
+                </a>
               </div>
             </div>
 
             <h1 className="text-center text-gray-800 dark:text-white text-4xl font-serif text-white">
               {user.first_name + " " + user.last_name}
             </h1>
-
           </div>
         </div>
       </section>
@@ -196,9 +171,7 @@ function Profile() {
         </ul>
 
         <div className="mb-6">
-
-
-
+          {/* Tab content */}
           <div
             className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
             id="tabs-home02"
@@ -212,17 +185,14 @@ function Profile() {
               <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-bidcraft-grey">
                 {productMyInfo.length > 0 ? (
                   productMyInfo.map((producto) => (
-
                     <MyAuctions
                       key={producto.auction_id}
                       idAuction={producto.auction_id}
                       name={producto.name}
-                      description={producto.description}
                       highest_bid={producto.highest_bid}
                       updateAuction={myAuctions}
                       imgUrl={producto.images[0]}
                     />
-
                   ))
                 ) : (
                   <p className="text-center text-gray-500">No hay subastas disponibles</p>
@@ -231,17 +201,14 @@ function Profile() {
             )}
           </div>
 
-
-
+          {/* Other tab content */}
           {/* Tab content */}
           <div
             className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
             id="tabs-miSubastas"
             role="tabpanel"
             aria-labelledby="tabs-home-tab02"
-
           >
-
             <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-bidcraft-grey">
               {loadingMyAuction ? (
                 <div className="col-span-full text-center text-gray-500">
@@ -249,9 +216,10 @@ function Profile() {
                 </div>
               ) : auctions && auctions.length > 0 ? (
                 auctions.map((auction) => (
-
-
-                  <div onClick={() => openModal(auction.highest_bid)} key={auction.completed_auction_id}>
+                  <div
+                    onClick={() => openModal(auction.highest_bid,auction,auction.auction.auction_id)}
+                    key={auction.completed_auction_id}
+                  >
                     <div className="transition-transform duration-300 ease-in-out transform hover:scale-[1.040] hover:shadow-2xl shadow-xl p-4 bg-bidcraft-dark">
                       <img
                         src={auction.auction.images[0]?.image_url}
@@ -269,12 +237,11 @@ function Profile() {
                       <p className="text-gray-600">
                         Fecha de finalización: {new Date(auction.date_completed).toLocaleDateString()}
                       </p>
-                      <p className="text-green-600">
-                        {auction.is_paid ? "Pagado" : "Pendiente de pago"}
+                      <p className={auction.is_paid ? "text-green-600" : "text-red-600"}>
+                        {auction.is_paid ? "Subasta pagada" : "Pendiente de pago"}
                       </p>
                     </div>
                   </div>
-
                 ))
               ) : (
                 <div className="col-span-full text-center text-gray-500">
@@ -282,77 +249,26 @@ function Profile() {
                 </div>
               )}
             </div>
-
-
           </div>
+
           <div
             className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
             id="tabs-resenas"
             role="tabpanel"
             aria-labelledby="tabs-home-tab02"
-
           >
-
-            <h2 className="text-2xl text-white font-bold mb-4">Reseñas</h2>
-            {loadingReviews ? (
-              <Loading />
-            ) : errorReviews ? (
-              <div>Error: {errorReviews.message}</div>
-            ) : reviews.length > 0 ? (
-              reviews.map((review) => (
-                <Review key={review.review_id} review={review} />
-              ))
-            ) : (
-              <p className="text-white">No hay reseñas disponibles</p>
-            )}
+           
           </div>
         </div>
-
       </div>
       <Footer />
-      <Modal isOpen={isModalOpen} onClose={closeModal}  >
-        <Pay amountBit={selectedBid} />
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        {selectedBid && selectedAuction && idAuction &&  (
+          <Pay amountBit={selectedBid} fetchAuctions={fetchAuctions} closeModal={closeModal} idAuction={idAuction} />
+        )}
       </Modal>
-    </div >
-  );
-}
-
-function Review({ review }) {
-  const navigate = useNavigate();
-
-  const handleViewAuction = () => {
-    navigate(`/auction/${review.auction.auction_id}`);
-  };
-
-  return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-      <div className="flex justify-between items-center mb-2">
-        <p className="font-bold">Comprador: {review.buyer.first_name} {review.buyer.last_name}</p>
-        <p className="text-sm text-gray-500">
-          {new Date(review.review_date).toLocaleDateString()}
-        </p>
-      </div>
-      <div className="flex items-center mb-2">
-        <span className="mr-2">Calificación:</span>
-        {[...Array(5)].map((_, index) => (
-          <span
-            key={index}
-            className={`text-xl ${index < review.rating ? "text-yellow-400" : "text-gray-300"}`}
-          >
-            ★
-          </span>
-        ))}
-      </div>
-      <p className="text-gray-700 mb-2">{review.comment}</p>
-      <button
-        className="bg-bidcraft-main text-white font-bold py-2 px-4 rounded"
-        onClick={handleViewAuction}
-      >
-        Ver Subasta
-      </button>
     </div>
   );
 }
-
 
 export default Profile;

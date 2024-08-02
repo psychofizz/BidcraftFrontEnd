@@ -51,7 +51,7 @@ function Form() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (handleValidation()) {
       const usuario = {
         id: values.id_number,
@@ -76,16 +76,29 @@ function Form() {
             }
           }
         );
-        toast.success("Código verificado");
+        toast.success("Registro exitoso"); // Change success message as needed
         navigate("/Autc");
       } catch (error) {
         console.error("Registration error:", error);
-        toast.error("Error during registration");
+  
+        // Error mapping
+        const errorMapping = {
+          "user with this id already exists.": "El usuario con este ID ya existe.",
+          "user with this email already exists.": "El usuario con este correo electrónico ya existe.",
+          "user with this username already exists.": "El usuario con este nombre de usuario ya existe."
+        };
+  
+        // Extract errors from response and show them in Spanish
+        const errors = error.response?.data || {};
+        for (const [key, messages] of Object.entries(errors)) {
+          messages.forEach(message => {
+            const translatedMessage = errorMapping[message] || message;
+            toast.error(translatedMessage);
+          });
+        }
       }
-
     }
   };
-
   return (
     //NAVBAR DE REGISTRO
     <div className="min-h-screen flex flex-col">
@@ -138,7 +151,7 @@ function Form() {
                 <ComponentsInput
                   handleChange={handleChange}
                   values={values}
-                  inputType={"number"}
+                  inputType={"text"}
                   text={"No.Identidad "}
                   name="id_number"
                   className={"p-4"}
