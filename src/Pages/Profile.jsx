@@ -21,8 +21,8 @@ function Profile() {
   };
   const closeModal = () => setIsModalOpen(false);
   const [productMyInfo, setProductInfo] = useState([]);
-  const user = JSON.parse(localStorage.getItem("User"));
-  const jwt = JSON.parse(localStorage.getItem("token"));
+
+
   const [selectedBid, setSelectedBid] = useState(null); // Nuevo estado para el highest_bid
   const [selectedAuctionId, setSelectedAuctionId] = useState(null);
 
