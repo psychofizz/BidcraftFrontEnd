@@ -133,7 +133,7 @@ useEffect(() => {
   className={`
     w-full md:w-auto bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 
     text-white rounded-full py-2 px-4 text-center cursor-pointer 
-    hover:opacity-90 transition-opacity 
+    transition-opacity 
     ${status !== 2 ? 'pointer-events-none opacity-50' : ''}
   `}
   href={status === 2 ? "/create-auction" : undefined}

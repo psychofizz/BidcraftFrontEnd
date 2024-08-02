@@ -151,7 +151,7 @@ function Form() {
                 <ComponentsInput
                   handleChange={handleChange}
                   values={values}
-                  inputType={"number"}
+                  inputType={"text"}
                   text={"No.Identidad "}
                   name="id_number"
                   className={"p-4"}
