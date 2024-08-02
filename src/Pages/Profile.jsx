@@ -212,7 +212,7 @@ function Profile() {
             key={producto.auction_id}
             idAuction={producto.auction_id}
             name={producto.name}
-            description={producto.description}
+          
             highest_bid={producto.highest_bid}
             updateAuction={myAuctions}
             imgUrl={producto.images[0]}
