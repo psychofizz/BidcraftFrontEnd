@@ -23,11 +23,14 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
   return (
     <div className="bg-bidcraft-grey-2 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl flex flex-col cursor-pointer hover:scale-[1.02]">
       <div className="h-48 overflow-hidden">
+        <Link to={`/myAuction/${idAuction}`} className="block m-2">
         <img
           src={imgUrl?.image_url || ""}
           alt={name}
           className="w-full h-full object-cover"
         />
+        </Link>
+       
       </div>
       <div className="p-4 flex-grow flex flex-col">
         <div className="mb-2 flex justify-between items-start">
