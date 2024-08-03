@@ -103,7 +103,7 @@ function ProfilePage() {
         {
             id: 'tabs-history',
             label: 'Historial De Subastas',
-            content: <AuctionHistory loading={loading} productMyInfo={productMyInfo} myAuctions={auctions}></AuctionHistory>
+            content: <AuctionHistory loading={loading} productMyInfo={productMyInfo} myAuctions={myAuctions}></AuctionHistory>
         },
         {
             id: 'tabs-review',

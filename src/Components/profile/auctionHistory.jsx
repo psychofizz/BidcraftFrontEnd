@@ -24,6 +24,7 @@ function AuctionHistory({ loading, productMyInfo, myAuctions }) {
                                 highestBid={producto.highest_bid}
                                 updateAuction={myAuctions}
                                 imgUrl={producto.images[0]}
+                             
                             />
                         ))
                     ) : (
