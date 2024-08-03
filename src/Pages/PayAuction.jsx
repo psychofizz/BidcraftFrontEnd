@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const PaymentForm = ({ amountBit, auctionId }) => {
