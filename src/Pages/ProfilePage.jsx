@@ -6,13 +6,15 @@ import Footer from "../Components/page-essentials/Footer";
 import Modal from "../Components/wonAuction/modalPay";
 import Pay from "./PayAuction";
 import ProfileHeader from "../Components/profile/profileHeader";
-import ProfileTabs from "../Components/profile/profileTabs";
-import AuctionHistory from "../Components/profile/auctionHistory";
-import Reviews from "../Components/profile/reviews";
-import UserAuctions from "../Components/profile/userAuction";
+import Review from "../Components/profile/Review";
 import { Tab, Dropdown, Ripple, initTWE } from "tw-elements";
+import Tabs from "../Components/profile/Tsbs";
+import AuctionHistory from "../Components/profile/auctionHistory";
+import AuctionList from "../Components/profile/AuctionList";
 
 function ProfilePage() {
+
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedBid, setSelectedBid] = useState(null);
     const [selectedAuctionId, setSelectedAuctionId] = useState(null);
@@ -21,7 +23,6 @@ function ProfilePage() {
     const [loading, setLoading] = useState(true);
     const [loadingMyAuction, setLoadingMyAuction] = useState(true);
     const [reviews, setReviews] = useState([]);
-    const [setLoadingReviews] = useState(false);
 
     const user = JSON.parse(localStorage.getItem("User"));
     const jwt = JSON.parse(localStorage.getItem("token"));
@@ -55,7 +56,7 @@ function ProfilePage() {
     }, [fetchAuctions]);
 
     const fetchReviews = useCallback(async () => {
-        setLoadingReviews(true);
+
         try {
             const response = await axios.get(
                 `${process.env.REACT_APP_API_URL}/api/reviews/seller/${user.id}`,
@@ -67,10 +68,10 @@ function ProfilePage() {
             );
             const reviewsData = response.data.data;
             setReviews(reviewsData);
+            console.log("Review data: " + reviewsData)
         } catch (error) {
             console.error("Error fetching reviews:", error);
         } finally {
-            setLoadingReviews(false);
         }
     }, [jwt, user.id]);
 
@@ -96,22 +97,35 @@ function ProfilePage() {
         fetchReviews();
     }, [myAuctions, fetchReviews]);
 
+
+    //const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
+    const tabData = [
+        {
+            id: 'tabs-history',
+            label: 'Historial De Subastas',
+            content: <AuctionHistory loading={loading} productMyInfo={productMyInfo} myAuctions={auctions}></AuctionHistory>
+        },
+        {
+            id: 'tabs-review',
+            label: 'reseñas',
+            content: <Review reviews={reviews}></Review>
+        },
+        {
+            id: 'tabs-purchases',
+            label: 'Compras',
+            content: <AuctionList auctions={auctions} loadingMyAuction={loadingMyAuction} openModal={openModal}></AuctionList>
+        }
+    ];
+
     return (
         <div className="bg-bidcraft-grey">
             <MainNavbar />
             <CategoriesBar />
             <ProfileHeader user={user} />
-            <div
-                id="tabs"
-                className="mx-[30px] xl:mx-[400px] lg:mx-[200px] md:mx-[100px] sm:mx-[59px]"
-            >
-                <ProfileTabs />
-                <div className="mb-6">
-                    <AuctionHistory loading={loading} productMyInfo={productMyInfo} />
-                    <Reviews reviews={reviews} />
-                    <UserAuctions loadingMyAuction={loadingMyAuction} auctions={auctions} openModal={openModal} />
-                </div>
+            <div className="container mx-auto ">
+                <Tabs tabs={tabData}></Tabs>
             </div>
+
             <Footer />
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <Pay amountBit={selectedBid} auctionId={selectedAuctionId} />

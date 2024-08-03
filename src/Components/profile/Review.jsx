@@ -1,76 +1,63 @@
-import React, { useState } from "react";
-import StarRatings from "react-star-ratings";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Review = () => {
-    const [description, setDescription] = useState("");
-    const [rating, setRating] = useState(0);
+function Review({ review }) {
+    const navigate = useNavigate();
 
-    const handleDescriptionChange = (event) => {
-        setDescription(event.target.value);
-    };
+    if (!review) {
+        return null;
+    }
 
-    const handleRatingChange = (newRating) => {
-        setRating(newRating);
-    };
-
-    const handleSubmit = () => {
-
-
+    const handleViewAuction = () => {
+        navigate(`/auction/${review.auction.auction_id}`);
     };
 
     return (
-        <div className="p-6 rounded-lg shadow-md bg-white">
-            <h2 className="text-2xl font-bold mb-4">Nueva Reseña</h2>
-
-            <div className="mb-4">
-                <label
-                    htmlFor="description"
-                    className="block text-gray-700 font-bold mb-2"
-                >
-                    Establecer una descripción:
-                </label>
-                <textarea
-                    id="description"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-                    rows="4"
-                    value={description}
-                    onChange={handleDescriptionChange}
-                ></textarea>
+        <div className="bg-bidcraft-grey-2 p-4 rounded-lg shadow-md mb-4">
+            <div className="flex justify-between items-center mb-2">
+                <p className="font-bold text-white">Comprador: {review.buyer.first_name} {review.buyer.last_name}</p>
+                <p className="text-sm text-gray-500">
+                    {new Date(review.review_date).toLocaleDateString()}
+                </p>
             </div>
-
-            <div className="mb-4">
-                <label htmlFor="rating" className="block text-gray-700 font-bold mb-2">
-                    Establecer una calificación:
-                </label>
-                <StarRatings
-                    rating={rating}
-                    starRatedColor="#FFD700"
-                    changeRating={handleRatingChange}
-                    numberOfStars={5}
-                    name="rating"
-                    starDimension="30px"
-                    starSpacing="5px"
-                />
+            <div className="flex items-center mb-2 container mx-auto">
+                <span className="mr-2 text-white">Calificación:</span>
+                {[...Array(5)].map((_, index) => (
+                    <span
+                        key={index}
+                        className={`text-xl ${index < review.rating ? "text-yellow-400" : "text-gray-300"}`}
+                    >
+                        ★
+                    </span>
+                ))}
             </div>
-
-            <div className="flex justify-end">
-                <button
-                    className="px-4 py-2 rounded-md bg-white text-black mr-2"
-                    onClick={() => {
-                        // Manejar cancelación
-                    }}
-                >
-                    Cancelar
-                </button>
-                <button
-                    className="px-4 py-2 rounded-md bg-bidcraft-main text-white"
-                    onClick={handleSubmit}
-                >
-                    Aceptar
-                </button>
-            </div>
+            <p className="text-gray-700 mb-2">{review.comment}</p>
+            <button
+                className="bg-bidcraft-main text-white font-bold py-2 px-4 rounded"
+                onClick={handleViewAuction}
+            >
+                Ver Subasta
+            </button>
         </div>
     );
-};
+}
 
-export default Review;
+function ReviewsList({ reviews }) {
+    if (!reviews || reviews.length === 0) {
+        return (
+            <p className="text-center text-xl text-white flex flex-col items-center">
+                <span className="mt-1">No hay reseñas disponibles.</span>
+            </p>
+        );
+    }
+
+    return (
+        <div>
+            {reviews.map((review, index) => (
+                <Review key={index} review={review} />
+            ))}
+        </div>
+    );
+}
+
+export default ReviewsList;

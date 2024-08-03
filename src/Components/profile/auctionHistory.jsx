@@ -14,7 +14,7 @@ function AuctionHistory({ loading, productMyInfo, myAuctions }) {
             {loading ? (
                 <LoadingPage />
             ) : (
-                <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-bidcraft-grey">
+                <div className=" grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 bg-bidcraft-grey">
                     {productMyInfo.length > 0 ? (
                         productMyInfo.map((producto) => (
                             <MyAuctions
@@ -27,7 +27,9 @@ function AuctionHistory({ loading, productMyInfo, myAuctions }) {
                             />
                         ))
                     ) : (
-                        <p className="text-center text-gray-500">No hay subastas disponibles</p>
+                        <p className="text-center text-xl text-white flex flex-col items-center">
+                            <span className="mt-1">No hay productos disponibles.</span>
+                        </p>
                     )}
                 </div>
             )}
