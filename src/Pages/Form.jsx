@@ -3,7 +3,8 @@ import mainLogo from "../img/bidLogo.png";
 import ComponentsInput from "../Components/input";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
+
 function Form() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -16,27 +17,27 @@ function Form() {
     passwordconfirm: "",
     userName: "",
   });
-  //Esta funcion no pormite capturar los valores de los inputo con la clave name cada vez que se modifiquen agregandolos a la variable values
+
+  //Esta función nos permite capturar los valores de los inputs con la clave name cada vez que se modifiquen agregándolos a la variable values
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
-  //Aca simplemente hacemos validaciones  sobre los input con lo datos controlados
+
+  // Acá simplemente hacemos validaciones sobre los inputs con los datos controlados
   const handleValidation = () => {
     const { id_number, password, passwordconfirm } = values;
 
-
     if (password.length < 7) {
-      toast.error("Minimo 7 caracteres para la contraseña");
+      toast.error("Mínimo 7 caracteres para la contraseña");
       return false;
     }
-    //Miramos si la contraseña y la de confirmar contraseña son iguales
+    // Miramos si la contraseña y la de confirmar contraseña son iguales
     if (password !== passwordconfirm) {
       toast.error("Las contraseñas no coinciden");
       return false;
     }
 
-    //Miramos si el numero de identificacion son validos (Honduras)
-
+    // Miramos si el número de identificación es válido (Honduras)
     const idNumberPattern = /^\d{13}$/;
     if (!idNumberPattern.test(id_number)) {
       toast.error("ID inválido. Escriba un ID válido, sin guiones.");
@@ -51,7 +52,7 @@ function Form() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     if (handleValidation()) {
       const usuario = {
         id: values.id_number,
@@ -66,6 +67,9 @@ function Form() {
         password_confirm: values.password,
         address_id: 1
       };
+
+      const toastId = toast.loading("Registrando...");
+
       try {
         await axios.post(
           `${process.env.REACT_APP_API_URL}/api/auth/register/`,
@@ -76,39 +80,48 @@ function Form() {
             }
           }
         );
-        toast.success("Registro exitoso"); // Change success message as needed
+        toast.update(toastId, {
+          render: "Registro exitoso",
+          type: "success",
+          isLoading: false,
+          autoClose: 5000,
+        });
         navigate("/Autc");
       } catch (error) {
-        console.error("Registration error:", error);
-  
-        // Error mapping
-        const errorMapping = {
-          "user with this id already exists.": "El usuario con este ID ya existe.",
-          "user with this email already exists.": "El usuario con este correo electrónico ya existe.",
-          "user with this username already exists.": "El usuario con este nombre de usuario ya existe."
-        };
-  
-        // Extract errors from response and show them in Spanish
-        const errors = error.response?.data || {};
-        for (const [ messages] of Object.entries(errors)) {
-          messages.forEach(message => {
-            const translatedMessage = errorMapping[message] || message;
-            toast.error(translatedMessage);
-          });
+        toast.dismiss(toastId);
+        if (error.response) {
+          const errores = error.response.data; // Suponiendo que los errores están aquí
+
+          // Verifica que errores sea un objeto y recorre sus propiedades
+          if (errores && typeof errores === 'object') {
+            Object.keys(errores).forEach((key) => {
+              const mensajes = errores[key]; // Accede al array de mensajes de error
+              if (Array.isArray(mensajes)) {
+                mensajes.forEach((mensaje) => {
+                  toast.error(`Error en el registro: ${mensaje}`);
+                });
+              }
+            });
+          }
+        } else if (error.request) {
+          console.error("No se recibió respuesta del servidor:", error.request);
+        } else {
+          console.error("Error al configurar la solicitud:", error.message);
         }
       }
     }
   };
+
   return (
     //NAVBAR DE REGISTRO
     <div className="min-h-screen flex flex-col">
-      <nav className="relative flex w-full  py-2 lg:py-2 bg-ffc327">
-        <div className=" w-full  px-3">
+      <nav className="relative flex w-full py-2 lg:py-2 bg-ffc327">
+        <div className="w-full px-3">
           <div className="ms-2 flex flex-nowrap">
             <div>
               <img
                 src={mainLogo}
-                className="w-[75px] "
+                className="w-[75px]"
                 alt="Ejemplo de imagen"
               />
             </div>
@@ -122,7 +135,7 @@ function Form() {
       </nav>
 
       <div className="flex flex-col min-h-screen items-center justify-center">
-        <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl mt-10 ">
+        <div className="relative flex flex-col rounded-xl bg-transparent bg-clip-border text-gray-700 shadow-2xl mt-10">
           <div className="p-10">
             <p className="normal-case text-center mx-auto font-bold">
               Crea una cuenta Bidcraft
@@ -208,11 +221,7 @@ function Form() {
                 ></label>
               </div>
 
-
-
-
-
-              <div className='w-full flex justify-between'>
+              <div className="w-full flex justify-between">
                 <div></div>
                 <div>
                   <button
@@ -221,7 +230,7 @@ function Form() {
                       paddingLeft: "60px",
                       paddingRight: "60px",
                     }}
-                    className="mt-6   select-none   py-5  text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    className="mt-6 select-none py-5 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     type="submit"
                     data-ripple-light="true"
                   >
@@ -232,15 +241,15 @@ function Form() {
             </form>
           </div>
         </div>
-        <div className="flex justify-around ">
+        <div className="flex justify-around">
           <div className="text-sm text-gray-700 py-5 px-10">
             <p>Español(Honduras) </p>
           </div>
           <div className="text-sm text-gray-700 py-5 px-10">
             <p>
-              <h1 >Ayuda    </h1>
-              <h1 >Privacidad    </h1>
-              <h1 >Terminos    </h1>
+              <h1>Ayuda </h1>
+              <h1>Privacidad </h1>
+              <h1>Términos </h1>
             </p>
           </div>
         </div>
@@ -248,4 +257,5 @@ function Form() {
     </div>
   );
 }
+
 export default Form;

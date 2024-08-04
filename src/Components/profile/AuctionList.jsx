@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
 
@@ -26,7 +27,17 @@ const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
                 <div
                     key={auction.completed_auction_id}
                     className="bg-bidcraft-grey-2 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl flex flex-col cursor-pointer hover:scale-[1.02]"
-                    onClick={() => openModal(auction.highest_bid, auction.auction.auction_id)}
+                    onClick={() => {
+                        if (!auction.is_paid) {
+                            openModal(auction.highest_bid, auction.auction.auction_id);
+                           
+                        }
+                        if (auction.is_paids) {
+                            toast.success("Subasta Pagada")
+                        } else {
+                            
+                        }
+                    } }
                 >
                     <div className="h-48 overflow-hidden">
                         <img
