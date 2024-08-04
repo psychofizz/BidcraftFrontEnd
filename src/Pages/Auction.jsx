@@ -22,24 +22,24 @@ function Auction() {
 
 
 
- //-----------------------------------------------------Este nos ayudara a ver si el usuario ya envio su verificacion------------------
- const StatusUser = async () => {
-    try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/kyc/detail/`, {
-            headers: {
-                Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-                "Content-Type": "application/json",
-            },
-        });
-        
-        setStatus(response.data.status.status_id);
-    
-    } catch (error) {
-        
-    } finally {
-        setLoading(false); // Termina la carga después de obtener el estado
-    }
-};
+    //-----------------------------------------------------Este nos ayudara a ver si el usuario ya envio su verificacion------------------
+    const StatusUser = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/kyc/detail/`, {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            setStatus(response.data.status.status_id);
+
+        } catch (error) {
+
+        } finally {
+            setLoading(false); // Termina la carga después de obtener el estado
+        }
+    };
     //-------------------Obtener la información de la subasta-----------------------------
     const infoAuction = useCallback(async () => {
         try {
@@ -126,19 +126,19 @@ function Auction() {
         if (data.auction_id) {
             stateFavorite();
         }
-     
+
     }, [data.auction_id, stateFavorite]);
- 
+
     //---------------------------------------------------------------------------------------------------------
     return (
         <div className="flex flex-col min-h-screen">
             <MainNavbar />
-            
+
             <div className=" flex-grow w-full bg-bidcraft-grey ">
-            <CategoriesBar />
+                <CategoriesBar />
                 {data.name && data.description ? (
                     <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 bg-bidcraft-grey">
-                        
+
                         <div className="col-span-2 lg:col-span-3">
                             <AuctionInfo
                                 name={data.name}
@@ -160,19 +160,19 @@ function Auction() {
                                     loading={loading}
                                     status={status}
                                 />
-                                <CardSeller nameSeller={data.seller.username} />
+                                <CardSeller nameSeller={data.seller.username} sellerId={data.seller.id} />
                             </div>
                         </div>
-                   </div>
-                ) : (
-                    <div className="w-full min-h-screen flex justify-center bg-bidcraft-grey"> 
-                    <div className="grid place-content-center"><Loading/></div>
                     </div>
-                    
+                ) : (
+                    <div className="w-full min-h-screen flex justify-center bg-bidcraft-grey">
+                        <div className="grid place-content-center"><Loading /></div>
+                    </div>
+
 
                 )}
             </div>
-           
+
             <Footer />
         </div>
     )
