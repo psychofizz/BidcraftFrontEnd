@@ -11,26 +11,34 @@ const HomeTest = () => {
   const [productInfo, setProductInfo] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [nextPage, setNextPage] = useState(null);
-  const [hasMore, setHasMore] = useState(true); // Track if there's more data to load
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (pageNumber) => {
+    if (!hasMore) return;
+
+    setLoading(true);
 
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/all/`, {
         headers: {
           "Content-Type": "application/json",
         },
+        params: {
+          page: pageNumber,
+        },
       });
 
       const { results, next } = response.data;
 
-      // Update the state with new data
-      setProductInfo((prevProducts) => [...prevProducts, ...results]);
+      if (pageNumber === 1) {
+        setProductInfo(results);
+      } else {
+        setProductInfo((prevProducts) => [...prevProducts, ...results]);
+      }
 
-      // Update pagination state
-      setNextPage(next);
-      setHasMore(!!next); // Set hasMore to false if no next page
+      setHasMore(!!next);
+      setPage(pageNumber);
     } catch (error) {
       console.error('Error fetching products:', error);
       setError('Failed to fetch products');
@@ -40,17 +48,13 @@ const HomeTest = () => {
   };
 
   useEffect(() => {
-    // Initial fetch on component mount
-    fetchProducts();
+    fetchProducts(1);
   }, []);
 
   const handleLoadMore = () => {
-    if (nextPage) {
-      fetchProducts(nextPage);
-    }
+    fetchProducts(page + 1);
   };
 
-  if (loading) return <LoadingPage></LoadingPage>
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -60,7 +64,7 @@ const HomeTest = () => {
         <CategoriesBar />
         <div>
           {productInfo.length > 0 ? (
-            <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2  lg:grid-cols-4 xl:grid-cols-5">
+            <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2 lg:grid-cols-4 xl:grid-cols-5">
               {productInfo.map((producto) => (
                 <div key={producto.auction_id}>
                   <AuctionItem
@@ -80,15 +84,15 @@ const HomeTest = () => {
           ) : (
             <LoadingAuctionItems count={6} />
           )}
-          {hasMore && (
+          {loading && <LoadingPage />}
+          {!loading && hasMore && (
             <div className="container mx-auto flex justify-center align-middle">
               <button onClick={handleLoadMore} className="mt-4 p-2 m-4 rounded-xl bg-bidcraft-main text-white">
-                Cargar mas subastas
+                Cargar más subastas
               </button>
             </div>
           )}
         </div>
-
       </div>
       <Footer />
     </>
