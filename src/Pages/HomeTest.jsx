@@ -80,9 +80,11 @@ const HomeTest = () => {
             <LoadingAuctionItems count={6} />
           )}
           {hasMore && (
-            <button onClick={handleLoadMore} className="mt-4 p-2 bg-blue-500 text-white">
-              Load More
-            </button>
+            <div className="container mx-auto flex justify-center align-middle">
+              <button onClick={handleLoadMore} className="mt-4 p-2 m-4 rounded-xl bg-bidcraft-main text-white">
+                Cargar mas subastas
+              </button>
+            </div>
           )}
         </div>
 

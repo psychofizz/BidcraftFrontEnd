@@ -101,7 +101,7 @@ const CategoriesBar = () => {
   }, []);
 
   if (isLoading) {
-    return <div className="text-white">Loading categories...</div>;
+    return <div className="bg-black text-white p-2 animate-pulse">Cargando categorias...</div>;
   }
 
   if (error) {
