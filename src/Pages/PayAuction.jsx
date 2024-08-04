@@ -30,7 +30,7 @@ const PaymentForm = ({ amountBit, auctionId }) => {
     }
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/make/`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/make/${auctionId}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
