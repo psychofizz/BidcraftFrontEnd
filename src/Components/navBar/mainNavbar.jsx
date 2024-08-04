@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faBell, faBars } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import bidLogo from "../bidLogo.png";
+import { toast } from "react-toastify";
 
 const MainNavbar = ({ isLandingPage }) => {
   const [showFavoritesModal, setShowFavoritesModal] = useState(false);
@@ -17,6 +18,11 @@ const MainNavbar = ({ isLandingPage }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [status, setStatus] = useState(null);
 
+    // Función para mostrar el toast
+    const showNotification = () => {
+      
+      toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus pujas favoritas!"); // Cambia el mensaje según tus necesidades
+    };
 
   const navigate = useNavigate();
 
@@ -137,12 +143,14 @@ const MainNavbar = ({ isLandingPage }) => {
     text-white rounded-full py-2 px-4 text-center cursor-pointer 
 
     transition-opacity 
-    ${status !== 2 ? 'pointer-events-none opacity-50' : ''}
+    ${status !== 2 ? ' opacity-50' : ''}
 
   `}
 
                     onClick={(e) => {
+                    
                       if (status !== 2) {
+                        showNotification();
                         e.preventDefault(); // Evita la acción de navegación
                       }
                     }}
