@@ -15,6 +15,7 @@ const HomeTest = () => {
   const [hasMore, setHasMore] = useState(true); // Track if there's more data to load
 
   const fetchProducts = async (url) => {
+    console.log(url)
     try {
       const response = await axios.get(url, {
         headers: {
