@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
 import AuctionItem from "../Components/auction/auctionItem";
@@ -14,7 +14,7 @@ const HomeTest = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  const fetchProducts = async (pageNumber) => {
+  const fetchProducts = useCallback(async (pageNumber) => {
     if (!hasMore) return;
 
     setLoading(true);
@@ -45,11 +45,11 @@ const HomeTest = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [hasMore]);
 
   useEffect(() => {
     fetchProducts(1);
-  }, []);
+  }, [fetchProducts]);
 
   const handleLoadMore = () => {
     fetchProducts(page + 1);
