@@ -6,7 +6,6 @@ import PageHeader from "../Components/page-essentials/PageHeader";
 import AuctionItem from "../Components/auction/auctionItem";
 import LoadingAuctionItems from "../Components/auction/LoadingAuctionItem";
 import axios from 'axios';
-import CategoriesBar from "../Components/navBar/CategoriesBar";
 
 const Categories = () => {
   const { category } = useParams();
