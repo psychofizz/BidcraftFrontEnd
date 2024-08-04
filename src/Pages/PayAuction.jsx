@@ -3,10 +3,10 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
 
 const PaymentForm = ({ amountBit, auctionId }) => {
-  console.log(auctionId);
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
+
   const [paymentStatus, setPaymentStatus] = useState('');
   const [currency, setCurrency] = useState('usd');
   const [description, setDescription] = useState('');
@@ -16,6 +16,7 @@ const PaymentForm = ({ amountBit, auctionId }) => {
     event.preventDefault();
 
     if (!stripe || !elements) {
+      setPaymentStatus('Stripe has not loaded yet.');
       return;
     }
 
@@ -37,9 +38,9 @@ const PaymentForm = ({ amountBit, auctionId }) => {
         body: JSON.stringify({
           token: token.id,
           amount: parseInt(amountBit) * 100, // Convert to cents
-          currency: currency,
-          description: description
-        })
+          currency,
+          description,
+        }),
       });
 
       if (!response.ok) {
@@ -66,7 +67,7 @@ const PaymentForm = ({ amountBit, auctionId }) => {
 
   return (
     <div className='grid place-content-center text-white'>
-      <div className="mx-auto p-4 bg-bidcraft-dark rounded-2xl shadow-lg justify-center">
+      <div className="mx-auto p-4 bg-bidcraft-dark rounded-2xl shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Formulario de Pago</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col">

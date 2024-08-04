@@ -3,6 +3,8 @@ import LoadingPage from '../loading';
 import MyAuctions from './myAuction'
 
 function AuctionHistory({ loading, productMyInfo, myAuctions }) {
+
+    console.log("Productos historial", productMyInfo)
     return (
         <div
             className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
@@ -17,14 +19,15 @@ function AuctionHistory({ loading, productMyInfo, myAuctions }) {
                 <div className=" grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 bg-bidcraft-grey">
                     {productMyInfo.length > 0 ? (
                         productMyInfo.map((producto) => (
+
                             <MyAuctions
                                 key={producto.auction_id}
                                 idAuction={producto.auction_id}
                                 name={producto.name}
-                                highestBid={producto.highest_bid}
+                                highest_bid={producto.highest_bid}
                                 updateAuction={myAuctions}
                                 imgUrl={producto.images[0]}
-                             
+
                             />
                         ))
                     ) : (

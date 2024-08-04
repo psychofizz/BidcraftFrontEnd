@@ -84,6 +84,7 @@ function ProfilePage() {
                 },
             });
             setProductInfo(response.data);
+
         } catch (error) {
             console.error("Error fetching auctions:", error);
         } finally {

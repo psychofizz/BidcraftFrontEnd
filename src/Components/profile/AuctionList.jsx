@@ -50,7 +50,7 @@ const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
                             </div>
                             <div className="flex justify-between items-center mb-2">
                                 <span className="text-sm font-semibold text-white">Finalizada:</span>
-                                <span className="text-sm text-gray-700">{new Date(auction.date_completed).toLocaleDateString()}</span>
+                                <span className="text-sm text-white">{new Date(auction.date_completed).toLocaleDateString()}</span>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span className="text-sm font-semibold text-white">Estado:</span>
