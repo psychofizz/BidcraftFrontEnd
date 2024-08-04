@@ -2,7 +2,7 @@ import React from "react";
 
 function LoadingPage() {
   return (
-    <div className="flex h-[50%] w-full items-center justify-center bg-transparent">
+    <div className="flex h-full w-full items-center justify-center bg-bidcraft-grey">
       <div className="text-center">
         <div role="status" className="flex flex-col items-center">
           <svg

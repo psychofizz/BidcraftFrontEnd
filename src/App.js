@@ -4,7 +4,6 @@ import Form from './Pages/Form';
 import LandingPage from './Pages/LandingPage';
 import HomeTest from './Pages/HomeTest';
 import Auction from './Pages/Auction';
-import Profile from './Pages/Profile';
 import Autc from './Pages/Auctpage';
 import Categories from './Pages/Categories';
 import ImgApi from './Pages/apimg'
@@ -19,6 +18,7 @@ import PayAuction from './Pages/PayAuction';
 import MyAuction from './Pages/MyAuction';
 import ProfileView from './Pages/ProfileView';
 import Review from './Pages/Review';
+import ProfilePage from './Pages/ProfilePage';
 
 
 
@@ -29,20 +29,17 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/myAuction/:id" element={<MyAuction />}></Route>
-
         <Route path="/payAuction/:id" element={<PayAuction />}></Route>
         <Route path="/wonAuctions" element={<WonAuction />}></Route>
         <Route path="/payAuction/:id" element={<PayAuction />}></Route>
-
         <Route path="/wonAuctions" element={<WonAuction />}></Route>
-
         <Route path="/editAuction/:id" element={<EditAuction />}></Route>
         <Route path="/verification" element={<Verification />}></Route>
         <Route path="/AuctionTags" element={<AuctionTags />}></Route>
         <Route path="ImgApi" element={<ImgApi />}></Route>
         <Route path="/Auction/:id" element={<Auction />}></Route>
         <Route path="/category/:category" element={<Categories />} />
-        <Route path="/Profile" element={<Profile />}></Route>
+        <Route path="/Profile" element={<ProfilePage />}></Route>
         <Route path="/seller/:userId" element={<ProfileView />} />
         <Route path="/Autc" element={<Autc />}></Route>
         <Route path="/Login" element={<Login />}></Route>
@@ -53,8 +50,6 @@ function App() {
         <Route path='/HomeTest' element={<HomeTest />}></Route>
         <Route path='/admin' element={<AdminPage />}></Route>
         <Route path="/review/:auctionId" element={<Review />} />
-
-
       </Routes>
     </BrowserRouter>
 

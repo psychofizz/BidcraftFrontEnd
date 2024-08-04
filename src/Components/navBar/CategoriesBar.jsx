@@ -4,7 +4,7 @@ import axios from 'axios';
 const CategoryItem = ({ id, name }) => {
   return (
     <Link
-      to={`/category/${id}`}
+      to={`/category/${name}`}
       className="px-4 py-2 whitespace-nowrap hover:bg-gray-700 transition-colors duration-200"
     >
       {name}
@@ -82,26 +82,26 @@ const CategoriesBar = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    
 
-const fetchCategories = async () => {
-  try {
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories/show/all`);
-    setCategories(response.data);
-    setIsLoading(false);
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    setError('Failed to fetch categories. Please try again later.');
-    setIsLoading(false);
-  }
-};
+
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories/show/all`);
+        setCategories(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setError('Failed to fetch categories. Please try again later.');
+        setIsLoading(false);
+      }
+    };
 
 
     fetchCategories();
   }, []);
 
   if (isLoading) {
-    return <div className="text-white">Loading categories...</div>;
+    return <div className="bg-black text-white p-2 animate-pulse">Cargando categorias...</div>;
   }
 
   if (error) {

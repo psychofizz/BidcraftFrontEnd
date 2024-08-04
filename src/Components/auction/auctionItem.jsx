@@ -36,7 +36,7 @@ const AuctionItem = ({
     <Link to={`/Auction/${auctionId}`} className="block m-2">
       <div className="relative bg-bidcraft-grey-2 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-[1.02] z-10">
         <img
-          src={imgUrl ? imgUrl.image_url : 'https://picsum.photos/400/300'}
+          src={imgUrl ? imgUrl.image_url : 'https://placehold.jp/30/2e2e2e/ffffff/600x400.png?text=Sin imagen'}
           alt={title}
           className="w-full h-80 object-cover"
         />
@@ -49,7 +49,7 @@ const AuctionItem = ({
           </h3>
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-gray-500 uppercase">Precio Actual</span>
-            <span className="text-xl font-bold text-indigo-600">{`L.${price}`}</span>
+            <span className="text-xl font-bold text-green-600">{`L.${price}`}</span>
 
           </div>
           <p className="text-sm text-gray-600 line-clamp-2 mt-4">

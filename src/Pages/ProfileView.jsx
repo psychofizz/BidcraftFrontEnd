@@ -11,7 +11,6 @@ function ProfileView() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-
     const fetchData = useCallback(async () => {
         try {
             const token = JSON.parse(localStorage.getItem("token"));
@@ -35,6 +34,7 @@ function ProfileView() {
             setLoading(false);
         }
     }, [userId]);
+
 
     useEffect(() => {
         fetchData();

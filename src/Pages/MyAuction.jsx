@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import AuctionInfo from "../Components/activeAuction/auctionInfo";
-import CardOffert from "../Components/myActiveAuction.jsx/cardOffert";
+import CardOffert from "../Components/myActiveAuction/cardOffert";
 import CardSeller from "../Components/activeAuction/cardSeller";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../Components/page-essentials/Footer";
