@@ -34,13 +34,16 @@ function ReviewForm({ auctionId }) {
                     Authorization: `Bearer ${jwt}`,
                 },
             });
-
-
             toast.success('Reseña agregada exitosamente');
             navigate('/profile');
         } catch (error) {
             console.error('Error al agregar reseña:', error);
-            toast.error('Error al agregar reseña', error);
+
+            if (error.response && error.response.data && error.response.data.error === 'Ya has realizado una reseña para esta subasta.') {
+                toast.error('Ya has agregado una reseña para esta subasta');
+            } else {
+                toast.error('Error al agregar reseña');
+            }
         }
     };
 
