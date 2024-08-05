@@ -148,6 +148,7 @@ function Auction() {
                                 imgUrl={data.images[0]}
                                 toggleFavorite={toggleFavorite}
                                 isFavorite={isFavorite}
+                                end_time={data.end_time}
                             />
                         </div>
                         <div className="md:mr-10 md:mt-4 p-2">
