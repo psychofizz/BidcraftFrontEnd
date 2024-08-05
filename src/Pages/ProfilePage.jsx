@@ -123,7 +123,7 @@ function ProfilePage() {
             <MainNavbar />
             <CategoriesBar />
             <ProfileHeader user={user} />
-            <div className="container mx-auto ">
+            <div className="min-w-screen">
                 <Tabs tabs={tabData}></Tabs>
             </div>
 

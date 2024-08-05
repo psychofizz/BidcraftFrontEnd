@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
@@ -7,7 +8,7 @@ const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
 
     if (loadingMyAuction) {
         return (
-            <div className="flex items-center justify-center ">
+            <div className="flex items-center justify-center">
                 <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
         );
@@ -30,14 +31,11 @@ const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
                     onClick={() => {
                         if (!auction.is_paid) {
                             openModal(auction.highest_bid, auction.auction.auction_id);
-                           
                         }
-                        if (auction.is_paids) {
-                            toast.success("Subasta Pagada")
-                        } else {
-                            
+                        if (auction.is_paid) {
+                            toast.success("Subasta Pagada");
                         }
-                    } }
+                    }}
                 >
                     <div className="h-48 overflow-hidden">
                         <img
@@ -71,6 +69,16 @@ const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
                                 </span>
                             </div>
                         </div>
+                        {auction.is_paid && (
+                            <div className="mt-4">
+                                <Link
+                                    to={`/review/${auction.auction.auction_id}`}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-lg text-center block"
+                                >
+                                    Agregar Reseña
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </div>
             ))}
