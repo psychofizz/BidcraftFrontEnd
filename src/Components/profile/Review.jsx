@@ -13,14 +13,14 @@ function Review({ review }) {
     };
 
     return (
-        <div className="bg-bidcraft-grey-2 p-4 rounded-lg shadow-md mb-4">
+        <div className="bg-bidcraft-grey-2 p-4 rounded-lg shadow-md mb-4 m-2">
             <div className="flex justify-between items-center mb-2">
                 <p className="font-bold text-white">Comprador: {review.buyer.first_name} {review.buyer.last_name}</p>
                 <p className="text-sm text-gray-500">
                     {new Date(review.review_date).toLocaleDateString()}
                 </p>
             </div>
-            <div className="flex items-center mb-2 container mx-auto">
+            <div className="flex items-center mb-2 ">
                 <span className="mr-2 text-white">Calificación:</span>
                 {[...Array(5)].map((_, index) => (
                     <span

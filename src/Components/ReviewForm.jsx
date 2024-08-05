@@ -8,33 +8,42 @@ function ReviewForm({ auctionId }) {
     const navigate = useNavigate();
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
+    const jwt = localStorage.getItem("token")?.replace(/^"|"$/g, '');
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!auctionId) {
-            toast.error('Auction ID is missing.');
+            toast.error('Subasta invalida');
             return;
         }
 
         if (rating === 0) {
-            toast.error('Please select a rating.');
+            toast.error('Seleccione una rating');
             return;
         }
 
         try {
+            console.log(jwt);
             await axios.post(`${process.env.REACT_APP_API_URL}/api/review/create/${auctionId}/`, {
-                rating,
                 comment,
+                rating
             }, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    Authorization: `Bearer ${jwt}`,
                 },
             });
+            toast.success('Reseña agregada exitosamente');
             navigate('/profile');
         } catch (error) {
-            console.error('Error submitting review:', error);
-            toast.error('Failed to submit review. Please try again.');
+            console.error('Error al agregar reseña:', error);
+
+            if (error.response && error.response.data && error.response.data.error === 'Ya has realizado una reseña para esta subasta.') {
+                toast.error('Ya has agregado una reseña para esta subasta');
+            } else {
+                toast.error('Error al agregar reseña');
+            }
         }
     };
 

@@ -14,9 +14,10 @@ const HomeTest = () => {
   const [nextPage, setNextPage] = useState(null);
   const [hasMore, setHasMore] = useState(true); // Track if there's more data to load
 
-  const fetchProducts = async (url) => {
+  const fetchProducts = async () => {
+
     try {
-      const response = await axios.get(url, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/all/`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -40,7 +41,7 @@ const HomeTest = () => {
 
   useEffect(() => {
     // Initial fetch on component mount
-    fetchProducts(`${process.env.REACT_APP_API_URL}/api/auction/show/all/`);
+    fetchProducts();
   }, []);
 
   const handleLoadMore = () => {
