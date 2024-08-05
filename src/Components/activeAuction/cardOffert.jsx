@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Input, initTWE } from "tw-elements";
 
 function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status }) {
+    
     // State declarations
     const [baseNumber, setBaseNumber] = useState(null);
     const [firstNumber, setFirstNumber] = useState(null);
@@ -40,6 +41,11 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
 
     // API calls
     const newBit = async () => {
+
+        if (status!==2) {
+            toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus pujas favoritas!")
+            return
+        }
         try {
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/api/bids/create/one/${idAuction}/`,
@@ -57,6 +63,11 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
     };
 
     const newBitAuto = async () => {
+
+        if (status!==2) {
+            toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus pujas favoritas!")
+            return
+        }
         try {
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/api/bids/create/one/${idAuction}/`,
@@ -69,7 +80,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
             setBaseNumber(autobitAmount.bid_amount);
             generateNumbers();
         } catch (error) {
-            toast.error("Oferta una mayor cantidad que la actual");
+        
         }
     };
 
@@ -86,20 +97,21 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
                 <div className="flex justify-end text-[15px] md:text-[40px]">L.{lastOffert}</div>
             </div>
             <div className="p-[5%] bg-bidcraft-dark h-[75%] rounded-b-lg">
-                <div>
+                <div >
                     <div><center className="text-white">Ofertas</center></div>
-                    <div className="grid grid-cols-3 gap-x-2 my-[10px]">
-                        <button onClick={() => autoBit(firstNumber)} disabled={ status !== 2}>
+                    <div className="grid grid-cols-3 gap-x-2 my-[10px]" 
+                    >
+                        <button onClick={() => autoBit(firstNumber)} >
                             <div className={`w-full border text-white border-yellow-500 flex justify-center ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                 <p className="p-2">L.{firstNumber !== null ? firstNumber : ''}</p>
                             </div>
                         </button>
-                        <button onClick={() => autoBit(secondNumber)} disabled={ status !== 2}>
+                        <button onClick={() => autoBit(secondNumber)} >
                             <div className={`w-full border text-white border-yellow-500 flex justify-center ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                 <p className="p-2">L.{secondNumber !== null ? secondNumber : ''}</p>
                             </div>
                         </button>
-                        <button onClick={() => autoBit(thirdNumber)} disabled={ status !== 2}>
+                        <button onClick={() => autoBit(thirdNumber)} >
                             <div className={`w-full border text-white border-yellow-500 flex justify-center ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                 <p className="p-2">L.{thirdNumber !== null ? thirdNumber : ''}</p>
                             </div>
@@ -127,7 +139,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
                         </label>
                     </div>
                     <section className="flex flex-col">
-                        <button  disabled={ status !== 2} onClick={newBit} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                        <button   onClick={newBit} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
                             Colocar oferta
                         </button>
                         <button className="hidden p-[5%] my-2" >Comprar ahora</button>

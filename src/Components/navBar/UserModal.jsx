@@ -27,23 +27,25 @@ const UserModal = ({ handleClose, show }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userData");
+    localStorage.removeItem("User");
+    localStorage.removeItem("token");
+    localStorage.removeItem("refresh_token");
     handleClose();
     navigate("/login");
   };
 
   return (
     <div
-  className={` fixed z-50 flex ${showHideClassName} ${showHideClassName.includes('hidden') ? 'fade-out' : 'fade-in'} sm:items-center sm:justify-center md:items-start md:justify-end transition-opacity duration-300 ease-out right-0`}
->
-  <div className={`bg-white rounded-lg shadow-xl overflow-hidden w-80 max-w-md transform ${showHideClassName.includes('hidden') ? 'slide-out' : 'slide-in'} transition-transform duration-300 ease-out`}>
-    
-        <div className="bg-bidcraft-modal-bg p-6 text-white">
+      className={` md:fixed z-50 flex ${showHideClassName} ${showHideClassName.includes('hidden') ? 'fade-out' : 'fade-in'} sm:items-center sm:justify-center md:items-start md:justify-end transition-opacity duration-300 ease-out right-0`}
+    >
+      <div className={`bg-white rounded-lg shadow-xl overflow-hidden min-w-full md:w-80 md:m-4 transform ${showHideClassName.includes('hidden') ? 'slide-out' : 'slide-in'} transition-transform duration-300 ease-out`}>
+
+        <div className="bg-bidcraft-dark p-6 text-white">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold">Perfil</h2>
             <button
               onClick={handleClose}
-              className="text-white hover:text-gray-200 transition duration-150"
+              className=" text-white hover:text-gray-200 transition duration-150"
             >
               <X size={24} />
             </button>
