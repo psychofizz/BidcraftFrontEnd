@@ -161,7 +161,7 @@ function Auction() {
                   loading={loading}
                   status={status}
                 />
-                <CardSeller nameSeller={data.seller.username} />
+                <CardSeller username={data.seller.username} nameSeller={data.seller.first_name + " " + data.seller.last_name} sellerId={data.seller.id}  />
               </div>
             </div>
           </>
