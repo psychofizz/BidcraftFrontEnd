@@ -68,7 +68,8 @@ function ProfilePage() {
             );
             const reviewsData = response.data.data;
             setReviews(reviewsData);
-            console.log("Review data: " + reviewsData)
+
+            console.log("Review data: " + JSON.stringify(reviewsData))
         } catch (error) {
             console.error("Error fetching reviews:", error);
         } finally {
@@ -108,7 +109,7 @@ function ProfilePage() {
         },
         {
             id: 'tabs-review',
-            label: 'reseñas',
+            label: 'Mis reseñas',
             content: <Review reviews={reviews}></Review>
         },
         {
