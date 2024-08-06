@@ -9,7 +9,7 @@ function Review({ review }) {
     }
 
     const handleViewAuction = () => {
-        navigate(`/auction/${review.auction.auction_id}`);
+        navigate(`/auction/${review.auction}`);
     };
 
     return (

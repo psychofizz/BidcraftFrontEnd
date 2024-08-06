@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
+import LoadingPage from "../Components/loading";
 
 function ProfileView() {
     const { userId } = useParams();
@@ -10,6 +11,7 @@ function ProfileView() {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [message, setMessage] = useState("");
 
     const fetchData = useCallback(async () => {
         try {
@@ -22,10 +24,17 @@ function ProfileView() {
                     },
                 }
             );
-            const reviewsData = response.data.data;
-            if (reviewsData.length > 0) {
-                setSeller(reviewsData[0].seller);
-                setReviews(reviewsData);
+            const responseData = response.data;
+            setMessage(responseData.message);
+
+            if (responseData.message === "Reseñas obtenidas satisfactoriamente.") {
+                setSeller(responseData.data[0].seller);
+                setReviews(responseData.data);
+            } else if (responseData.message === "No existen reseñas para este vendedor.") {
+                setSeller(responseData.seller);
+                setReviews([]);
+            } else {
+                throw new Error("Unexpected response from server");
             }
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -35,12 +44,11 @@ function ProfileView() {
         }
     }, [userId]);
 
-
     useEffect(() => {
         fetchData();
     }, [fetchData]);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <LoadingPage></LoadingPage>;
     if (error) return <div>Error: {error.message}</div>;
     if (!seller) return <div>Seller not found</div>;
 
@@ -70,13 +78,13 @@ function ProfileView() {
             </section>
 
             <div className="mx-[30px] xl:mx-[400px] lg:mx-[200px] md:mx-[100px] sm:mx-[59px]">
-                <h2 className="text-2xl  text-white font-bold mb-4">Reseñas</h2>
-                {reviews.length > 0 ? (
+                <h2 className="text-2xl text-white font-bold mb-4">Reseñas</h2>
+                {message === "Reseñas obtenidas satisfactoriamente." ? (
                     reviews.map((review) => (
                         <Review key={review.review_id} review={review} />
                     ))
                 ) : (
-                    <p>No hay reseñas disponibles</p>
+                    <p className="text-white pt-4 pb-8">{message}</p>
                 )}
             </div>
 
@@ -89,7 +97,7 @@ function Review({ review }) {
     const navigate = useNavigate();
 
     const handleViewAuction = () => {
-        navigate(`/auction/${review.auction.auction_id}`);
+        navigate(`/auction/${review.auction}`);
     };
 
     return (
