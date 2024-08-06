@@ -27,9 +27,9 @@ function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFa
             <h1 className="text-3xl font-mono text-white flex items-center">
   {name}     
 
-  {is_active ?  <span class="relative flex h-3 w-3 ml-2 mr-1">
-  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-  <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+  {is_active ?  <span className="relative flex h-3 w-3 ml-2 mr-1">
+  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+  <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
 </span> : <h1 className="ml-2  text-red-500">(Subasta Finalizada)</h1>}
  
 </h1>
