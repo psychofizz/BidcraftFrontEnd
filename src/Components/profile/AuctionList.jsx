@@ -8,23 +8,28 @@ const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
     const jwt = JSON.parse(localStorage.getItem("token"));
 
     useEffect(() => {
+       
         const fetchReviewStatus = async () => {
-            for (const auction of auctions) {
-                try {
-                    const response = await axios.get(
-                        `${process.env.REACT_APP_API_URL}/api/reviews/auction/${auction.auction.auction_id}/`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${jwt}`
+            if (!Array.isArray(auctions)) {
+               console.log("Vacio")
+            }else if (Array.isArray(auctions)) {
+                for (const auction of auctions) {
+                    try {
+                        const response = await axios.get(
+                            `${process.env.REACT_APP_API_URL}/api/reviews/auction/${auction.auction.auction_id}/`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${jwt}`
+                                }
                             }
-                        }
-                    );
-                    setReviewStatus(prevStatus => ({
-                        ...prevStatus,
-                        [auction.auction.auction_id]: response.data
-                    }));
-                } catch (error) {
-                    console.error('Error fetching review status:', error);
+                        );
+                        setReviewStatus(prevStatus => ({
+                            ...prevStatus,
+                            [auction.auction.auction_id]: response.data
+                        }));
+                    } catch (error) {
+                        console.error('Error fetching review status:', error);
+                    }
                 }
             }
         };
@@ -32,7 +37,6 @@ const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
         fetchReviewStatus();
     }, [auctions, jwt]);
 
-    const isArray = Array.isArray(auctions);
 
     if (loadingMyAuction) {
         return (
@@ -41,6 +45,7 @@ const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
             </div>
         );
     }
+    const isArray = Array.isArray(auctions);
 
     if (!isArray || auctions.length === 0) {
         return (

@@ -4,24 +4,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { HeartIcon } from '@heroicons/react/solid';
 
 
-function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFavorite,end_time }) {
+function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFavorite,end_time,is_active }) {
     const [images, setImages] = useState([]);
 
-    const formatDate = (dateString) => {
-        // Parseamos la fecha en UTC directamente
-        const date = new Date(dateString);
-      
-        // Usamos Intl.DateTimeFormat para formatear la fecha en UTC
-        const options = {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          timeZone: 'UTC', // Especificamos que queremos la fecha en UTC
-        };
-      
-        return new Intl.DateTimeFormat('es-ES', options).format(date);
-      };
-
+   
     useEffect(() => {
         // Crear un arreglo con las URLs de las imágenes disponibles
         const newImages = [];
@@ -37,7 +23,16 @@ function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFa
     return (
         <div className="max-w-7xl w-full sm:px-6 py-8">
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-mono text-white">{name}</h1>
+      
+            <h1 className="text-3xl font-mono text-white flex items-center">
+  {name}     
+
+  {is_active ?  <span class="relative flex h-3 w-3 ml-2 mr-1">
+  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+  <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+</span> : <h1 className="ml-2  text-red-500">(Subasta Finalizada)</h1>}
+ 
+</h1>
                
                 <button
                     onClick={toggleFavorite}
@@ -50,7 +45,7 @@ function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFa
                     {isFavorite ? 'Remover Favorito' : 'Agregar Favorito'}
                 </button>
             </div>
-            <h1 className="font-mono text-white">Fecha de finalizacion     {formatDate(end_time)}</h1>
+            <h1 className="font-mono text-white">Fecha de finalizacion     {end_time}</h1>
         
             <div className="mb-8">
     <Carousel
