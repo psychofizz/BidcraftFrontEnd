@@ -14,38 +14,44 @@ const HomeTest = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  const fetchProducts = useCallback(async (pageNumber) => {
-    if (!hasMore) return;
+  const fetchProducts = useCallback(
+    async (pageNumber) => {
+      if (!hasMore) return;
 
-    setLoading(true);
+      setLoading(true);
 
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/all/`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        params: {
-          page: pageNumber,
-        },
-      });
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/auction/show/all/`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            params: {
+              page: pageNumber,
+            },
+          }
+        );
 
-      const { results, next } = response.data;
+        const { results, next } = response.data;
 
-      if (pageNumber === 1) {
-        setProductInfo(results);
-      } else {
-        setProductInfo((prevProducts) => [...prevProducts, ...results]);
+        if (pageNumber === 1) {
+          setProductInfo(results);
+        } else {
+          setProductInfo((prevProducts) => [...prevProducts, ...results]);
+        }
+
+        setHasMore(!!next);
+        setPage(pageNumber);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setError("Failed to fetch products");
+      } finally {
+        setLoading(false);
       }
-
-      setHasMore(!!next);
-      setPage(pageNumber);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      setError('Failed to fetch products');
-    } finally {
-      setLoading(false);
-    }
-  }, [hasMore]);
+    },
+    [hasMore]
+  );
 
   useEffect(() => {
     fetchProducts(1);
@@ -63,7 +69,9 @@ const HomeTest = () => {
         <MainNavbar />
         <CategoriesBar />
         <div>
-          {productInfo.length > 0 ? (
+          {loading ? (
+            <LoadingAuctionItems count={6} />
+          ) : productInfo.length > 0 ? (
             <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2 lg:grid-cols-4 xl:grid-cols-5">
               {productInfo.map((producto) => (
                 <div key={producto.auction_id}>
@@ -82,12 +90,17 @@ const HomeTest = () => {
               ))}
             </section>
           ) : (
-            <LoadingAuctionItems count={6} />
+            <div className="flex justify-center items-center min-h-screen">
+              <p className="text-gray-500 text-xl">No hay subastas disponibles</p>
+            </div>
           )}
           {loading && <LoadingPage />}
           {!loading && hasMore && (
             <div className="container mx-auto flex justify-center align-middle">
-              <button onClick={handleLoadMore} className="mt-4 p-2 m-4 rounded-xl bg-bidcraft-main text-white">
+              <button
+                onClick={handleLoadMore}
+                className="mt-4 p-2 m-4 rounded-xl bg-bidcraft-main text-white"
+              >
                 Cargar más subastas
               </button>
             </div>

@@ -9,7 +9,7 @@ function Review({ review }) {
     }
 
     const handleViewAuction = () => {
-        navigate(`/auction/${review.auction}`);
+        navigate(`/myAuction/${review.auction}`);
     };
 
     return (
@@ -31,7 +31,7 @@ function Review({ review }) {
                     </span>
                 ))}
             </div>
-            <p className="text-gray-700 mb-2">{review.comment}</p>
+            <p className="text-white mb-2">{review.comment}</p>
             <button
                 className="bg-bidcraft-main text-white font-bold py-2 px-4 rounded"
                 onClick={handleViewAuction}
