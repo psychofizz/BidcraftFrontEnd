@@ -96,7 +96,7 @@ function Verification() {
         // Imprimir el JSON en la consola
 
         const tryPost = async () => {
-            console.log(JSON.stringify(newImageLinks) + "aca suponemos que ya estan las iamgenes");
+
             try {
                 await axios.post(`${process.env.REACT_APP_API_URL}/api/kyc/create/one/`, newImageLinks, {
                     headers: {
@@ -127,9 +127,9 @@ function Verification() {
                 <MainNavbar />
                 <section className="flex-grow text-gray-600 body-font bg-bidcraft-grey h-full">
                     {loading ? (
-                        <div className="grid place-content-center h-[65vh] "><Loading/></div>
-                      
- // Muestra cargando mientras espera el estado
+                        <div className="grid place-content-center h-[65vh] "><Loading /></div>
+
+                        // Muestra cargando mientras espera el estado
                     ) : (
                         status === 1 ? (
                             <div className="grid place-content-center h-[65vh] ">
@@ -290,9 +290,9 @@ function Verification() {
                                     )
                     )}
                 </section>
- <Footer />
+                <Footer />
             </div>
-           
+
         </>
     );
 }

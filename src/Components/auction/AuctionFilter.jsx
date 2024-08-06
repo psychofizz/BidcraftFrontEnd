@@ -25,8 +25,6 @@ function AuctionFilter() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(filter);
-    console.log(selectedDate)
   };
 
   return (
@@ -67,14 +65,14 @@ function AuctionFilter() {
         </select>
 
         <h3 className="text-xl text-black font-bold"> Fecha Publicado</h3>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="date"
-              value={selectedDate}
-              onChange={handleDateChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            />
-          </form>        
+        <form onSubmit={handleSubmit}>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={handleDateChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          />
+        </form>
 
         <div className="text-black flex gap-4">
           <label>
@@ -85,7 +83,7 @@ function AuctionFilter() {
               checked={filter.availability === "Disponible"}
               onChange={handleChange}
             />
-              Disponible
+            Disponible
           </label>
           <label>
             <input
@@ -95,7 +93,7 @@ function AuctionFilter() {
               checked={filter.availability === "Vendido"}
               onChange={handleChange}
             />
-              Vendido
+            Vendido
           </label>
         </div>
 

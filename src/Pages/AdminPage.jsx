@@ -115,7 +115,7 @@ const AdminPage = () => {
         idBack: user.back_id,
         numID: user.user.id,
       }));
-      console.log(mappedSubastadores)
+
       setSubastadoresAccepted(mappedSubastadores);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -149,7 +149,6 @@ const AdminPage = () => {
         idBack: user.back_id,
         numID: user.user.id,
       }));
-      console.log(mappedSubastadores)
       setSubastadoresRefused(mappedSubastadores);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -180,13 +179,13 @@ const AdminPage = () => {
       getUsersPending()
       getUsersAccepted();
       getUsersRefused();
-if (statusParam===2) {
-  toast.success("Usuario aceptado");
-}
-if (statusParam===3) {
-  toast.success("Usuario denegado");
-}
-    
+      if (statusParam === 2) {
+        toast.success("Usuario aceptado");
+      }
+      if (statusParam === 3) {
+        toast.success("Usuario denegado");
+      }
+
 
 
     } catch (error) {
@@ -324,7 +323,7 @@ if (statusParam===3) {
                       <td className="px-4 py-2">
                         {subastador.estado === "Aprovado" && (
                           <>
-                           
+
                             <button
                               onClick={() =>
                                 editVerification(3, subastador.id)
@@ -374,7 +373,7 @@ if (statusParam===3) {
                         >
                           {subastador.nombre}
                         </td>
-                        
+
                         <td className="px-4 py-2">
                           {
                             subastador.estado === "En revisión" ? (
@@ -395,7 +394,7 @@ if (statusParam===3) {
                               </span>
                             )
                           }
-                         
+
 
                         </td>
                         <td className="px-4 py-2">
@@ -409,7 +408,7 @@ if (statusParam===3) {
                               >
                                 Integrar
                               </button>
-                             
+
                             </>
                           )}
                         </td>

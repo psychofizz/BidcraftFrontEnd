@@ -1,8 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
+    const [reviewStatus, setReviewStatus] = useState({});
+    const jwt = JSON.parse(localStorage.getItem("token"));
+
+    useEffect(() => {
+        const fetchReviewStatus = async () => {
+            for (const auction of auctions) {
+                try {
+                    const response = await axios.get(
+                        `${process.env.REACT_APP_API_URL}/api/reviews/auction/${auction.auction.auction_id}/`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${jwt}`
+                            }
+                        }
+                    );
+                    setReviewStatus(prevStatus => ({
+                        ...prevStatus,
+                        [auction.auction.auction_id]: response.data
+                    }));
+                } catch (error) {
+                    console.error('Error fetching review status:', error);
+                }
+            }
+        };
+
+        fetchReviewStatus();
+    }, [auctions, jwt]);
 
     const isArray = Array.isArray(auctions);
 
@@ -71,12 +99,22 @@ const AuctionList = ({ auctions, loadingMyAuction, openModal }) => {
                         </div>
                         {auction.is_paid && (
                             <div className="mt-4">
-                                <Link
-                                    to={`/review/${auction.auction.auction_id}`}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-lg text-center block"
-                                >
-                                    Agregar Reseña
-                                </Link>
+                                {reviewStatus[auction.auction.auction_id]?.message === "Reseña obtenida." ? (
+                                    <div className="flex items-center justify-center">
+                                        {[...Array(5)].map((_, index) => (
+                                            <span key={index} className={`text-2xl ${index < reviewStatus[auction.auction.auction_id].data.rating ? 'text-yellow-400' : 'text-gray-300'}`}>
+                                                ★
+                                            </span>
+                                        ))}
+                                    </div>
+                                ) : reviewStatus[auction.auction.auction_id] ? (
+                                    <Link
+                                        to={`/review/${auction.auction.auction_id}`}
+                                        className="bg-blue-500 text-white px-4 py-2 rounded-lg text-center block"
+                                    >
+                                        Agregar Reseña
+                                    </Link>
+                                ) : null}
                             </div>
                         )}
                     </div>
