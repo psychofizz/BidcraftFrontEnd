@@ -20,6 +20,7 @@ function Auction() {
     const userId = JSON.parse(localStorage.getItem("User"));
     const [status, setStatus] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isActive,setIsActive]=useState(false)
 
     const breadcrumbs = [
         { text: "Ver Subasta", link: "/home" },
@@ -48,6 +49,8 @@ function Auction() {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/one/${auctionId}/`);
             setData(response.data);
+            
+            setIsActive(response.data.is_active)
 
         } catch (error) {
             console.error('Error al obtener la subasta:', error);
@@ -157,6 +160,7 @@ function Auction() {
                                 toggleFavorite={toggleFavorite}
                                 isFavorite={isFavorite}
                                 end_time={data.end_time}
+                                is_active={isActive}
                             />
                         </div>
                         <div className="md:mr-10 md:mt-4 p-2">
@@ -168,6 +172,7 @@ function Auction() {
                                     updateAuction={infoAuction}
                                     loading={loading}
                                     status={status}
+                                    is_active={isActive}
                                 />
                                 <CardSeller nameSeller={data.seller.username} sellerId={data.seller.id} />
                             </div>

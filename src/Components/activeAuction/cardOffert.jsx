@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from "react-toastify";
 import { Input, initTWE } from "tw-elements";
 
-function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status }) {
+function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,is_active}) {
     
     // State declarations
     const [baseNumber, setBaseNumber] = useState(null);
@@ -39,11 +39,45 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
         setValues({ ...values, [event.target.name]: event.target.value });
     };
 
-    // API calls
-    const newBit = async () => {
+    //Comprar ahora
+    const buyItNow = async () => {
+
+        if (!is_active) {
+            toast.warning("La subasta ha finalizo")
+            return
+
+        }
 
         if (status!==2) {
-            toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus pujas favoritas!")
+            toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus subastas favoritas!")
+            return
+        }
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_API_URL}/api/auction/buy/now/${idAuction}/`,
+                values,
+                { headers: { 'Authorization': `Bearer ${jwt}` } }
+            );
+            console.log(response)
+            toast.success(response.data.message);
+            updateAuction();
+            setBaseNumber(values.bid_amount);
+            generateNumbers();
+        } catch (error) {
+            toast.error("Oferta una mayor cantidad que la actual");
+        }
+    };
+
+
+    // API calls
+    const newBit = async () => {
+        if (!is_active) {
+            toast.warning("La subasta ha finalizo")
+            return
+
+        }
+        if (status!==2) {
+            toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus subastas favoritas!")
             return
         }
         try {
@@ -63,9 +97,13 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
     };
 
     const newBitAuto = async () => {
+        if (!is_active) {
+            toast.warning("La subasta ha finalizo")
+            return
 
+        }
         if (status!==2) {
-            toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus pujas favoritas!")
+            toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus subastas favoritas!")
             return
         }
         try {
@@ -142,7 +180,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status 
                         <button   onClick={newBit} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
                             Colocar oferta
                         </button>
-                        <button className="hidden p-[5%] my-2" >Comprar ahora</button>
+                        <button onClick={buyItNow} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`} >Comprar ahora</button>
                     </section>
                 </div>
             </div>
