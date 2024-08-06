@@ -20,7 +20,7 @@ function Auction() {
     const userId = JSON.parse(localStorage.getItem("User"));
     const [status, setStatus] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isActive,setIsActive]=useState(false)
+    const [isActive, setIsActive] = useState(false)
 
     const breadcrumbs = [
         { text: "Ver Subasta", link: "/home" },
@@ -49,7 +49,7 @@ function Auction() {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/one/${auctionId}/`);
             setData(response.data);
-            
+
             setIsActive(response.data.is_active)
 
         } catch (error) {
@@ -174,7 +174,7 @@ function Auction() {
                                     status={status}
                                     is_active={isActive}
                                 />
-                                <CardSeller nameSeller={data.seller.username} sellerId={data.seller.id} />
+                                <CardSeller username={data.seller.username} nameSeller={data.seller.first_name + " " + data.seller.last_name} sellerId={data.seller.id} />
                             </div>
                         </div>
                     </div>

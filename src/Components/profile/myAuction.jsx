@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, imgUrl, category }) {
+function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, imgUrl, category, isActive }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => setIsOpen(true);
@@ -42,17 +42,26 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
             <span className="text-lg font-bold text-green-600">L. {highest_bid}</span>
           </div>
           <div className="flex justify-between space-x-2 mt-4">
-            <Link to={`/editAuction/${idAuction}`} className="flex-1">
-              <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300">
-                Editar
-              </button>
-            </Link>
-            <button
-              className="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300"
-              onClick={openModal}
-            >
-              Eliminar
-            </button>
+            {(isActive !== null && isActive !== false) ? (
+              <>
+                <Link to={`/editAuction/${idAuction}`} className="flex-1">
+                  <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300">
+                    Editar
+                  </button>
+                </Link>
+                <button
+                  className="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300"
+                  onClick={openModal}
+                >
+                  Eliminar
+                </button>
+              </>
+            ) : (
+              <div className="flex justify-center align-middle w-full">
+                <p className="text-white bg-bidcraft-main rounded-xl pr-4 pl-4 pt-2 pb-2">Subasta finalizada</p>
+              </div>
+            )}
+
           </div>
         </div>
       </div>

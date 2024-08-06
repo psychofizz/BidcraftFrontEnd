@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 
 
-function CardSeller({ nameSeller, sellerId }) {
+function CardSeller({ username, nameSeller, sellerId }) {
     return (
         <div className="w-full shadow-lg  bg-bidcraft-dark rounded-lg">
             <div className="m-2">
@@ -19,6 +19,9 @@ function CardSeller({ nameSeller, sellerId }) {
                         <h3 className="font-bold text-2xl text-white dark:text-white mb-1">
                             {nameSeller}
                         </h3>
+                        <h4 className="font-bold text-xl text-white dark:text-white mb-1">
+                            {username}
+                        </h4>
 
                     </div>
                 </div>
