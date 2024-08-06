@@ -4,7 +4,6 @@ import MyAuctions from './myAuction'
 
 function AuctionHistory({ loading, productMyInfo, myAuctions }) {
 
-    console.log("Productos historial", productMyInfo)
     return (
         <div
             className="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"

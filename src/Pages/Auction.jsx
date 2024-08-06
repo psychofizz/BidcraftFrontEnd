@@ -7,6 +7,7 @@ import Footer from '../Components/page-essentials/Footer'
 import MainNavbar from "../Components/navBar/mainNavbar";
 import CategoriesBar from "../Components/navBar/CategoriesBar";
 import Loading from "../Components/loading"
+import PageHeader from "../Components/page-essentials/PageHeader";
 
 import axios from 'axios'
 
@@ -20,7 +21,9 @@ function Auction() {
     const [status, setStatus] = useState(null);
     const [loading, setLoading] = useState(true);
 
-
+    const breadcrumbs = [
+        { text: "Ver Subasta", link: "/home" },
+    ];
 
     //-----------------------------------------------------Este nos ayudara a ver si el usuario ya envio su verificacion------------------
     const StatusUser = async () => {
@@ -45,6 +48,7 @@ function Auction() {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/auction/show/one/${auctionId}/`);
             setData(response.data);
+
         } catch (error) {
             console.error('Error al obtener la subasta:', error);
         }
@@ -134,8 +138,12 @@ function Auction() {
         <div className="flex flex-col min-h-screen">
             <MainNavbar />
 
+
             <div className=" flex-grow w-full bg-bidcraft-grey ">
                 <CategoriesBar />
+                <div className="p-2">
+                    <PageHeader title={""} breadcrumbs={breadcrumbs} />
+                </div>
                 {data.name && data.description ? (
                     <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 bg-bidcraft-grey">
 

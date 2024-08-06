@@ -68,7 +68,6 @@ const UploadToImgur = () => {
 
 
     // Imprimir el JSON en la consola
-    console.log('JSON de enlaces de imágenes:', newImageLinks);
     const tryPost = async (argumento) => {
       console.log(JSON.stringify(newImageLinks) + "aca suponemos que ya estan las iamgenes")
 

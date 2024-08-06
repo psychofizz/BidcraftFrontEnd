@@ -18,11 +18,11 @@ const MainNavbar = ({ isLandingPage }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [status, setStatus] = useState(null);
 
-    // Función para mostrar el toast
-    const showNotification = () => {
-      
-      toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus pujas favoritas!"); // Cambia el mensaje según tus necesidades
-    };
+  // Función para mostrar el toast
+  const showNotification = () => {
+
+    toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus pujas favoritas!"); // Cambia el mensaje según tus necesidades
+  };
 
   const navigate = useNavigate();
 
@@ -46,13 +46,18 @@ const MainNavbar = ({ isLandingPage }) => {
   };
 
   useEffect(() => {
+
     const jwt = JSON.parse(localStorage.getItem("token"));
-    if (jwt === null) {
-      navigate("/login");
-    } else {
-      obtenInfo(jwt);
+
+    if (!isLandingPage) {
+      if (jwt === null) {
+        navigate("/login");
+      } else {
+        obtenInfo(jwt);
+      }
     }
-  }, [navigate]);
+  }, [navigate, isLandingPage]);
+
 
   const obtenInfo = async (token) => {
     try {
@@ -148,7 +153,7 @@ const MainNavbar = ({ isLandingPage }) => {
   `}
 
                     onClick={(e) => {
-                    
+
                       if (status !== 2) {
                         showNotification();
                         e.preventDefault(); // Evita la acción de navegación
