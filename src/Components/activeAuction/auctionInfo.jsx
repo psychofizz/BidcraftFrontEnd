@@ -22,28 +22,28 @@ function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFa
 
     return (
         <div className="max-w-7xl w-full sm:px-6 py-8">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-wrap justify-between items-center mb-6 ">
 
-                <h1 className="text-3xl font-mono text-white flex items-center">
+                <h1 className="text-3xl font-mono text-white flex items-center ">
                     {name}
 
                     {is_active ? <span className="relative flex h-3 w-3 ml-2 mr-1">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-                    </span> : <h1 className="ml-2  text-red-500">(Subasta Finalizada)</h1>}
+                    </span> : <h1 className="ml-2 text-center text-red-500">(Subasta Finalizada)</h1>}
 
                 </h1>
-
-                <button
+<div className="w-full md:w-auto "><button
                     onClick={toggleFavorite}
-                    className={`flex items-center px-4 py-2 rounded-full transition-colors ${isFavorite
+                    className={`flex items-center  px-4 py-2 rounded-full transition-colors ${isFavorite
                         ? 'bg-[#a61c1c] text-white'
                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                         }`}
                 >
                     <HeartIcon className="h-5 w-5 mr-2" />
                     {isFavorite ? 'Remover Favorito' : 'Agregar Favorito'}
-                </button>
+                </button></div>
+                
             </div>
             <h1 className="font-mono text-white">Fecha de finalizacion     {end_time}</h1>
 
