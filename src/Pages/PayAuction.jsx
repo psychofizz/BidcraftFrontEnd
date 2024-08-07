@@ -14,7 +14,7 @@ const PaymentForm = ({ amountBit, auctionId }) => {
   const [paymentSuccessful, setPaymentSuccessful] = useState(false);
 
   const handleSubmit = async (event) => {
-    const toastId = toast.loading("Pagando...");
+   
 
     event.preventDefault();
 
@@ -31,6 +31,7 @@ const PaymentForm = ({ amountBit, auctionId }) => {
       setPaymentStatus(error.message);
       return;
     }
+     const toastId = toast.loading("Pagando...");
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/make/${auctionId}/`, {
         method: 'POST',
@@ -46,17 +47,24 @@ const PaymentForm = ({ amountBit, auctionId }) => {
       });
 
       if (!response.ok) {
+        toast.update(toastId, {
+          render: "Error al pagar",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000,
+        });
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
+     
       const data = await response.json();
-      toast.update(toastId, {
-        render: "Registro exitoso",
-        type: "success",
-        isLoading: false,
-        autoClose: 5000,
-      });
+    
       if (data.status === 200) {
+        toast.update(toastId, {
+          render: "Registro exitoso",
+          type: "success",
+          isLoading: false,
+          autoClose: 5000,
+        });
         setPaymentStatus('Pago exitoso');
         setPaymentSuccessful(true);
       } else {
