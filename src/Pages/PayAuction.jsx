@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 const PaymentForm = ({ amountBit, auctionId }) => {
   const stripe = useStripe();
@@ -13,6 +14,8 @@ const PaymentForm = ({ amountBit, auctionId }) => {
   const [paymentSuccessful, setPaymentSuccessful] = useState(false);
 
   const handleSubmit = async (event) => {
+    const toastId = toast.loading("Pagando...");
+
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -28,7 +31,6 @@ const PaymentForm = ({ amountBit, auctionId }) => {
       setPaymentStatus(error.message);
       return;
     }
-
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/make/${auctionId}/`, {
         method: 'POST',
@@ -48,7 +50,12 @@ const PaymentForm = ({ amountBit, auctionId }) => {
       }
 
       const data = await response.json();
-
+      toast.update(toastId, {
+        render: "Registro exitoso",
+        type: "success",
+        isLoading: false,
+        autoClose: 5000,
+      });
       if (data.status === 200) {
         setPaymentStatus('Pago exitoso');
         setPaymentSuccessful(true);
