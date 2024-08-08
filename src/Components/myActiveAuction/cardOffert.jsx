@@ -39,7 +39,7 @@ function CardOfert({ lastOffert, bidData }) {
               <div className="max-w-2xl mx-auto">
                 <div className="overflow-auto   bg-white rounded-lg border shadow-md sm:p-1 dark:bg-gray-800 dark:border-gray-700">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Latest Customers</h3>
+                    <h3 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Historial de pujas</h3>
 
                   </div>
 
