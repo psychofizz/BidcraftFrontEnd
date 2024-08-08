@@ -51,6 +51,7 @@ function Auction() {
             setData(response.data);
 
             setIsActive(response.data.is_active)
+            
 
         } catch (error) {
             console.error('Error al obtener la subasta:', error);
@@ -173,6 +174,7 @@ function Auction() {
                                     loading={loading}
                                     status={status}
                                     is_active={isActive}
+                                    buy_it_now_price={data.buy_it_now_price}
                                 />
                                 <CardSeller username={data.seller.username} nameSeller={data.seller.first_name + " " + data.seller.last_name} sellerId={data.seller.id} />
                             </div>
