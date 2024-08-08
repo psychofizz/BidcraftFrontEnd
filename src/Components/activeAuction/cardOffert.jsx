@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from "react-toastify";
 import { Input, initTWE } from "tw-elements";
 
-function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,is_active}) {
+function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,is_active,buy_it_now_price}) {
     
     // State declarations
     const [baseNumber, setBaseNumber] = useState(null);
@@ -180,7 +180,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                         <button   onClick={newBit} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
                             Colocar oferta
                         </button>
-                        <button onClick={buyItNow} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`} >Comprar ahora</button>
+                        <button onClick={buyItNow} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`} >Comprar ahora por {buy_it_now_price}</button>
                     </section>
                 </div>
             </div>

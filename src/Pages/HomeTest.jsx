@@ -25,6 +25,7 @@ const HomeTest = () => {
           `${process.env.REACT_APP_API_URL}/api/auction/show/all/`,
           {
             headers: {
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
               "Content-Type": "application/json",
             },
             params: {
