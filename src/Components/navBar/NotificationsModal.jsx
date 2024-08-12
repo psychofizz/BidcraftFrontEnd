@@ -29,15 +29,16 @@ const NotificationsModal = ({ handleClose, show, notificationsInfo, isLoading, g
   : "modal hidden";
   return (
     <div className={showHideClassName}>
-    <div className="modal-content bg-bidcraft-modal-bg w-120 max-h-[80vh] p-4 rounded-lg transition-transform duration-300 overflow-y-auto">
+    <div className="modal-content bg-bidcraft-modal-bg max-h-[80vh]  rounded-lg transition-transform duration-300 overflow-y-auto w-full md:w-[50vw] relative">
       <span
         className="close absolute top-2 right-2 text-gray-500 cursor-pointer"
         onClick={handleClose}
       >
         &times;
       </span>
-      <div className="flex font:helvetica flex-auto justify-center align-middle bg-bidcraft-main rounded p-2">
-        <p className="text-lg font-semibold mb-2 flex-1 pt-4">
+      
+      <div className="sticky top-0 bg-bidcraft-main  p-2 flex justify-between items-center z-10">
+        <p className="text-lg font-semibold flex-1 text-center">
           Notificaciones
         </p>
         <button
@@ -47,11 +48,14 @@ const NotificationsModal = ({ handleClose, show, notificationsInfo, isLoading, g
           <FontAwesomeIcon icon={faTimesCircle} />
         </button>
       </div>
-      <div className="flex flex-col space-y-2 pt-4 justify-center items-center">
+      
+      <div className="flex flex-col space-y-2 pt-2 p-4" >
         <Tabs tabs={tabData}></Tabs>
       </div>
     </div>
   </div>
+  
+  
   );
 };
 

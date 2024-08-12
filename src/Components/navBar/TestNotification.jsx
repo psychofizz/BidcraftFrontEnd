@@ -21,7 +21,7 @@ const TestNotification = ({ notifications }) => {
     />
   ))
 ) : (
-  <div className="w-[45.3vw] p-8">No hay nuevas notificaciones</div>
+  <div className="text-center">No hay nuevas notificaciones</div>
  )}
 
 
