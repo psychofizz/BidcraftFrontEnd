@@ -17,7 +17,62 @@ const MainNavbar = ({ isLandingPage }) => {
   const [showAuctionModal, setShowAuctionModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [status, setStatus] = useState(null);
+  const [notifications, setNotifications] = useState({})
+  const [notifications2, setNotifications2] = useState({})
+  const [loading, setLoading] = useState(true);
 
+
+
+
+    //Funcion para administrar notificaciones
+
+
+  const getNotificationsTrue = async () => {
+    try {
+      const responseNotifications = await axios.get(`${process.env.REACT_APP_API_URL}/api/notifications/user/?is_read=true`, {
+
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+      },
+
+      );
+     
+      setNotifications2(responseNotifications)
+    } catch (error) {
+
+    }
+    finally {
+      setLoading(false);
+    }
+
+
+  }
+
+  //Funcion para administrar notificaciones
+
+
+  const getNotifications = async () => {
+    try {
+      const responseNotifications = await axios.get(`${process.env.REACT_APP_API_URL}/api/notifications/user/?is_read=false`, {
+
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+      },
+
+      );
+
+      setNotifications(responseNotifications)
+    } catch (error) {
+
+    }
+    finally {
+      setLoading(false);
+    }
+
+
+  }
   // Función para mostrar el toast
   const showNotification = () => {
 
@@ -72,7 +127,6 @@ const MainNavbar = ({ isLandingPage }) => {
       localStorage.setItem("User", JSON.stringify(dataUser));
 
     } catch (error) {
-      console.error("Error al conseguir la informacion de usuario:", error);
     }
   };
 
@@ -99,6 +153,8 @@ const MainNavbar = ({ isLandingPage }) => {
   };
   useEffect(() => {
     StatusUser()
+    getNotifications()
+    getNotificationsTrue()
   }, []);
   return (
     <div className="bg-bidcraft-dark text-white px-4 py-4">
@@ -168,13 +224,20 @@ const MainNavbar = ({ isLandingPage }) => {
                   onClick={() => toggleModal(showFavoritesModal, setShowFavoritesModal)}
                 >
                   <FontAwesomeIcon icon={faHeart} />
+
                 </button>
+
                 <button
-                  className="hidden w-full md:w-10 h-10 flex items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3 transition-colors"
+                  className={`relative w-full md:w-10 h-10 flex items-center justify-center rounded-full bg-bidcraft-main-2 text-white focus:outline-none hover:bg-bidcraft-main-3 transition-colors`}
                   onClick={() => toggleModal(showNotificationsModal, setShowNotificationsModal)}
                 >
                   <FontAwesomeIcon icon={faBell} />
+                  {notifications?.data?.length > 0 && (
+                    <span className="absolute top-0 right-0 inline-flex h-3 w-3 rounded-full bg-red-500"></span>
+                  )}
+
                 </button>
+
                 <button
                   className="w-full md:w-40 h-10 flex items-center justify-center rounded-full text-[#131743] bg-[#EEEDEB] focus:outline-none hover:bg-[#DEDDCB] transition-colors"
                 >
@@ -203,6 +266,9 @@ const MainNavbar = ({ isLandingPage }) => {
         <NotificationsModal
           handleClose={() => setShowNotificationsModal(false)}
           show={showNotificationsModal}
+          notificationsInfo={notifications}
+          isLoading={loading}
+          getNotificationsTrue={notifications2}
 
         />
       )}

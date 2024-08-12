@@ -2,15 +2,17 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { Input, initTWE } from "tw-elements";
+import Modal from 'react-modal'
 
-function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,is_active,buy_it_now_price}) {
-    
+function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,is_active,buy_it_now_price, name, image}) {
+   
     // State declarations
     const [baseNumber, setBaseNumber] = useState(null);
     const [firstNumber, setFirstNumber] = useState(null);
     const [secondNumber, setSecondNumber] = useState(null);
     const [thirdNumber, setThirdNumber] = useState(null);
     const [values, setValues] = useState({ bid_amount: "" });
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const autobitAmount = { bid_amount: "" };
 
@@ -40,7 +42,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
     };
 
     //Comprar ahora
-    const buyItNow = async () => {
+    /* const buyItNow = async () => {
 
         if (!is_active) {
             toast.warning("La subasta ha finalizo")
@@ -67,6 +69,42 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
             toast.error("Oferta una mayor cantidad que la actual");
         }
     };
+    */
+
+    const buyItNow = async () => {
+        if (!is_active) {
+            toast.warning("La subasta ha finalizado");
+            return;
+        }
+        if (status !== 2) {
+            toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus subastas favoritas!");
+            return;
+        }
+        setModalIsOpen(true); // Muestra el modal de confirmación
+    };
+
+    const handleConfirmBuyItNow = async () => {
+        setModalIsOpen(false); // Cierra el modal
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_API_URL}/api/auction/buy/now/${idAuction}/`,
+                values,
+                { headers: { 'Authorization': `Bearer ${jwt}` } }
+            );
+           
+            
+            toast.success(response.data.message);
+            updateAuction();
+            setBaseNumber(values.bid_amount);
+            generateNumbers();
+        } catch (error) {
+            toast.error("Oferta una mayor cantidad que la actual");
+        }
+    };
+
+    const handleCancelBuyItNow = () => {
+        setModalIsOpen(false); // Cierra el modal
+    };
 
 
     // API calls
@@ -86,7 +124,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                 values,
                 { headers: { 'Authorization': `Bearer ${jwt}` } }
             );
-            console.log(response)
+           
             toast.success(response.data.message);
             updateAuction();
             setBaseNumber(values.bid_amount);
@@ -112,7 +150,6 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                 autobitAmount,
                 { headers: { 'Authorization': `Bearer ${jwt}` } }
             );
-            console.log(response.data)
             toast.success(response.data.message);
             updateAuction();
             setBaseNumber(autobitAmount.bid_amount);
@@ -156,13 +193,10 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                         </button>
                     </div>
                     <div className="relative mb-3 mt-4">
-
-
                         <input
                             onChange={handleChange}
                             name="bid_amount"
-                            type="number"
-                           
+                            type="number"                           
                             className={`peer w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all bg-bidcraft-dark text-white ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''
                                 }`}
                             id="exampleFormControlInputNumber"
@@ -172,8 +206,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                         <label
                             htmlFor="exampleFormControlInputNumber"
                             className="absolute left-3 top-2 text-white transition-all peer-focus:-top-4 peer-focus:text-sm peer-focus:text-white peer-placeholder-shown:top-2 peer-placeholder-shown:text-base"
-                        >
-                           
+                        >                           
                         </label>
                     </div>
                     <section className="flex flex-col">
@@ -184,6 +217,39 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                     </section>
                 </div>
             </div>
+            {/* Modal de Confirmación */}
+            <Modal
+            ariaHideApp={false}
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+                contentLabel="Confirmación de Compra"
+                className="fixed inset-0 flex items-center justify-center p-4 bg-black bg-opacity-50"
+                overlayClassName="fixed inset-0 bg-black bg-opacity-50"
+            >
+                <div className="bg-white p-6 rounded-lg max-w-sm w-full">
+                    <h2 className="text-xl font-semibold mb-4">Confirmar Compra</h2>
+                    <div className="flex flex-col items-center mb-4">
+                        <img src={image} alt={name} className="w-32 h-32 object-cover mb-4" />
+                        <p className="text-center">
+                            ¿Estás seguro de comprar ahora el producto <strong>{name}</strong> por L.{buy_it_now_price}?
+                        </p>
+                    </div>
+                    <div className="flex justify-around mt-4">
+                        <button
+                            onClick={handleConfirmBuyItNow}
+                            className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                        >
+                            Sí, comprar
+                        </button>
+                        <button
+                            onClick={handleCancelBuyItNow}
+                            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                        >
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }

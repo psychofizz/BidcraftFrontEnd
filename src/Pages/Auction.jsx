@@ -175,6 +175,7 @@ function Auction() {
                                     status={status}
                                     is_active={isActive}
                                     buy_it_now_price={data.buy_it_now_price}
+                                    image={data.images[0].image_url}
                                 />
                                 <CardSeller username={data.seller.username} nameSeller={data.seller.first_name + " " + data.seller.last_name} sellerId={data.seller.id} />
                             </div>
