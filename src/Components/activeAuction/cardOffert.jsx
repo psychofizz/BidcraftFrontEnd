@@ -5,7 +5,7 @@ import { Input, initTWE } from "tw-elements";
 import Modal from 'react-modal'
 
 function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,is_active,buy_it_now_price, name, image}) {
-    
+   
     // State declarations
     const [baseNumber, setBaseNumber] = useState(null);
     const [firstNumber, setFirstNumber] = useState(null);
@@ -91,7 +91,8 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                 values,
                 { headers: { 'Authorization': `Bearer ${jwt}` } }
             );
-            console.log(response);
+           
+            
             toast.success(response.data.message);
             updateAuction();
             setBaseNumber(values.bid_amount);
@@ -123,7 +124,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                 values,
                 { headers: { 'Authorization': `Bearer ${jwt}` } }
             );
-            console.log(response)
+           
             toast.success(response.data.message);
             updateAuction();
             setBaseNumber(values.bid_amount);
@@ -149,7 +150,6 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                 autobitAmount,
                 { headers: { 'Authorization': `Bearer ${jwt}` } }
             );
-            console.log(response.data)
             toast.success(response.data.message);
             updateAuction();
             setBaseNumber(autobitAmount.bid_amount);
@@ -219,6 +219,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
             </div>
             {/* Modal de Confirmación */}
             <Modal
+            ariaHideApp={false}
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 contentLabel="Confirmación de Compra"
