@@ -4,8 +4,8 @@ import { toast } from "react-toastify";
 import { Input, initTWE } from "tw-elements";
 import Modal from 'react-modal'
 
-function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,is_active,buy_it_now_price, name, image}) {
-   
+function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status, is_active, buy_it_now_price, name, image }) {
+
     // State declarations
     const [baseNumber, setBaseNumber] = useState(null);
     const [firstNumber, setFirstNumber] = useState(null);
@@ -13,6 +13,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
     const [thirdNumber, setThirdNumber] = useState(null);
     const [values, setValues] = useState({ bid_amount: "" });
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false);
 
     const autobitAmount = { bid_amount: "" };
 
@@ -91,8 +92,8 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                 values,
                 { headers: { 'Authorization': `Bearer ${jwt}` } }
             );
-           
-            
+
+
             toast.success(response.data.message);
             updateAuction();
             setBaseNumber(values.bid_amount);
@@ -114,7 +115,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
             return
 
         }
-        if (status!==2) {
+        if (status !== 2) {
             toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus subastas favoritas!")
             return
         }
@@ -124,7 +125,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                 values,
                 { headers: { 'Authorization': `Bearer ${jwt}` } }
             );
-           
+
             toast.success(response.data.message);
             updateAuction();
             setBaseNumber(values.bid_amount);
@@ -140,7 +141,7 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
             return
 
         }
-        if (status!==2) {
+        if (status !== 2) {
             toast.warning("¡Verifícate en tu perfil para poder subastar y pujar por tus subastas favoritas!")
             return
         }
@@ -155,11 +156,15 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
             setBaseNumber(autobitAmount.bid_amount);
             generateNumbers();
         } catch (error) {
-        
-        }
+
+        }finally {
+            setIsProcessing(false);
+          }
     };
 
     const autoBit = (number) => {
+        if (isProcessing) return;
+        setIsProcessing(true);
         autobitAmount.bid_amount = number;
         newBitAuto();
     };
@@ -174,20 +179,26 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
             <div className="p-[5%] bg-bidcraft-dark h-[75%] rounded-b-lg">
                 <div >
                     <div><center className="text-white">Ofertas</center></div>
-                    <div className="grid grid-cols-3 gap-x-2 my-[10px]" 
+                    <div className="grid grid-cols-3 gap-x-2 my-[10px]"
                     >
-                        <button onClick={() => autoBit(firstNumber)} >
-                            <div className={`w-full border text-white border-yellow-500 flex justify-center ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                        <button
+                            onClick={() => autoBit(firstNumber)}
+                            className={`w-full border text-white border-yellow-500 flex justify-center 
+    ${status !== 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-600 active:bg-yellow-700 transition-all duration-50'}`}
+                            disabled={status !== 2}
+                        >
+                            <div>
                                 <p className="p-2">L.{firstNumber !== null ? firstNumber : ''}</p>
                             </div>
                         </button>
+
                         <button onClick={() => autoBit(secondNumber)} >
-                            <div className={`w-full border text-white border-yellow-500 flex justify-center ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                            <div className={`w-full border text-white border-yellow-500 flex justify-center ${status !== 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-600 active:bg-yellow-700 transition-all duration-50'}`}>
                                 <p className="p-2">L.{secondNumber !== null ? secondNumber : ''}</p>
                             </div>
                         </button>
                         <button onClick={() => autoBit(thirdNumber)} >
-                            <div className={`w-full border text-white border-yellow-500 flex justify-center ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                            <div className={`w-full border text-white border-yellow-500 flex justify-center ${status !== 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-600 active:bg-yellow-700 transition-all duration-50'}`}>
                                 <p className="p-2">L.{thirdNumber !== null ? thirdNumber : ''}</p>
                             </div>
                         </button>
@@ -196,30 +207,30 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
                         <input
                             onChange={handleChange}
                             name="bid_amount"
-                            type="number"                           
-                            className={`peer w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all bg-bidcraft-dark text-white ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''
+                            type="number"
+                            className={`peer w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all bg-bidcraft-dark text-white ${status !== 2 ? 'opacity-50 cursor-not-allowed' : ''
                                 }`}
                             id="exampleFormControlInputNumber"
                             placeholder=" Ingrese una nueva oferta"
-                            disabled={ status !== 2} // Deshabilita el input si status es 1 o 3
+                            disabled={status !== 2} // Deshabilita el input si status es 1 o 3
                         />
                         <label
                             htmlFor="exampleFormControlInputNumber"
                             className="absolute left-3 top-2 text-white transition-all peer-focus:-top-4 peer-focus:text-sm peer-focus:text-white peer-placeholder-shown:top-2 peer-placeholder-shown:text-base"
-                        >                           
+                        >
                         </label>
                     </div>
                     <section className="flex flex-col">
-                        <button   onClick={newBit} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                        <button onClick={newBit} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${status !== 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-600 active:bg-yellow-700 transition-all duration-50'}`}>
                             Colocar oferta
                         </button>
-                        <button onClick={buyItNow} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${ status !== 2 ? 'opacity-50 cursor-not-allowed' : ''}`} >Comprar ahora por {buy_it_now_price}</button>
+                        <button onClick={buyItNow} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${status !== 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-600 active:bg-yellow-700 transition-all duration-50'}`} >Comprar ahora por {buy_it_now_price}</button>
                     </section>
                 </div>
             </div>
             {/* Modal de Confirmación */}
             <Modal
-            ariaHideApp={false}
+                ariaHideApp={false}
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 contentLabel="Confirmación de Compra"

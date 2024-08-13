@@ -101,10 +101,10 @@ function Review({ review }) {
     };
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+        <div className="bg-bidcraft-grey-2 p-4 rounded-lg shadow-md mb-4 text-white">
             <div className="flex justify-between items-center mb-2">
                 <p className="font-bold">Comprador: {review.buyer.first_name} {review.buyer.last_name}</p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm ">
                     {new Date(review.review_date).toLocaleDateString()}
                 </p>
             </div>
@@ -119,7 +119,7 @@ function Review({ review }) {
                     </span>
                 ))}
             </div>
-            <p className="text-gray-700 mb-2">{review.comment}</p>
+            <p className=" mb-2">{review.comment}</p>
             <button
                 className="bg-bidcraft-main text-white font-bold py-2 px-4 rounded"
                 onClick={handleViewAuction}

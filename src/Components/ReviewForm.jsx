@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import { toast } from "react-toastify";
 
 function ReviewForm({ auctionId }) {
     const navigate = useNavigate();
@@ -49,11 +49,11 @@ function ReviewForm({ auctionId }) {
 
     return (
         <div className="max-w-md mx-auto mt-10">
-            <ToastContainer />
-            <h2 className="text-2xl font-bold mb-4">Dejar una reseña</h2>
+            
+            <h2 className="text-2xl font-bold mb-4 text-white">Dejar una reseña</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label className="block mb-2">Rating:</label>
+                    <label className="block mb-2 text-white">Rating:</label>
                     {[1, 2, 3, 4, 5].map((star) => (
                         <button
                             key={star}
@@ -66,7 +66,7 @@ function ReviewForm({ auctionId }) {
                     ))}
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="comment" className="block mb-2">Descripción:</label>
+                    <label htmlFor="comment" className="block mb-2 text-white">Descripción:</label>
                     <textarea
                         id="comment"
                         value={comment}
