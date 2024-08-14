@@ -192,7 +192,7 @@ function EditAuction() {
                                     type="text"
                                     id="title"
                                     className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                                />
+                                required/>
                             </div>
 
                             <div className="bg-bidcraft-grey-2 h-40 text-white flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400 hidden">
@@ -209,7 +209,7 @@ function EditAuction() {
                                     name="description"
                                     id="description"
                                     className="w-full h-48 p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                                />
+                                    required/>
                             </div>
                             <div>
                                 <label htmlFor="buyItNowPrice" className="block text-sm font-medium mb-2">
@@ -222,7 +222,7 @@ function EditAuction() {
                                     type="text"
                                     id="buyItNowPrice"
                                     className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                                />
+                                    required/>
                             </div>
 
                             <div>
@@ -236,7 +236,7 @@ function EditAuction() {
                                     type="text"
                                     id="startingPrice"
                                     className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                                />
+                                    required/>
                             </div>
 
                             <div className="grid grid-cols-2 gap-2">
@@ -251,7 +251,7 @@ function EditAuction() {
                                         type="date"
                                         id="startDate"
                                         className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                                    />
+                                        required />
                                 </div>
 
                                 <div>
@@ -265,7 +265,7 @@ function EditAuction() {
                                         type="date"
                                         id="endDate"
                                         className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                                    />
+                                        required />
                                 </div>
                             </div>
 
@@ -279,7 +279,7 @@ function EditAuction() {
                                     name="category"
                                     id="category"
                                     className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                                >
+                                    required>
                                     <option value="" className="text-white">Seleccionar categoria</option>
                                     {categories.map((category) => (
                                         <option key={category.category_id} value={category.category_id}>
@@ -301,7 +301,7 @@ function EditAuction() {
                                     type="text"
                                     id="tagName"
                                     className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                                />
+                                    required />
                             </div>
 
                             <button

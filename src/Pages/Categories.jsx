@@ -39,7 +39,7 @@ const Categories = () => {
             },
           }
         );
-
+console.log("mira aca estan los productos "+ JSON.stringify(productResponse.data[0].images[0].image_url))
         const productData = productResponse.data;
 
         if (productData.length === 0) {
@@ -101,6 +101,7 @@ const Categories = () => {
         {productInfo.length > 0 && !isEmpty ? (
           <section className="grid grid-cols-1 md:grid-cols-3 m-2 p-2 shadow-lg lg:grid-cols-4 xl:grid-cols-5">
             {productInfo.map((producto) => (
+             
               <div key={producto.auction_id}>
                 <AuctionItem
                   userId={producto.seller}
@@ -111,6 +112,7 @@ const Categories = () => {
                   num_of_favorites="12"
                   auctionId={producto.auction_id}
                   category={producto.category.category_name}
+                  imgUrl={producto.images[0]}
                 />
               </div>
             ))}

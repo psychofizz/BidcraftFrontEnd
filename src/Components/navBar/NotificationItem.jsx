@@ -1,4 +1,4 @@
-import React,{useCallback} from "react";
+import React from "react";
 import ImageComponent from "../page-essentials/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
@@ -7,10 +7,8 @@ const Notification = ({ image, itemName, text, link, onErase,lastBid,notificatio
   //-----Esta funcion nos va a servir para pasar el estado de true a false del atributo isread ?
 
 
-const ChangeIsRead = useCallback(
-
-  async () =>{
-    getNotifications();
+const ChangeIsRead = async () =>{
+   
     console.log("esto se cambio de estado ", notification_id)
   try {
     await axios.post(`${process.env.REACT_APP_API_URL}/api/notifications/read/${notification_id}/`,""
@@ -20,16 +18,16 @@ const ChangeIsRead = useCallback(
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
       }
     })
-  
+    getNotifications()
   } catch (error) {
-    
+    getNotifications()
   }
+  getNotifications()
+   }
   
   
-  
-  },[notification_id,getNotifications]
 
-) 
+
 
   return (
     <div className="notification p-2 rounded flex items-center bg-zinc-800 shadow-md z-50 mb-3 " >

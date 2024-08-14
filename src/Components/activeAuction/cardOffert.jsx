@@ -18,11 +18,17 @@ function CardOfert({ lastOffert, idAuction, jwt, updateAuction, loading, status,
     const autobitAmount = { bid_amount: "" };
 
 //---- ESTA FUNCION nos ayudara a comparar bit mas alta con comprar ahora
-const comparation = useCallback(() => {
-    if (lastOffert > buy_it_now_price) {
+const comparation = useCallback(async() => {
+
+    const parsedLastOffert = parseFloat(lastOffert);
+    const parsedBuyItNowPrice = parseFloat(buy_it_now_price);
+    console.log(lastOffert +"  diferencia" +buy_it_now_price )
+    if (parsedLastOffert > parsedBuyItNowPrice) {
         setValidation(true);
+       console.log("si esta entrandl la condicion true")
     } else {
         setValidation(false);
+        console.log("si esta entrandl la condicion false ")
     }
 }, [lastOffert, buy_it_now_price]);
 
@@ -239,7 +245,7 @@ const comparation = useCallback(() => {
                         <button onClick={newBit} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${status !== 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-600 active:bg-yellow-700 transition-all duration-50'}`}>
                             Colocar oferta
                         </button>
-                        <button onClick={buyItNow} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${status !== 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-600 active:bg-yellow-700 transition-all duration-50'} ${validation ? 'hidden' : ''} `} >Comprar ahora por {buy_it_now_price}</button>
+                        <button onClick={buyItNow} className={`p-[5%] bg- my-2 rounded-full bg-yellow-500 font-bold   ${status !== 2 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-600 active:bg-yellow-700 transition-all duration-50'} ${validation ===true ? 'hidden' : ''} `} >Comprar ahora por {buy_it_now_price}</button>
                     </section>
                 </div>
             </div>
