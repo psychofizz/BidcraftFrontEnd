@@ -7,7 +7,7 @@ const Review = () => {
     const { auctionId } = useParams();
 
     return (
-        <div className='bg-white overflow-x-hidden'>
+        <div className='bg-bidcraft-grey-2 overflow-x-hidden'>
             <MainNavbar />
             <ReviewForm auctionId={auctionId} />
             <Footer />

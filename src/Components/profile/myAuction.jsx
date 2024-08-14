@@ -20,6 +20,7 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
     }
   };
   return (
+    <>
     <div className="bg-bidcraft-grey-2 rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl flex flex-col cursor-pointer hover:scale-[1.02]">
       <div className="h-48 overflow-hidden">
         <Link to={`/myAuction/${idAuction}`} className="block m-2">
@@ -66,7 +67,9 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
         </div>
       </div>
 
-      {isOpen && (
+     
+    </div>
+    {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 text-gray-800">
           <div className="modal-overlay fixed inset-0 bg-black opacity-50"></div>
           <div className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
@@ -98,7 +101,7 @@ function MyAuctions({ idAuction, name, description, highest_bid, updateAuction, 
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

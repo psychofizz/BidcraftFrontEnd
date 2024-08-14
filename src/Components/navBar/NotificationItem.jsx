@@ -39,7 +39,7 @@ try {
       <a
         onClick={changeIsRead}
         href={link}
-        className="text-blue-500 hover:text-blue-700 transition-colors duration-300"
+        className="text-blue-500 hover:text-blue-700 transition-colors duration-300 underline"
       >
         Ir a la subasta
       </a>

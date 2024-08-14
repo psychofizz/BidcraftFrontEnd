@@ -24,14 +24,21 @@ const PaymentForm = ({ amountBit, auctionId }) => {
     }
 
     const cardElement = elements.getElement(CardElement);
+    const toastId = toast.loading("Pagando...");
     const { error, token } = await stripe.createToken(cardElement);
 
     if (error) {
       console.error(error);
       setPaymentStatus(error.message);
+      toast.update(toastId, {
+        render: "Error al pagar",
+        type: "error",
+        isLoading: false,
+        autoClose: 5000,
+      });
       return;
     }
-     const toastId = toast.loading("Pagando...");
+
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/payment/make/${auctionId}/`, {
         method: 'POST',
@@ -60,7 +67,7 @@ const PaymentForm = ({ amountBit, auctionId }) => {
     
       if (data.status === 200) {
         toast.update(toastId, {
-          render: "Registro exitoso",
+          render: "Pago exitoso",
           type: "success",
           isLoading: false,
           autoClose: 5000,
@@ -69,6 +76,12 @@ const PaymentForm = ({ amountBit, auctionId }) => {
         setPaymentSuccessful(true);
       } else {
         setPaymentStatus(data.message || 'Pago fallido');
+        toast.update(toastId, {
+          render: "Error al pagar",
+          type: "error",
+          isLoading: false,
+          autoClose: 5000,
+        });
       }
     } catch (error) {
       console.error('Fetch error:', error);
@@ -81,8 +94,8 @@ const PaymentForm = ({ amountBit, auctionId }) => {
   };
 
   return (
-    <div className='grid place-content-center text-white'>
-      <div className="mx-auto p-4 bg-bidcraft-dark rounded-2xl shadow-lg">
+    <div className='p-4 text-white'>
+      <div className="  bg-bidcraft-dark rounded-2xl shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Formulario de Pago</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col">
