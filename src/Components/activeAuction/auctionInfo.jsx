@@ -31,7 +31,7 @@ function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFa
                     {name}
                     <div>
    
-    {pathSegments[0] === "create-auction" ? (
+                    {(pathSegments[0] === "create-auction" || pathSegments[0] === "editAuction") ? (
     <div className="text-white"></div>
 ) : (
     is_active ? (
@@ -43,6 +43,7 @@ function AuctionInfo({ name, description, imgUrl, imageUrl, toggleFavorite, isFa
         <h1 className="ml-2 text-center text-red-500">(Subasta Finalizada)</h1>
     )
 )}
+
 
 </div>
                   

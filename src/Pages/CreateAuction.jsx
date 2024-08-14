@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MainNavbar from "../Components/navBar/mainNavbar";
 import Footer from "../Components/page-essentials/Footer";
 import PageHeader from "../Components/page-essentials/PageHeader";
-import TagInput from "../Components/auction/TagInput";
+// import TagInput from "../Components/auction/TagInput";
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,8 @@ import AuctionInfo from "../Components/activeAuction/auctionInfo";
 const CreateAuction = () => {
   //----------------------------Esta variable sirve para navegar entre pages-----------------------
   const navigate = useNavigate();
+  const [isImageValid, setIsImageValid] = useState(false); // Estado para controlar si la imagen es válida
+
 
   //-----------------------------------------------------------------------------------------------
 
@@ -24,7 +26,7 @@ const CreateAuction = () => {
     name: "",
     description: "",
     starting_price: "",
-    buy_it_now_price: 200.00,
+    buy_it_now_price: "",
     category: "", //id de la categoria 
     start_time: "",
     end_time: "",
@@ -43,18 +45,26 @@ const CreateAuction = () => {
   //----------------------------------Este codigo srive para subir la iamgen en el servidor de imgur--------------------
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
+
+    if (selectedFile && !['image/png', 'image/jpeg', 'image/jpg'].includes(selectedFile.type)) {
+      toast.error("Solo se permiten archivos PNG o JPG.");
+      setIsImageValid(false)
+      return;
+    }
+
+    setIsImageValid(true)
     setFile(selectedFile);
     // Crear una vista previa de la imagen usando FileReader
-   if (selectedFile) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreviewUrl(reader.result);
-    };
-    reader.readAsDataURL(selectedFile);
-  }
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   };
 
-   
+
 
 
   const handleImageUpload = async () => {
@@ -88,25 +98,25 @@ const CreateAuction = () => {
 
   const saveImgur = async (idAuction, urlmage) => {
     const imgData = {
-    auction: idAuction,
-    image_url: urlmage
+      auction: idAuction,
+      image_url: urlmage
     }
     try {
 
-        await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/image/add`, imgData);
 
 
       const tabs = {
 
-             tag_name: values.tag_name
-       }
+        tag_name: values.tag_name
+      }
 
-         await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs,{
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/tags/create/${imgData.auction}/`, tabs, {
 
-            headers: {
-              Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
-            }
-          });
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` // Incluir el token en los headers
+        }
+      });
 
 
     } catch (error) {
@@ -118,6 +128,24 @@ const CreateAuction = () => {
 
   const newAuction = async (event) => {
     event.preventDefault()
+
+    // Validación de fecha
+    const currentDate = new Date();
+    const selectedEndDate = new Date(values.end_time);
+
+    if (selectedEndDate <= currentDate) {
+      toast.error("La fecha de finalización no puede ser en el pasado.");
+      return;
+    }
+    if (values.starting_price  >= values.buy_it_now_price) {
+      toast.error("El precio inicial no puede ser mayor que el de comprar ahora");
+      return;
+    }
+
+    if (!isImageValid) {
+      toast.error("Por favor, sube una imagen válida antes de crear la subasta.");
+      return;
+    }
     try {
 
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auction/create/one/`, values);
@@ -149,7 +177,7 @@ const CreateAuction = () => {
           }
         }
       } else {
-        console.error('An unknown error occurred.');
+        toast.warning("Error al crear subasta")
       }
     }
   };
@@ -206,11 +234,11 @@ const CreateAuction = () => {
                   type="text"
                   id="title"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                />
+                  required />
               </div>
 
               <div className="bg-bidcraft-grey-2 h-40 text-white flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400">
-                <input type="file" accept="image/*" onChange={handleFileChange} />
+                <input type="file" accept="image/*" onChange={handleFileChange} required />
               </div>
 
               <div>
@@ -222,7 +250,7 @@ const CreateAuction = () => {
                   name="description"
                   id="description"
                   className="w-full h-48 p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                />
+                  required />
               </div>
               <div>
                 <label htmlFor="initialPrice" className="block text-sm font-medium mb-2">
@@ -232,7 +260,7 @@ const CreateAuction = () => {
                   name="buy_it_now_price"
                   type="text"
                   id="initialPrice"
-                  className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
+                  className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition" required
                 />
               </div>
               <div>
@@ -243,7 +271,7 @@ const CreateAuction = () => {
                   name="starting_price"
                   type="text"
                   id="initialPrice"
-                  className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
+                  className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition" required
                 />
               </div>
 
@@ -267,7 +295,7 @@ const CreateAuction = () => {
                     name="end_time"
                     type="date"
                     id="endDate"
-                    className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
+                    className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition" required
                   />
                 </div>
               </div>
@@ -280,7 +308,7 @@ const CreateAuction = () => {
                   name="category"
                   id="category"
                   className="w-full p-3 text-white rounded-md bg-bidcraft-grey-2 border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-                >
+                  required>
                   <option value="" className="text-white">Seleccionar categoria</option>
                   {categories.map((category) => (
                     <option key={category.category_id} value={category.category_id}>
@@ -290,7 +318,7 @@ const CreateAuction = () => {
                 </select>
               </div>
 
-              <TagInput />
+              {/* <TagInput /> */}
               <div>
                 <label htmlFor="title" className="block text-sm font-medium mb-2">
                   Agregar Tag
