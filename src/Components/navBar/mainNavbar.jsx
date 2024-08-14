@@ -269,6 +269,7 @@ const MainNavbar = ({ isLandingPage }) => {
           notificationsInfo={notifications}
           isLoading={loading}
           getNotificationsTrue={notifications2}
+          getNotifications={getNotifications}
 
         />
       )}

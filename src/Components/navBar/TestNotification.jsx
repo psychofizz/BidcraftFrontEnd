@@ -1,7 +1,7 @@
 import React from "react";
 import Notification from "./NotificationItem"; // Ajusta la ruta según la estructura de tu proyecto
 
-const TestNotification = ({ notifications }) => {
+const TestNotification = ({ notifications,getNotifications }) => {
   return (
     <div>
  {Array.isArray(notifications?.data) && notifications.data.length > 0 ? (
@@ -14,6 +14,8 @@ const TestNotification = ({ notifications }) => {
       link={`/Auction/${notification?.related_auction?.auction_id || '#'}`}
       lastBid={notification.related_auction.highest_bid}
       notification_id={notification.notification_id}
+      getNotifications={getNotifications}
+
 
       onErase={() => {
         // Lógica para eliminar la notificación si es necesario

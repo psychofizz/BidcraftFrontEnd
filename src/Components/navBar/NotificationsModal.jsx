@@ -6,19 +6,19 @@ import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Tabs from "../profile/Tsbs"
 
-const NotificationsModal = ({ handleClose, show, notificationsInfo, isLoading, getNotificationsTrue }) => {
+const NotificationsModal = ({ handleClose, show, notificationsInfo, isLoading, getNotificationsTrue,getNotifications }) => {
 
 
   const tabData = [
     {
       id: 'tabs-history',
       label: 'No leidas',
-      content: <TestNotification notifications={notificationsInfo} />
+      content: <TestNotification notifications={notificationsInfo} getNotifications={getNotifications} />
     },
     {
       id: 'tabs-histor',
       label: 'Leidas',
-      content: <TestNotification notifications={getNotificationsTrue} />
+      content: <TestNotification notifications={getNotificationsTrue} getNotifications={getNotifications} />
     }
 
   ];
