@@ -1,11 +1,14 @@
-import React from "react";
+import React,{useEffect} from "react";
 import ImageComponent from "../page-essentials/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-const Notification = ({ image, itemName, text, link, onErase,lastBid,notification_id }) => {
+const Notification = ({ image, itemName, text, link, onErase,lastBid,notification_id,getNotifications }) => {
   //-----Esta funcion nos va a servir para pasar el estado de true a false del atributo isread ?
-const changeIsRead =async () =>{
+
+
+const ChangeIsRead =async () =>{
+  getNotifications();
   console.log("esto se cambio de estado ", notification_id)
 try {
   await axios.post(`${process.env.REACT_APP_API_URL}/api/notifications/read/${notification_id}/`,""
@@ -19,6 +22,11 @@ try {
 } catch (error) {
   
 }
+
+useEffect(() => {
+  
+  ChangeIsRead();
+}, []);
 
 }
 
@@ -37,7 +45,7 @@ try {
       <p className="text-yellow-500">{text}</p>
       <p className="text-yellow-500">Puja nueva : {lastBid}</p>
       <a
-        onClick={changeIsRead}
+        onClick={ChangeIsRead}
         href={link}
         className="text-blue-500 hover:text-blue-700 transition-colors duration-300 underline"
       >
