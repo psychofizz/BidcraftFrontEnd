@@ -3,9 +3,11 @@ import ImageComponent from "../page-essentials/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const Notification = ({ image, itemName, text, link, onErase,lastBid,notification_id,getNotifications }) => {
   //-----Esta funcion nos va a servir para pasar el estado de true a false del atributo isread ?
-
+  const navigate = useNavigate();
 
 const ChangeIsRead = async () =>{
    
@@ -18,11 +20,18 @@ const ChangeIsRead = async () =>{
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
       }
     })
+ 
+    toast.success("leido correctamente")
     getNotifications()
+    console.log(link)
+    navigate(`${link}`)
+    
   } catch (error) {
     getNotifications()
+    toast.error("error al leer")
+
   }
-  getNotifications()
+
    }
   
   
@@ -42,13 +51,13 @@ const ChangeIsRead = async () =>{
       <h3 className="text-xl font-semibold mb-1">{itemName}</h3>
       <p className="text-yellow-500">{text}</p>
       <p className="text-yellow-500">Puja nueva : {lastBid}</p>
-      <a
+      <div
         onClick={ChangeIsRead}
-        href={link}
+        
         className="text-blue-500 hover:text-blue-700 transition-colors duration-300 underline"
       >
         Ir a la subasta
-      </a>
+      </div>
     </div>
   
     <button
